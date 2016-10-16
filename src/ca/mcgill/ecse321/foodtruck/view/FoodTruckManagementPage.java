@@ -4,7 +4,9 @@ import java.awt.EventQueue;
 
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+
 import java.awt.BorderLayout;
+
 import javax.swing.SwingConstants;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
@@ -12,6 +14,11 @@ import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.JButton;
+
+import ca.mcgill.ecse321.foodtruck.controller.FoodTruckController;
+
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class FoodTruckManagementPage {
 
@@ -47,7 +54,7 @@ public class FoodTruckManagementPage {
 	 */
 	private void initialize() {
 		frame = new JFrame();
-		frame.setBounds(100, 100, 488, 237);
+		frame.setBounds(100, 100, 216, 173);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
 		JPanel panel = new JPanel();
@@ -64,6 +71,11 @@ public class FoodTruckManagementPage {
 		txtItemPrice.setColumns(10);
 		
 		JButton btnAddToMenu = new JButton("Add to menu");
+		btnAddToMenu.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				addMenuItemButtonActionPerformed(e);
+			}
+		});
 		GroupLayout gl_panel = new GroupLayout(panel);
 		gl_panel.setHorizontalGroup(
 			gl_panel.createParallelGroup(Alignment.LEADING)
@@ -105,6 +117,14 @@ public class FoodTruckManagementPage {
 	 */
 	
 	public void refreshData() {
+		txtItemName.setText("");
+		txtItemPrice.setText("");
+	}
+	
+	public void addMenuItemButtonActionPerformed(ActionEvent e) {
+		FoodTruckController ftc = new FoodTruckController();
+		ftc.createMenuItem(txtItemName.getText(),Double.parseDouble(txtItemPrice.getText()));
 		
+		refreshData();
 	}
 }
