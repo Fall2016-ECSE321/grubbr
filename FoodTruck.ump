@@ -1,0 +1,100 @@
+namespace ca.mcgill.ecse321.foodtruck.model;
+
+class Employee {
+	autounique id;
+	name;
+	role;
+	double salaryPerHour;
+	1 -- * Shift;
+}
+
+class FoodTruckManager {
+	singleton;
+	name;
+	1 -- * Employee;
+	1 -- * Order;
+	1 -- * Supply;
+	1 -- * Equipment;
+	1 -- 1 Menu;
+}
+
+class Shift {
+	dayOfWeek;
+	Time startTime;
+	Time endTime;
+	double numberOfHours;
+}
+
+class Menu {
+	1 -- * MenuItem;
+}
+
+class MenuItem {
+	name;
+	description;
+	double amountSold;
+	double price;
+}
+
+class Supply {
+	name;
+	int count;
+}
+
+class Equipment {
+	name;
+	int count;
+}
+
+class Order {
+	double price;
+	* -- * MenuItem;
+}
+//$?[End_of_model]$?
+
+class Employee
+{
+  position 50 30 109 45;
+  position.association Employee__Shift 6,109 30,0;
+}
+
+class FoodTruckManager
+{
+  position 227 161 138 58;
+  position.association FoodTruckManager__Order 138,25 0,10;
+  position.association Equipment__FoodTruckManager 138,7 0,10;
+  position.association FoodTruckManager__Supply 127,0 10,75;
+  position.association Employee__FoodTruckManager 30,0 162,109;
+  position.association FoodTruckManager__Menu 11,58 30,0;
+}
+
+class Shift
+{
+  position 14 171 185 109;
+}
+
+class Menu
+{
+  position 87 344 109 45;
+}
+
+class MenuItem
+{
+  position 175 467 160 109;
+}
+
+class Supply
+{
+  position 334 17 112 75;
+}
+
+class Equipment
+{
+  position 407 102 112 75;
+}
+
+class Order
+{
+  position 398 252 112 58;
+  position.association MenuItem__Order 0,10 122,0;
+}
