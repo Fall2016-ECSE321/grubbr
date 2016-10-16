@@ -13,8 +13,26 @@
     tools:context="ca.mcgill.ecse321.ftmsmobile.MainActivity"
     tools:showIn="@layout/activity_main">
 
-    <TextView
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:orientation="vertical"
         android:layout_height="wrap_content"
-        android:text="Hello World!" />
+        android:layout_width="match_parent"
+        android:id="@+id/linearLayout">
+        <EditText
+            android:layout_height="wrap_content"
+            android:layout_width="fill_parent"
+            android:id="@+id/newitem_name"
+            android:hint="@string/newitemname_hint"/>
+        <EditText
+            android:layout_width="wrap_content"
+            android:layout_height="fill_parent"
+            android:id="@+id/newitem_price"
+            android:hint="@string/newitemprice_hint"/>
+        <Button
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:text="@string/newitem_button"
+            android:layout_gravity="end"
+            android:onClick="addItem"/>
+    </LinearLayout>
 </RelativeLayout>

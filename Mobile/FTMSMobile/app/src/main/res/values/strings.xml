@@ -1,4 +1,7 @@
 <resources>
     <string name="app_name">FTMSMobile</string>
     <string name="action_settings">Settings</string>
+    <string name="newitemname_hint">Item Name</string>
+    <string name="newitem_button">Add To Menu</string>
+    <string name="newitemprice_hint">Item Price</string>
 </resources>
