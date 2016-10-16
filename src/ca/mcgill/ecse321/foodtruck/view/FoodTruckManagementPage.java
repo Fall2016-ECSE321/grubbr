@@ -7,6 +7,7 @@ import javax.swing.JLabel;
 
 import java.awt.BorderLayout;
 
+import javax.swing.JOptionPane;
 import javax.swing.SwingConstants;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
@@ -20,12 +21,16 @@ import ca.mcgill.ecse321.foodtruck.controller.InvalidInputException;
 
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.awt.Color;
 
 public class FoodTruckManagementPage {
 
 	private JFrame frame;
 	private JTextField txtItemName;
 	private JTextField txtItemPrice;
+	
+	//data elements
+	private String error = null;
 
 	/**
 	 * Launch the application.
@@ -55,7 +60,7 @@ public class FoodTruckManagementPage {
 	 */
 	private void initialize() {
 		frame = new JFrame();
-		frame.setBounds(100, 100, 216, 173);
+		frame.setBounds(100, 100, 224, 173);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
 		JPanel panel = new JPanel();
@@ -81,34 +86,33 @@ public class FoodTruckManagementPage {
 		gl_panel.setHorizontalGroup(
 			gl_panel.createParallelGroup(Alignment.LEADING)
 				.addGroup(gl_panel.createSequentialGroup()
-					.addGroup(gl_panel.createParallelGroup(Alignment.LEADING)
+					.addContainerGap()
+					.addGroup(gl_panel.createParallelGroup(Alignment.TRAILING)
 						.addGroup(gl_panel.createSequentialGroup()
-							.addGap(5)
 							.addComponent(lblItemName)
-							.addPreferredGap(ComponentPlacement.RELATED, 7, Short.MAX_VALUE)
+							.addPreferredGap(ComponentPlacement.UNRELATED)
 							.addComponent(txtItemName, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
 						.addGroup(gl_panel.createSequentialGroup()
-							.addContainerGap()
 							.addComponent(lblItemPrice)
-							.addPreferredGap(ComponentPlacement.RELATED, 12, Short.MAX_VALUE)
+							.addPreferredGap(ComponentPlacement.RELATED, 18, Short.MAX_VALUE)
 							.addComponent(txtItemPrice, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
 						.addComponent(btnAddToMenu))
 					.addContainerGap())
 		);
 		gl_panel.setVerticalGroup(
-			gl_panel.createParallelGroup(Alignment.LEADING)
-				.addGroup(gl_panel.createSequentialGroup()
-					.addGap(10)
+			gl_panel.createParallelGroup(Alignment.TRAILING)
+				.addGroup(Alignment.LEADING, gl_panel.createSequentialGroup()
+					.addGap(14)
 					.addGroup(gl_panel.createParallelGroup(Alignment.BASELINE)
-						.addComponent(lblItemName)
-						.addComponent(txtItemName, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+						.addComponent(txtItemName, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+						.addComponent(lblItemName))
 					.addGap(18)
 					.addGroup(gl_panel.createParallelGroup(Alignment.BASELINE)
 						.addComponent(lblItemPrice)
 						.addComponent(txtItemPrice, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
 					.addGap(18)
 					.addComponent(btnAddToMenu)
-					.addContainerGap(151, Short.MAX_VALUE))
+					.addContainerGap(20, Short.MAX_VALUE))
 		);
 		panel.setLayout(gl_panel);
 	}
@@ -118,8 +122,13 @@ public class FoodTruckManagementPage {
 	 */
 	
 	public void refreshData() {
-		txtItemName.setText("");
-		txtItemPrice.setText("");
+		
+		if (error == null || error.length()==0) {
+			txtItemName.setText("");
+			txtItemPrice.setText("");
+		} else {
+			JOptionPane.showMessageDialog(null,"ERROR: "+error);
+		}
 	}
 	
 	public void addMenuItemButtonActionPerformed(ActionEvent event) {
@@ -128,7 +137,7 @@ public class FoodTruckManagementPage {
 		try {
 		ftc.createMenuItem(txtItemName.getText(),txtItemPrice.getText());
 		} catch (InvalidInputException e) {
-			e.printStackTrace();
+			error = e.getMessage();
 		}
 		
 		refreshData();
