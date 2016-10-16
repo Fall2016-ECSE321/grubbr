@@ -1,5 +1,8 @@
 package ca.mcgill.ecse321.foodtruck.controller;
 
+import ca.mcgill.ecse321.foodtruck.model.FoodTruckManager;
+import ca.mcgill.ecse321.foodtruck.model.MenuItem;
+
 /**
  * Controller for the Food Truck Management System.
  * 
@@ -23,6 +26,9 @@ public class FoodTruckController {
 	 */
 	
 	public void createMenuItem(String itemName, double itemPrice) {
-		
+
+		MenuItem item = new MenuItem(itemName, itemPrice, 0);
+		FoodTruckManager ftms = FoodTruckManager.getInstance();
+		ftms.addMenuItem(item);
 	}
 }
