@@ -14,18 +14,18 @@ public class MenuItem
 
   //MenuItem Attributes
   private String name;
-  private double amountSold;
   private double price;
+  private int amountSold;
 
   //------------------------
   // CONSTRUCTOR
   //------------------------
 
-  public MenuItem(String aName, double aAmountSold, double aPrice)
+  public MenuItem(String aName, double aPrice, int aAmountSold)
   {
     name = aName;
-    amountSold = aAmountSold;
     price = aPrice;
+    amountSold = aAmountSold;
   }
 
   //------------------------
@@ -40,18 +40,18 @@ public class MenuItem
     return wasSet;
   }
 
-  public boolean setAmountSold(double aAmountSold)
-  {
-    boolean wasSet = false;
-    amountSold = aAmountSold;
-    wasSet = true;
-    return wasSet;
-  }
-
   public boolean setPrice(double aPrice)
   {
     boolean wasSet = false;
     price = aPrice;
+    wasSet = true;
+    return wasSet;
+  }
+
+  public boolean setAmountSold(int aAmountSold)
+  {
+    boolean wasSet = false;
+    amountSold = aAmountSold;
     wasSet = true;
     return wasSet;
   }
@@ -61,14 +61,14 @@ public class MenuItem
     return name;
   }
 
-  public double getAmountSold()
-  {
-    return amountSold;
-  }
-
   public double getPrice()
   {
     return price;
+  }
+
+  public int getAmountSold()
+  {
+    return amountSold;
   }
 
   public void delete()
@@ -80,8 +80,8 @@ public class MenuItem
 	  String outputString = "";
     return super.toString() + "["+
             "name" + ":" + getName()+ "," +
-            "amountSold" + ":" + getAmountSold()+ "," +
-            "price" + ":" + getPrice()+ "]"
+            "price" + ":" + getPrice()+ "," +
+            "amountSold" + ":" + getAmountSold()+ "]"
      + outputString;
   }
 }

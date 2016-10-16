@@ -26,8 +26,8 @@ class Shift {
 
 class MenuItem {
 	name;
-	int amountSold;
 	double price;
+	int amountSold;
 }
 
 class Supply {
