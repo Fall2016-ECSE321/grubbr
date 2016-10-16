@@ -4,8 +4,8 @@
 package ca.mcgill.ecse321.foodtruck.model;
 import java.sql.Time;
 
-// line 21 "../../../../../FoodTruck.ump"
-// line 67 "../../../../../FoodTruck.ump"
+// line 20 "../../../../../FoodTruck.ump"
+// line 64 "../../../../../FoodTruck.ump"
 public class Shift
 {
 
@@ -19,24 +19,16 @@ public class Shift
   private Time endTime;
   private double numberOfHours;
 
-  //Shift Associations
-  private Employee employee;
-
   //------------------------
   // CONSTRUCTOR
   //------------------------
 
-  public Shift(String aDayOfWeek, Time aStartTime, Time aEndTime, double aNumberOfHours, Employee aEmployee)
+  public Shift(String aDayOfWeek, Time aStartTime, Time aEndTime, double aNumberOfHours)
   {
     dayOfWeek = aDayOfWeek;
     startTime = aStartTime;
     endTime = aEndTime;
     numberOfHours = aNumberOfHours;
-    boolean didAddEmployee = setEmployee(aEmployee);
-    if (!didAddEmployee)
-    {
-      throw new RuntimeException("Unable to create shift due to employee");
-    }
   }
 
   //------------------------
@@ -95,36 +87,8 @@ public class Shift
     return numberOfHours;
   }
 
-  public Employee getEmployee()
-  {
-    return employee;
-  }
-
-  public boolean setEmployee(Employee aEmployee)
-  {
-    boolean wasSet = false;
-    if (aEmployee == null)
-    {
-      return wasSet;
-    }
-
-    Employee existingEmployee = employee;
-    employee = aEmployee;
-    if (existingEmployee != null && !existingEmployee.equals(aEmployee))
-    {
-      existingEmployee.removeShift(this);
-    }
-    employee.addShift(this);
-    wasSet = true;
-    return wasSet;
-  }
-
   public void delete()
-  {
-    Employee placeholderEmployee = employee;
-    this.employee = null;
-    placeholderEmployee.removeShift(this);
-  }
+  {}
 
 
   public String toString()
@@ -134,8 +98,7 @@ public class Shift
             "dayOfWeek" + ":" + getDayOfWeek()+ "," +
             "numberOfHours" + ":" + getNumberOfHours()+ "]" + System.getProperties().getProperty("line.separator") +
             "  " + "startTime" + "=" + (getStartTime() != null ? !getStartTime().equals(this)  ? getStartTime().toString().replaceAll("  ","    ") : "this" : "null") + System.getProperties().getProperty("line.separator") +
-            "  " + "endTime" + "=" + (getEndTime() != null ? !getEndTime().equals(this)  ? getEndTime().toString().replaceAll("  ","    ") : "this" : "null") + System.getProperties().getProperty("line.separator") +
-            "  " + "employee = "+(getEmployee()!=null?Integer.toHexString(System.identityHashCode(getEmployee())):"null")
+            "  " + "endTime" + "=" + (getEndTime() != null ? !getEndTime().equals(this)  ? getEndTime().toString().replaceAll("  ","    ") : "this" : "null")
      + outputString;
   }
 }

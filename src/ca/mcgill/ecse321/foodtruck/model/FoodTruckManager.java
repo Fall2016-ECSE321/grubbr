@@ -5,7 +5,7 @@ package ca.mcgill.ecse321.foodtruck.model;
 import java.util.*;
 
 // line 11 "../../../../../FoodTruck.ump"
-// line 57 "../../../../../FoodTruck.ump"
+// line 54 "../../../../../FoodTruck.ump"
 public class FoodTruckManager
 {
 
@@ -19,12 +19,9 @@ public class FoodTruckManager
   // MEMBER VARIABLES
   //------------------------
 
-  //FoodTruckManager Attributes
-  private String name;
-
   //FoodTruckManager Associations
   private List<Employee> employees;
-  private List<Order> orders;
+  private List<Order> order;
   private List<Supply> supplies;
   private List<Equipment> equipment;
   private List<MenuItem> menuItems;
@@ -35,9 +32,8 @@ public class FoodTruckManager
 
   private FoodTruckManager()
   {
-    name = null;
     employees = new ArrayList<Employee>();
-    orders = new ArrayList<Order>();
+    order = new ArrayList<Order>();
     supplies = new ArrayList<Supply>();
     equipment = new ArrayList<Equipment>();
     menuItems = new ArrayList<MenuItem>();
@@ -55,19 +51,6 @@ public class FoodTruckManager
   //------------------------
   // INTERFACE
   //------------------------
-
-  public boolean setName(String aName)
-  {
-    boolean wasSet = false;
-    name = aName;
-    wasSet = true;
-    return wasSet;
-  }
-
-  public String getName()
-  {
-    return name;
-  }
 
   public Employee getEmployee(int index)
   {
@@ -101,31 +84,31 @@ public class FoodTruckManager
 
   public Order getOrder(int index)
   {
-    Order aOrder = orders.get(index);
+    Order aOrder = order.get(index);
     return aOrder;
   }
 
-  public List<Order> getOrders()
+  public List<Order> getOrder()
   {
-    List<Order> newOrders = Collections.unmodifiableList(orders);
-    return newOrders;
+    List<Order> newOrder = Collections.unmodifiableList(order);
+    return newOrder;
   }
 
-  public int numberOfOrders()
+  public int numberOfOrder()
   {
-    int number = orders.size();
+    int number = order.size();
     return number;
   }
 
-  public boolean hasOrders()
+  public boolean hasOrder()
   {
-    boolean has = orders.size() > 0;
+    boolean has = order.size() > 0;
     return has;
   }
 
   public int indexOfOrder(Order aOrder)
   {
-    int index = orders.indexOf(aOrder);
+    int index = order.indexOf(aOrder);
     return index;
   }
 
@@ -224,25 +207,11 @@ public class FoodTruckManager
     return 0;
   }
 
-  public Employee addEmployee(String aName, String aRole, double aSalaryPerHour)
-  {
-    return new Employee(aName, aRole, aSalaryPerHour, this);
-  }
-
   public boolean addEmployee(Employee aEmployee)
   {
     boolean wasAdded = false;
     if (employees.contains(aEmployee)) { return false; }
-    FoodTruckManager existingFoodTruckManager = aEmployee.getFoodTruckManager();
-    boolean isNewFoodTruckManager = existingFoodTruckManager != null && !this.equals(existingFoodTruckManager);
-    if (isNewFoodTruckManager)
-    {
-      aEmployee.setFoodTruckManager(this);
-    }
-    else
-    {
-      employees.add(aEmployee);
-    }
+    employees.add(aEmployee);
     wasAdded = true;
     return wasAdded;
   }
@@ -250,8 +219,7 @@ public class FoodTruckManager
   public boolean removeEmployee(Employee aEmployee)
   {
     boolean wasRemoved = false;
-    //Unable to remove aEmployee, as it must always have a foodTruckManager
-    if (!this.equals(aEmployee.getFoodTruckManager()))
+    if (employees.contains(aEmployee))
     {
       employees.remove(aEmployee);
       wasRemoved = true;
@@ -291,30 +259,16 @@ public class FoodTruckManager
     return wasAdded;
   }
 
-  public static int minimumNumberOfOrders()
+  public static int minimumNumberOfOrder()
   {
     return 0;
-  }
-
-  public Order addOrder(double aPrice)
-  {
-    return new Order(aPrice, this);
   }
 
   public boolean addOrder(Order aOrder)
   {
     boolean wasAdded = false;
-    if (orders.contains(aOrder)) { return false; }
-    FoodTruckManager existingFoodTruckManager = aOrder.getFoodTruckManager();
-    boolean isNewFoodTruckManager = existingFoodTruckManager != null && !this.equals(existingFoodTruckManager);
-    if (isNewFoodTruckManager)
-    {
-      aOrder.setFoodTruckManager(this);
-    }
-    else
-    {
-      orders.add(aOrder);
-    }
+    if (order.contains(aOrder)) { return false; }
+    order.add(aOrder);
     wasAdded = true;
     return wasAdded;
   }
@@ -322,10 +276,9 @@ public class FoodTruckManager
   public boolean removeOrder(Order aOrder)
   {
     boolean wasRemoved = false;
-    //Unable to remove aOrder, as it must always have a foodTruckManager
-    if (!this.equals(aOrder.getFoodTruckManager()))
+    if (order.contains(aOrder))
     {
-      orders.remove(aOrder);
+      order.remove(aOrder);
       wasRemoved = true;
     }
     return wasRemoved;
@@ -337,9 +290,9 @@ public class FoodTruckManager
     if(addOrder(aOrder))
     {
       if(index < 0 ) { index = 0; }
-      if(index > numberOfOrders()) { index = numberOfOrders() - 1; }
-      orders.remove(aOrder);
-      orders.add(index, aOrder);
+      if(index > numberOfOrder()) { index = numberOfOrder() - 1; }
+      order.remove(aOrder);
+      order.add(index, aOrder);
       wasAdded = true;
     }
     return wasAdded;
@@ -348,12 +301,12 @@ public class FoodTruckManager
   public boolean addOrMoveOrderAt(Order aOrder, int index)
   {
     boolean wasAdded = false;
-    if(orders.contains(aOrder))
+    if(order.contains(aOrder))
     {
       if(index < 0 ) { index = 0; }
-      if(index > numberOfOrders()) { index = numberOfOrders() - 1; }
-      orders.remove(aOrder);
-      orders.add(index, aOrder);
+      if(index > numberOfOrder()) { index = numberOfOrder() - 1; }
+      order.remove(aOrder);
+      order.add(index, aOrder);
       wasAdded = true;
     } 
     else 
@@ -368,25 +321,11 @@ public class FoodTruckManager
     return 0;
   }
 
-  public Supply addSupply(String aName, int aCount)
-  {
-    return new Supply(aName, aCount, this);
-  }
-
   public boolean addSupply(Supply aSupply)
   {
     boolean wasAdded = false;
     if (supplies.contains(aSupply)) { return false; }
-    FoodTruckManager existingFoodTruckManager = aSupply.getFoodTruckManager();
-    boolean isNewFoodTruckManager = existingFoodTruckManager != null && !this.equals(existingFoodTruckManager);
-    if (isNewFoodTruckManager)
-    {
-      aSupply.setFoodTruckManager(this);
-    }
-    else
-    {
-      supplies.add(aSupply);
-    }
+    supplies.add(aSupply);
     wasAdded = true;
     return wasAdded;
   }
@@ -394,8 +333,7 @@ public class FoodTruckManager
   public boolean removeSupply(Supply aSupply)
   {
     boolean wasRemoved = false;
-    //Unable to remove aSupply, as it must always have a foodTruckManager
-    if (!this.equals(aSupply.getFoodTruckManager()))
+    if (supplies.contains(aSupply))
     {
       supplies.remove(aSupply);
       wasRemoved = true;
@@ -440,25 +378,11 @@ public class FoodTruckManager
     return 0;
   }
 
-  public Equipment addEquipment(String aName, int aCount)
-  {
-    return new Equipment(aName, aCount, this);
-  }
-
   public boolean addEquipment(Equipment aEquipment)
   {
     boolean wasAdded = false;
     if (equipment.contains(aEquipment)) { return false; }
-    FoodTruckManager existingFoodTruckManager = aEquipment.getFoodTruckManager();
-    boolean isNewFoodTruckManager = existingFoodTruckManager != null && !this.equals(existingFoodTruckManager);
-    if (isNewFoodTruckManager)
-    {
-      aEquipment.setFoodTruckManager(this);
-    }
-    else
-    {
-      equipment.add(aEquipment);
-    }
+    equipment.add(aEquipment);
     wasAdded = true;
     return wasAdded;
   }
@@ -466,8 +390,7 @@ public class FoodTruckManager
   public boolean removeEquipment(Equipment aEquipment)
   {
     boolean wasRemoved = false;
-    //Unable to remove aEquipment, as it must always have a foodTruckManager
-    if (!this.equals(aEquipment.getFoodTruckManager()))
+    if (equipment.contains(aEquipment))
     {
       equipment.remove(aEquipment);
       wasRemoved = true;
@@ -512,25 +435,11 @@ public class FoodTruckManager
     return 0;
   }
 
-  public MenuItem addMenuItem(String aName, String aDescription, double aAmountSold, double aPrice)
-  {
-    return new MenuItem(aName, aDescription, aAmountSold, aPrice, this);
-  }
-
   public boolean addMenuItem(MenuItem aMenuItem)
   {
     boolean wasAdded = false;
     if (menuItems.contains(aMenuItem)) { return false; }
-    FoodTruckManager existingFoodTruckManager = aMenuItem.getFoodTruckManager();
-    boolean isNewFoodTruckManager = existingFoodTruckManager != null && !this.equals(existingFoodTruckManager);
-    if (isNewFoodTruckManager)
-    {
-      aMenuItem.setFoodTruckManager(this);
-    }
-    else
-    {
-      menuItems.add(aMenuItem);
-    }
+    menuItems.add(aMenuItem);
     wasAdded = true;
     return wasAdded;
   }
@@ -538,8 +447,7 @@ public class FoodTruckManager
   public boolean removeMenuItem(MenuItem aMenuItem)
   {
     boolean wasRemoved = false;
-    //Unable to remove aMenuItem, as it must always have a foodTruckManager
-    if (!this.equals(aMenuItem.getFoodTruckManager()))
+    if (menuItems.contains(aMenuItem))
     {
       menuItems.remove(aMenuItem);
       wasRemoved = true;
@@ -581,39 +489,11 @@ public class FoodTruckManager
 
   public void delete()
   {
-    for(int i=employees.size(); i > 0; i--)
-    {
-      Employee aEmployee = employees.get(i - 1);
-      aEmployee.delete();
-    }
-    for(int i=orders.size(); i > 0; i--)
-    {
-      Order aOrder = orders.get(i - 1);
-      aOrder.delete();
-    }
-    for(int i=supplies.size(); i > 0; i--)
-    {
-      Supply aSupply = supplies.get(i - 1);
-      aSupply.delete();
-    }
-    for(int i=equipment.size(); i > 0; i--)
-    {
-      Equipment aEquipment = equipment.get(i - 1);
-      aEquipment.delete();
-    }
-    for(int i=menuItems.size(); i > 0; i--)
-    {
-      MenuItem aMenuItem = menuItems.get(i - 1);
-      aMenuItem.delete();
-    }
+    employees.clear();
+    order.clear();
+    supplies.clear();
+    equipment.clear();
+    menuItems.clear();
   }
 
-
-  public String toString()
-  {
-	  String outputString = "";
-    return super.toString() + "["+
-            "name" + ":" + getName()+ "]"
-     + outputString;
-  }
 }

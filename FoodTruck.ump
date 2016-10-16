@@ -5,17 +5,16 @@ class Employee {
 	name;
 	role;
 	double salaryPerHour;
-	1 -- * Shift;
+	1 -> * Shift;
 }
 
 class FoodTruckManager {
 	singleton;
-	name;
-	1 -- * Employee;
-	1 -- * Order;
-	1 -- * Supply;
-	1 -- * Equipment;
-	1 -- * MenuItem;
+	1 -> * Employee employees;
+	1 -> * Order order;
+	1 -> * Supply supplies;
+	1 -> * Equipment equipment;
+	1 -> * MenuItem menuItems;
 }
 
 class Shift {
@@ -27,8 +26,7 @@ class Shift {
 
 class MenuItem {
 	name;
-	description;
-	double amountSold;
+	int amountSold;
 	double price;
 }
 
@@ -44,9 +42,8 @@ class Equipment {
 
 class Order {
 	double price;
-	* -- * MenuItem;
-}
-//$?[End_of_model]$?
+	* -> * MenuItem;
+}//$?[End_of_model]$?
 
 class Employee
 {

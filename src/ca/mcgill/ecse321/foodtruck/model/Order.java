@@ -4,8 +4,8 @@
 package ca.mcgill.ecse321.foodtruck.model;
 import java.util.*;
 
-// line 45 "../../../../../FoodTruck.ump"
-// line 87 "../../../../../FoodTruck.ump"
+// line 43 "../../../../../FoodTruck.ump"
+// line 84 "../../../../../FoodTruck.ump"
 public class Order
 {
 
@@ -18,21 +18,15 @@ public class Order
 
   //Order Associations
   private List<MenuItem> menuItems;
-  private FoodTruckManager foodTruckManager;
 
   //------------------------
   // CONSTRUCTOR
   //------------------------
 
-  public Order(double aPrice, FoodTruckManager aFoodTruckManager)
+  public Order(double aPrice)
   {
     price = aPrice;
     menuItems = new ArrayList<MenuItem>();
-    boolean didAddFoodTruckManager = setFoodTruckManager(aFoodTruckManager);
-    if (!didAddFoodTruckManager)
-    {
-      throw new RuntimeException("Unable to create order due to foodTruckManager");
-    }
   }
 
   //------------------------
@@ -82,11 +76,6 @@ public class Order
     return index;
   }
 
-  public FoodTruckManager getFoodTruckManager()
-  {
-    return foodTruckManager;
-  }
-
   public static int minimumNumberOfMenuItems()
   {
     return 0;
@@ -97,42 +86,17 @@ public class Order
     boolean wasAdded = false;
     if (menuItems.contains(aMenuItem)) { return false; }
     menuItems.add(aMenuItem);
-    if (aMenuItem.indexOfOrder(this) != -1)
-    {
-      wasAdded = true;
-    }
-    else
-    {
-      wasAdded = aMenuItem.addOrder(this);
-      if (!wasAdded)
-      {
-        menuItems.remove(aMenuItem);
-      }
-    }
+    wasAdded = true;
     return wasAdded;
   }
 
   public boolean removeMenuItem(MenuItem aMenuItem)
   {
     boolean wasRemoved = false;
-    if (!menuItems.contains(aMenuItem))
+    if (menuItems.contains(aMenuItem))
     {
-      return wasRemoved;
-    }
-
-    int oldIndex = menuItems.indexOf(aMenuItem);
-    menuItems.remove(oldIndex);
-    if (aMenuItem.indexOfOrder(this) == -1)
-    {
+      menuItems.remove(aMenuItem);
       wasRemoved = true;
-    }
-    else
-    {
-      wasRemoved = aMenuItem.removeOrder(this);
-      if (!wasRemoved)
-      {
-        menuItems.add(oldIndex,aMenuItem);
-      }
     }
     return wasRemoved;
   }
@@ -169,36 +133,9 @@ public class Order
     return wasAdded;
   }
 
-  public boolean setFoodTruckManager(FoodTruckManager aFoodTruckManager)
-  {
-    boolean wasSet = false;
-    if (aFoodTruckManager == null)
-    {
-      return wasSet;
-    }
-
-    FoodTruckManager existingFoodTruckManager = foodTruckManager;
-    foodTruckManager = aFoodTruckManager;
-    if (existingFoodTruckManager != null && !existingFoodTruckManager.equals(aFoodTruckManager))
-    {
-      existingFoodTruckManager.removeOrder(this);
-    }
-    foodTruckManager.addOrder(this);
-    wasSet = true;
-    return wasSet;
-  }
-
   public void delete()
   {
-    ArrayList<MenuItem> copyOfMenuItems = new ArrayList<MenuItem>(menuItems);
     menuItems.clear();
-    for(MenuItem aMenuItem : copyOfMenuItems)
-    {
-      aMenuItem.removeOrder(this);
-    }
-    FoodTruckManager placeholderFoodTruckManager = foodTruckManager;
-    this.foodTruckManager = null;
-    placeholderFoodTruckManager.removeOrder(this);
   }
 
 
@@ -206,8 +143,7 @@ public class Order
   {
 	  String outputString = "";
     return super.toString() + "["+
-            "price" + ":" + getPrice()+ "]" + System.getProperties().getProperty("line.separator") +
-            "  " + "foodTruckManager = "+(getFoodTruckManager()!=null?Integer.toHexString(System.identityHashCode(getFoodTruckManager())):"null")
+            "price" + ":" + getPrice()+ "]"
      + outputString;
   }
 }

@@ -3,8 +3,8 @@
 
 package ca.mcgill.ecse321.foodtruck.model;
 
-// line 35 "../../../../../FoodTruck.ump"
-// line 77 "../../../../../FoodTruck.ump"
+// line 33 "../../../../../FoodTruck.ump"
+// line 74 "../../../../../FoodTruck.ump"
 public class Supply
 {
 
@@ -16,22 +16,14 @@ public class Supply
   private String name;
   private int count;
 
-  //Supply Associations
-  private FoodTruckManager foodTruckManager;
-
   //------------------------
   // CONSTRUCTOR
   //------------------------
 
-  public Supply(String aName, int aCount, FoodTruckManager aFoodTruckManager)
+  public Supply(String aName, int aCount)
   {
     name = aName;
     count = aCount;
-    boolean didAddFoodTruckManager = setFoodTruckManager(aFoodTruckManager);
-    if (!didAddFoodTruckManager)
-    {
-      throw new RuntimeException("Unable to create supply due to foodTruckManager");
-    }
   }
 
   //------------------------
@@ -64,36 +56,8 @@ public class Supply
     return count;
   }
 
-  public FoodTruckManager getFoodTruckManager()
-  {
-    return foodTruckManager;
-  }
-
-  public boolean setFoodTruckManager(FoodTruckManager aFoodTruckManager)
-  {
-    boolean wasSet = false;
-    if (aFoodTruckManager == null)
-    {
-      return wasSet;
-    }
-
-    FoodTruckManager existingFoodTruckManager = foodTruckManager;
-    foodTruckManager = aFoodTruckManager;
-    if (existingFoodTruckManager != null && !existingFoodTruckManager.equals(aFoodTruckManager))
-    {
-      existingFoodTruckManager.removeSupply(this);
-    }
-    foodTruckManager.addSupply(this);
-    wasSet = true;
-    return wasSet;
-  }
-
   public void delete()
-  {
-    FoodTruckManager placeholderFoodTruckManager = foodTruckManager;
-    this.foodTruckManager = null;
-    placeholderFoodTruckManager.removeSupply(this);
-  }
+  {}
 
 
   public String toString()
@@ -101,8 +65,7 @@ public class Supply
 	  String outputString = "";
     return super.toString() + "["+
             "name" + ":" + getName()+ "," +
-            "count" + ":" + getCount()+ "]" + System.getProperties().getProperty("line.separator") +
-            "  " + "foodTruckManager = "+(getFoodTruckManager()!=null?Integer.toHexString(System.identityHashCode(getFoodTruckManager())):"null")
+            "count" + ":" + getCount()+ "]"
      + outputString;
   }
 }
