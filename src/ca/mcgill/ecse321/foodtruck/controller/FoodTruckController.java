@@ -26,9 +26,27 @@ public class FoodTruckController {
 	 * @param itemPrice	the price of the item
 	 */
 	
-	public void createMenuItem(String itemName, double itemPrice) {
-
-		MenuItem item = new MenuItem(itemName, itemPrice, 0);
+	public void createMenuItem(String itemName,String itemPrice) throws InvalidInputException{
+		
+		String error = "";
+		
+		if (itemName == null || itemName.trim().length() == 0) {
+			error += "Menu item name cannot be empty! ";
+		}
+		
+		try {
+			double price = Double.parseDouble(itemPrice);
+		} catch (NumberFormatException e) {
+			error += "Menu item price is invalid! ";
+		}
+		
+		error = error.trim();
+		
+		if (error.length()>0) {
+			throw new InvalidInputException(error);
+		}
+		
+		MenuItem item = new MenuItem(itemName, Double.parseDouble(itemPrice), 0);
 		FoodTruckManager ftms = FoodTruckManager.getInstance();
 		ftms.addMenuItem(item);
 		PersistenceXStream.saveToXMLwithXStream(ftms);

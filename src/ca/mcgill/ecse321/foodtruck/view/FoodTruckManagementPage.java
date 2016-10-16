@@ -16,6 +16,7 @@ import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.JButton;
 
 import ca.mcgill.ecse321.foodtruck.controller.FoodTruckController;
+import ca.mcgill.ecse321.foodtruck.controller.InvalidInputException;
 
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
@@ -121,9 +122,14 @@ public class FoodTruckManagementPage {
 		txtItemPrice.setText("");
 	}
 	
-	public void addMenuItemButtonActionPerformed(ActionEvent e) {
+	public void addMenuItemButtonActionPerformed(ActionEvent event) {
 		FoodTruckController ftc = new FoodTruckController();
-		ftc.createMenuItem(txtItemName.getText(),Double.parseDouble(txtItemPrice.getText()));
+		
+		try {
+		ftc.createMenuItem(txtItemName.getText(),txtItemPrice.getText());
+		} catch (InvalidInputException e) {
+			e.printStackTrace();
+		}
 		
 		refreshData();
 	}
