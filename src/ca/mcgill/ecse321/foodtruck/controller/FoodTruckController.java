@@ -2,6 +2,7 @@ package ca.mcgill.ecse321.foodtruck.controller;
 
 import ca.mcgill.ecse321.foodtruck.model.FoodTruckManager;
 import ca.mcgill.ecse321.foodtruck.model.MenuItem;
+import ca.mcgill.ecse321.foodtruck.persistence.PersistenceXStream;
 
 /**
  * Controller for the Food Truck Management System.
@@ -30,5 +31,6 @@ public class FoodTruckController {
 		MenuItem item = new MenuItem(itemName, itemPrice, 0);
 		FoodTruckManager ftms = FoodTruckManager.getInstance();
 		ftms.addMenuItem(item);
+		PersistenceXStream.saveToXMLwithXStream(ftms);
 	}
 }
