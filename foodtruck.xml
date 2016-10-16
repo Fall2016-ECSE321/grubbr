@@ -1,0 +1,13 @@
+<manager id="1">
+  <employees id="2"/>
+  <order id="3"/>
+  <supplies id="4"/>
+  <equipment id="5"/>
+  <menuItems id="6">
+    <item id="7">
+      <name>Poutine</name>
+      <price>6.25</price>
+      <amountSold>0</amountSold>
+    </item>
+  </menuItems>
+</manager>
