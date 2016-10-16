@@ -5,7 +5,7 @@ package ca.mcgill.ecse321.foodtruck.model;
 import java.sql.Time;
 
 // line 21 "../../../../../FoodTruck.ump"
-// line 71 "../../../../../FoodTruck.ump"
+// line 67 "../../../../../FoodTruck.ump"
 public class Shift
 {
 

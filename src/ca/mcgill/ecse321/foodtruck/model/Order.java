@@ -4,8 +4,8 @@
 package ca.mcgill.ecse321.foodtruck.model;
 import java.util.*;
 
-// line 49 "../../../../../FoodTruck.ump"
-// line 96 "../../../../../FoodTruck.ump"
+// line 45 "../../../../../FoodTruck.ump"
+// line 87 "../../../../../FoodTruck.ump"
 public class Order
 {
 

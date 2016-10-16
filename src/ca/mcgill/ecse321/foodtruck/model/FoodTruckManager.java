@@ -5,7 +5,7 @@ package ca.mcgill.ecse321.foodtruck.model;
 import java.util.*;
 
 // line 11 "../../../../../FoodTruck.ump"
-// line 61 "../../../../../FoodTruck.ump"
+// line 57 "../../../../../FoodTruck.ump"
 public class FoodTruckManager
 {
 
@@ -27,7 +27,7 @@ public class FoodTruckManager
   private List<Order> orders;
   private List<Supply> supplies;
   private List<Equipment> equipment;
-  private Menu menu;
+  private List<MenuItem> menuItems;
 
   //------------------------
   // CONSTRUCTOR
@@ -40,6 +40,7 @@ public class FoodTruckManager
     orders = new ArrayList<Order>();
     supplies = new ArrayList<Supply>();
     equipment = new ArrayList<Equipment>();
+    menuItems = new ArrayList<MenuItem>();
   }
 
   public static FoodTruckManager getInstance()
@@ -188,15 +189,34 @@ public class FoodTruckManager
     return index;
   }
 
-  public Menu getMenu()
+  public MenuItem getMenuItem(int index)
   {
-    return menu;
+    MenuItem aMenuItem = menuItems.get(index);
+    return aMenuItem;
   }
 
-  public boolean hasMenu()
+  public List<MenuItem> getMenuItems()
   {
-    boolean has = menu != null;
+    List<MenuItem> newMenuItems = Collections.unmodifiableList(menuItems);
+    return newMenuItems;
+  }
+
+  public int numberOfMenuItems()
+  {
+    int number = menuItems.size();
+    return number;
+  }
+
+  public boolean hasMenuItems()
+  {
+    boolean has = menuItems.size() > 0;
     return has;
+  }
+
+  public int indexOfMenuItem(MenuItem aMenuItem)
+  {
+    int index = menuItems.indexOf(aMenuItem);
+    return index;
   }
 
   public static int minimumNumberOfEmployees()
@@ -487,31 +507,76 @@ public class FoodTruckManager
     return wasAdded;
   }
 
-  public boolean setMenu(Menu aNewMenu)
+  public static int minimumNumberOfMenuItems()
   {
-    boolean wasSet = false;
-    if (menu != null && !menu.equals(aNewMenu) && equals(menu.getFoodTruckManager()))
-    {
-      //Unable to setMenu, as existing menu would become an orphan
-      return wasSet;
-    }
+    return 0;
+  }
 
-    menu = aNewMenu;
-    FoodTruckManager anOldFoodTruckManager = aNewMenu != null ? aNewMenu.getFoodTruckManager() : null;
+  public MenuItem addMenuItem(String aName, String aDescription, double aAmountSold, double aPrice)
+  {
+    return new MenuItem(aName, aDescription, aAmountSold, aPrice, this);
+  }
 
-    if (!this.equals(anOldFoodTruckManager))
+  public boolean addMenuItem(MenuItem aMenuItem)
+  {
+    boolean wasAdded = false;
+    if (menuItems.contains(aMenuItem)) { return false; }
+    FoodTruckManager existingFoodTruckManager = aMenuItem.getFoodTruckManager();
+    boolean isNewFoodTruckManager = existingFoodTruckManager != null && !this.equals(existingFoodTruckManager);
+    if (isNewFoodTruckManager)
     {
-      if (anOldFoodTruckManager != null)
-      {
-        anOldFoodTruckManager.menu = null;
-      }
-      if (menu != null)
-      {
-        menu.setFoodTruckManager(this);
-      }
+      aMenuItem.setFoodTruckManager(this);
     }
-    wasSet = true;
-    return wasSet;
+    else
+    {
+      menuItems.add(aMenuItem);
+    }
+    wasAdded = true;
+    return wasAdded;
+  }
+
+  public boolean removeMenuItem(MenuItem aMenuItem)
+  {
+    boolean wasRemoved = false;
+    //Unable to remove aMenuItem, as it must always have a foodTruckManager
+    if (!this.equals(aMenuItem.getFoodTruckManager()))
+    {
+      menuItems.remove(aMenuItem);
+      wasRemoved = true;
+    }
+    return wasRemoved;
+  }
+
+  public boolean addMenuItemAt(MenuItem aMenuItem, int index)
+  {  
+    boolean wasAdded = false;
+    if(addMenuItem(aMenuItem))
+    {
+      if(index < 0 ) { index = 0; }
+      if(index > numberOfMenuItems()) { index = numberOfMenuItems() - 1; }
+      menuItems.remove(aMenuItem);
+      menuItems.add(index, aMenuItem);
+      wasAdded = true;
+    }
+    return wasAdded;
+  }
+
+  public boolean addOrMoveMenuItemAt(MenuItem aMenuItem, int index)
+  {
+    boolean wasAdded = false;
+    if(menuItems.contains(aMenuItem))
+    {
+      if(index < 0 ) { index = 0; }
+      if(index > numberOfMenuItems()) { index = numberOfMenuItems() - 1; }
+      menuItems.remove(aMenuItem);
+      menuItems.add(index, aMenuItem);
+      wasAdded = true;
+    } 
+    else 
+    {
+      wasAdded = addMenuItemAt(aMenuItem, index);
+    }
+    return wasAdded;
   }
 
   public void delete()
@@ -536,11 +601,10 @@ public class FoodTruckManager
       Equipment aEquipment = equipment.get(i - 1);
       aEquipment.delete();
     }
-    Menu existingMenu = menu;
-    menu = null;
-    if (existingMenu != null)
+    for(int i=menuItems.size(); i > 0; i--)
     {
-      existingMenu.delete();
+      MenuItem aMenuItem = menuItems.get(i - 1);
+      aMenuItem.delete();
     }
   }
 
@@ -549,8 +613,7 @@ public class FoodTruckManager
   {
 	  String outputString = "";
     return super.toString() + "["+
-            "name" + ":" + getName()+ "]" + System.getProperties().getProperty("line.separator") +
-            "  " + "menu = "+(getMenu()!=null?Integer.toHexString(System.identityHashCode(getMenu())):"null")
+            "name" + ":" + getName()+ "]"
      + outputString;
   }
 }

@@ -15,7 +15,7 @@ class FoodTruckManager {
 	1 -- * Order;
 	1 -- * Supply;
 	1 -- * Equipment;
-	1 -- 1 Menu;
+	1 -- * MenuItem;
 }
 
 class Shift {
@@ -23,10 +23,6 @@ class Shift {
 	Time startTime;
 	Time endTime;
 	double numberOfHours;
-}
-
-class Menu {
-	1 -- * MenuItem;
 }
 
 class MenuItem {
@@ -71,11 +67,6 @@ class FoodTruckManager
 class Shift
 {
   position 14 171 185 109;
-}
-
-class Menu
-{
-  position 87 344 109 45;
 }
 
 class MenuItem

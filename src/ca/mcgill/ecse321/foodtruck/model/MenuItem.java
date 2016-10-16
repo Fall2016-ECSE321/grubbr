@@ -4,8 +4,8 @@
 package ca.mcgill.ecse321.foodtruck.model;
 import java.util.*;
 
-// line 32 "../../../../../FoodTruck.ump"
-// line 81 "../../../../../FoodTruck.ump"
+// line 28 "../../../../../FoodTruck.ump"
+// line 72 "../../../../../FoodTruck.ump"
 public class MenuItem
 {
 
@@ -20,23 +20,23 @@ public class MenuItem
   private double price;
 
   //MenuItem Associations
-  private Menu menu;
+  private FoodTruckManager foodTruckManager;
   private List<Order> orders;
 
   //------------------------
   // CONSTRUCTOR
   //------------------------
 
-  public MenuItem(String aName, String aDescription, double aAmountSold, double aPrice, Menu aMenu)
+  public MenuItem(String aName, String aDescription, double aAmountSold, double aPrice, FoodTruckManager aFoodTruckManager)
   {
     name = aName;
     description = aDescription;
     amountSold = aAmountSold;
     price = aPrice;
-    boolean didAddMenu = setMenu(aMenu);
-    if (!didAddMenu)
+    boolean didAddFoodTruckManager = setFoodTruckManager(aFoodTruckManager);
+    if (!didAddFoodTruckManager)
     {
-      throw new RuntimeException("Unable to create menuItem due to menu");
+      throw new RuntimeException("Unable to create menuItem due to foodTruckManager");
     }
     orders = new ArrayList<Order>();
   }
@@ -97,9 +97,9 @@ public class MenuItem
     return price;
   }
 
-  public Menu getMenu()
+  public FoodTruckManager getFoodTruckManager()
   {
-    return menu;
+    return foodTruckManager;
   }
 
   public Order getOrder(int index)
@@ -132,21 +132,21 @@ public class MenuItem
     return index;
   }
 
-  public boolean setMenu(Menu aMenu)
+  public boolean setFoodTruckManager(FoodTruckManager aFoodTruckManager)
   {
     boolean wasSet = false;
-    if (aMenu == null)
+    if (aFoodTruckManager == null)
     {
       return wasSet;
     }
 
-    Menu existingMenu = menu;
-    menu = aMenu;
-    if (existingMenu != null && !existingMenu.equals(aMenu))
+    FoodTruckManager existingFoodTruckManager = foodTruckManager;
+    foodTruckManager = aFoodTruckManager;
+    if (existingFoodTruckManager != null && !existingFoodTruckManager.equals(aFoodTruckManager))
     {
-      existingMenu.removeMenuItem(this);
+      existingFoodTruckManager.removeMenuItem(this);
     }
-    menu.addMenuItem(this);
+    foodTruckManager.addMenuItem(this);
     wasSet = true;
     return wasSet;
   }
@@ -235,9 +235,9 @@ public class MenuItem
 
   public void delete()
   {
-    Menu placeholderMenu = menu;
-    this.menu = null;
-    placeholderMenu.removeMenuItem(this);
+    FoodTruckManager placeholderFoodTruckManager = foodTruckManager;
+    this.foodTruckManager = null;
+    placeholderFoodTruckManager.removeMenuItem(this);
     ArrayList<Order> copyOfOrders = new ArrayList<Order>(orders);
     orders.clear();
     for(Order aOrder : copyOfOrders)
@@ -255,7 +255,7 @@ public class MenuItem
             "description" + ":" + getDescription()+ "," +
             "amountSold" + ":" + getAmountSold()+ "," +
             "price" + ":" + getPrice()+ "]" + System.getProperties().getProperty("line.separator") +
-            "  " + "menu = "+(getMenu()!=null?Integer.toHexString(System.identityHashCode(getMenu())):"null")
+            "  " + "foodTruckManager = "+(getFoodTruckManager()!=null?Integer.toHexString(System.identityHashCode(getFoodTruckManager())):"null")
      + outputString;
   }
 }
