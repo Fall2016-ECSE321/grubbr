@@ -18,7 +18,7 @@ class Controller
 		//Error handling
 		if ($name==null || strlen($name)==0){
 			throw new Exception("Menu item name cannot be empty!");
-		} else if ($price==null){
+		} else if ($price==null || strlen($price)==0){
 			throw new Exception("Menu item price cannot be empty!");
 		} else if ($price<0){
 			throw new Exception("Menu item price cannot be negative!");
