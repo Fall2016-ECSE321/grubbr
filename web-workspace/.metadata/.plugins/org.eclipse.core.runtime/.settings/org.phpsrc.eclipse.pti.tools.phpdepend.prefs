@@ -1,0 +1,7 @@
+eclipse.preferences.version=1
+phpdepend_bad_documentation=false
+phpdepend_coderank_mode=
+phpdepend_exclude_packages=
+phpdepend_optimization=none
+phpdepend_valid_file_extensions=
+phpdepend_without_annotations=false

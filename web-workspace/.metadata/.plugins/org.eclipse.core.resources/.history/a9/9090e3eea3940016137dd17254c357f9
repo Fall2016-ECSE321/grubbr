@@ -1,0 +1,9 @@
+<?php
+class PersistenceFoodTruckTests extends PHPUnit_Framework_Testcase{
+	protected $pm;
+	
+	protected function setUp(){
+		$this -> pm=new PersistenceFoodTruck();
+	}
+}
+?>

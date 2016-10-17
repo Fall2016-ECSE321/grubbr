@@ -1,0 +1,19 @@
+<?php
+require_once __DIR__.'\..\Controller\InputValidator.php';
+
+class Controller
+{
+	public function __construct()
+	{
+	}
+	
+	public function createMenuItem($item_name,$item_price,$item_amountSold){
+		//Validate input
+		$name = InputValidator::validate_input($item_name);
+		$price= InputValidator::validate_input($item_price);
+		$item_amountSold = InputValidator::validate_input($item_amountSold);
+		if ($name==null || strlen($name)==0){
+			throw new Exception("Menu item name cannot be empty!");
+		}
+	}
+}

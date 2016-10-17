@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<launchConfiguration type="org.phprc.eclipse.pti.core.launching.PHPToolLaunchType">
+<stringAttribute key="ATTR_FILE" value="C:\Users\Andre\Downloads\Luna\eclipse\plugins\org.phpsrc.eclipse.pti.tools.phpunit_0.8.0.R20111119000000\php\tools\phpunit.php"/>
+<stringAttribute key="ATTR_FILE_FULL_PATH" value="C:\Users\Andre\Downloads\Luna\eclipse\plugins\org.phpsrc.eclipse.pti.tools.phpunit_0.8.0.R20111119000000\php\tools\phpunit.php"/>
+<stringAttribute key="ATTR_INI_LOCATION" value="C:\Users\Andre\AppData\Local\Temp\zend_debug\session9090157878560395036.tmp\php.ini"/>
+<stringAttribute key="ATTR_LOCATION" value="C:\xampp\php\php.exe"/>
+<stringAttribute key="ATTR_PHP_TOOL_QUALIFIED_NAME" value="org.phpsrc.eclipse.pti.tools.phpunit:PHPUnit"/>
+<stringAttribute key="exeDebugArguments" value="--log-json php://stdout PersistenceFoodTruckTest &quot;C:\Users\Andre\ECSE321\Food-Truck-Management-System\web-workspace\FoodTruck\Test\PersistenceFoodTruckTest.php&quot;"/>
+<booleanAttribute key="firstLineBreakpoint" value="false"/>
+<booleanAttribute key="org.eclipse.debug.ui.ATTR_CONSOLE_OUTPUT_ON" value="true"/>
+<booleanAttribute key="org.eclipse.debug.ui.ATTR_LAUNCH_IN_BACKGROUND" value="false"/>
+<booleanAttribute key="org.eclipse.php.debug.core.RunWithDebugInfo" value="false"/>
+<stringAttribute key="org.eclipse.php.debug.coreconfiguration_delegate_class" value="org.eclipse.php.internal.debug.core.launching.XDebugExeLaunchConfigurationDelegate"/>
+<stringAttribute key="org.eclipse.php.debug.corephp_debugger_id" value="org.eclipse.php.debug.core.xdebugDebugger"/>
+<booleanAttribute key="org.phpsrc.eclipse.pti.core" value="true"/>
+</launchConfiguration>

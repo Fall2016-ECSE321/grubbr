@@ -1,0 +1,16 @@
+<?php
+class PersistenceFoodTruck {
+private $filename;
+function __construct($filename = 'data.txt') {
+$this->filename = $filename;
+}
+function loadDataFromStore() {
+if (file_exists($this->filename)) {
+$str = file_get_contents($this->filename);
+$rm = unserialize($str);
+} else {
+$rm = RegistrationManager::getInstance();
+}
+return $rm;
+}
+function writeDataToStore($rm) {

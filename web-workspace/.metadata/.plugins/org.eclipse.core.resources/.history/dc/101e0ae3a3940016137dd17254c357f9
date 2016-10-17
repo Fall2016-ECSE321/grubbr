@@ -1,0 +1,5 @@
+<?php
+class PersistenceFoodTruckTests extends PHPUnit_Framework_Testcase{
+	
+}
+?>

@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Rename resource &apos;FoodTruck/Persistence/PersistenceFoodTruck&apos; to &apos;PersistenceFoodTruck.php&apos;" description="Rename resource &apos;PersistenceFoodTruck&apos;" flags="7" id="org.eclipse.ltk.core.refactoring.rename.resource" input="Persistence/PersistenceFoodTruck" name="PersistenceFoodTruck.php" stamp="1476728516107" updateReferences="true"/>
+</session>

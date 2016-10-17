@@ -1,0 +1,14 @@
+<?php
+	require_once 'controller/Controller.php';
+	session_start();
+	$c = new Controller();
+	try {
+		$c->createMenuItem($_POST['newitem_name'],$_POST['newitem_price']);
+		
+		//We will only display one error at a time
+		$_SESSION["errorItem"] = "";
+	} catch (Exception $e) {
+		$_SESSION["errorItem"] = $e->getMessage();
+	}
+	
+?>
