@@ -47,9 +47,15 @@ public class MainActivity extends AppCompatActivity {
     private void refreshData(){
         FoodTruckManager ftm = FoodTruckManager.getInstance();
         TextView itemNameView = (TextView) findViewById(R.id.newitem_name);
+        TextView itemPriceView= (TextView) findViewById(R.id.newitem_price);
         //Sets the error message next to the "name" field regardless if the error
         //is in the name or in the price
-        itemNameView.setError(errorItem);
+        if (errorItem != null) {
+            itemNameView.setError(errorItem);
+        } else {
+            itemNameView.setText("");
+            itemPriceView.setText("");
+        }
     }
 
     @Override
