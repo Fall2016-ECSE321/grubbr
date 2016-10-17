@@ -10,10 +10,5 @@
 	} catch (Exception $e) {
 		$_SESSION["errorItem"] = $e->getMessage();
 	}
+	
 ?>
-<!DOCTYPE html>
-<html>
-	<head>
-		<meta http-equiv="refresh" content="0; url=/FoodTruck/" />
-	</head>
-</html>
