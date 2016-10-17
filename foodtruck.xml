@@ -14,5 +14,10 @@
       <price>1.5</price>
       <amountSold>0</amountSold>
     </item>
+    <item id="9">
+      <name>Chicken Nuggets</name>
+      <price>1.99</price>
+      <amountSold>0</amountSold>
+    </item>
   </menuItems>
 </manager>
