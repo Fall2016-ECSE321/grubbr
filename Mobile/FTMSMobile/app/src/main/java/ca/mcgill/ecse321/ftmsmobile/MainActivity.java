@@ -8,6 +8,9 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.TextView;
+
+import ca.mcgill.ecse321.foodtruck.controller.FoodTruckController;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -26,6 +29,11 @@ public class MainActivity extends AppCompatActivity {
                         .setAction("Action", null).show();
             }
         });
+        refreshData();
+    }
+    private void refreshData(){
+        TextView tv = (TextView) findViewById(R.id.newitem_name);
+        tv.setText("");
     }
 
     @Override
@@ -48,5 +56,15 @@ public class MainActivity extends AppCompatActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+    public void addItem(View v){
+        TextView tvn = (TextView) findViewById(R.id.newitem_name);
+        TextView tvp = (TextView) findViewById(R.id.newitem_price);
+        FoodTruckController ftc = new FoodTruckController();
+        try{
+            ftc.createMenuItem(tvn.getText().toString(),tvp.getText().toString());
+        } catch (InvalidInputException e){
+            //Error handling here
+        }
     }
 }
