@@ -10,12 +10,25 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.TextView;
 
+import java.io.File;
+
 import ca.mcgill.ecse321.foodtruck.controller.FoodTruckController;
+import ca.mcgill.ecse321.foodtruck.controller.InvalidInputException;
+import ca.mcgill.ecse321.foodtruck.model.FoodTruckManager;
+import ca.mcgill.ecse321.foodtruck.persistence.PersistenceFoodTruck;
 
 public class MainActivity extends AppCompatActivity {
 
+    private String errorItem;
+    private static boolean firstRun=true;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        //Setup persistence layer if it's the first run
+        if (firstRun) {
+            PersistenceFoodTruck.setFilename(getFilesDir().getAbsolutePath() + File.separator + "foodtruck.xml");
+            PersistenceFoodTruck.loadFoodTruckModel();
+            firstRun=false;
+        }
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -32,8 +45,11 @@ public class MainActivity extends AppCompatActivity {
         refreshData();
     }
     private void refreshData(){
-        TextView tv = (TextView) findViewById(R.id.newitem_name);
-        tv.setText("");
+        FoodTruckManager ftm = FoodTruckManager.getInstance();
+        TextView itemNameView = (TextView) findViewById(R.id.newitem_name);
+        //Sets the error message next to the "name" field regardless if the error
+        //is in the name or in the price
+        itemNameView.setError(errorItem);
     }
 
     @Override
@@ -58,13 +74,16 @@ public class MainActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
     public void addItem(View v){
-        TextView tvn = (TextView) findViewById(R.id.newitem_name);
-        TextView tvp = (TextView) findViewById(R.id.newitem_price);
+        TextView itemNameView = (TextView) findViewById(R.id.newitem_name);
+        TextView itemPriceView = (TextView) findViewById(R.id.newitem_price);
         FoodTruckController ftc = new FoodTruckController();
+
+        errorItem=null;
         try{
-            ftc.createMenuItem(tvn.getText().toString(),tvp.getText().toString());
+            ftc.createMenuItem(itemNameView.getText().toString(),itemPriceView.getText().toString());
         } catch (InvalidInputException e){
-            //Error handling here
+            errorItem=e.getMessage();
         }
+        refreshData();
     }
 }
