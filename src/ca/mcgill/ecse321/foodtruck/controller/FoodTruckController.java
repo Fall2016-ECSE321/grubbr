@@ -36,6 +36,10 @@ public class FoodTruckController {
 		
 		try {
 			double price = Double.parseDouble(itemPrice);
+			
+			if (price <= 0 || Math.floor(price * 100) / 100 != price) {
+				error += "Menu item price is invalid! ";
+			}
 		} catch (NumberFormatException e) {
 			error += "Menu item price is invalid! ";
 		}

@@ -190,6 +190,75 @@ public class TestFoodTruckController {
 		assertEquals(0, ftms.getMenuItems().size());
 	}
 	
+	public void testCreateMenuItemNegativePrice() {
+		FoodTruckManager ftms = FoodTruckManager.getInstance();
+		assertEquals(0, ftms.getMenuItems().size());
+		
+		String itemName = "Burger";
+		String itemPrice = "-5";
+		
+		String errorMessage = null;
+		FoodTruckController ftc = new FoodTruckController();
+		
+		try {
+			ftc.createMenuItem(itemName, itemPrice);
+		} catch (InvalidInputException e) {
+			errorMessage = e.getMessage();
+		}
+		
+		//check error
+		assertEquals("Menu item price is invalid!", errorMessage);
+		
+		//no change in error
+		assertEquals(0, ftms.getMenuItems().size());
+	}
+	
+	public void testCreateMenuItemZeroPrice() {
+		FoodTruckManager ftms = FoodTruckManager.getInstance();
+		assertEquals(0, ftms.getMenuItems().size());
+		
+		String itemName = "Burger";
+		String itemPrice = "0";
+		
+		String errorMessage = null;
+		FoodTruckController ftc = new FoodTruckController();
+		
+		try {
+			ftc.createMenuItem(itemName, itemPrice);
+		} catch (InvalidInputException e) {
+			errorMessage = e.getMessage();
+		}
+		
+		//check error
+		assertEquals("Menu item price is invalid!", errorMessage);
+		
+		//no change in error
+		assertEquals(0, ftms.getMenuItems().size());
+	}
+	
+	public void testCreateMenuItemTooManyDecimalsPrice() {
+		FoodTruckManager ftms = FoodTruckManager.getInstance();
+		assertEquals(0, ftms.getMenuItems().size());
+		
+		String itemName = "Burger";
+		String itemPrice = "4.124";
+		
+		String errorMessage = null;
+		FoodTruckController ftc = new FoodTruckController();
+		
+		try {
+			ftc.createMenuItem(itemName, itemPrice);
+		} catch (InvalidInputException e) {
+			errorMessage = e.getMessage();
+		}
+		
+		//check error
+		assertEquals("Menu item price is invalid!", errorMessage);
+		
+		//no change in error
+		assertEquals(0, ftms.getMenuItems().size());
+	}
+	
 	private void checkResultMenuItem(String itemName, double itemPrice, FoodTruckManager ftms) {
 		assertEquals(1,ftms.getMenuItems().size());
 		assertEquals(itemName,ftms.getMenuItem(0).getName());
