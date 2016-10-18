@@ -1,7 +1,7 @@
 <?php
-require_once __DIR__.'\..\Persistence\PresistenceFoodTruck.php';
-require_once __DIR__.'\..\Model\MenuItem.php';
-require_once __DIR__.'\..\Model\FoodTruckManager.php';
+require_once __DIR__.'\..\persistence\PresistenceFoodTruck.php';
+require_once __DIR__.'\..\model\MenuItem.php';
+require_once __DIR__.'\..\model\FoodTruckManager.php';
 
 class ControllerTest extends PHPUnit_Framework_TestCase
 {

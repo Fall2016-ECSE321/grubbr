@@ -29,9 +29,7 @@
 			</span></p>	
 			<p><input type="submit" value="Add Item"/></p>
 			<br>
-			</fieldset>
-		</form>
-		<span>
+			<span>
 			<?php 
 			$ftm = FoodTruckManager::getInstance();
 			for($i=0;$i<sizeof($ftm->getMenuItems());$i++){
@@ -39,8 +37,9 @@
 				echo $ftm->getMenuItem_index($i)->getName()+" : "+getMenuItem_index($i)->getPrice()+" $ ";
 			}
 			?>
-		</span>
-		
+			</span>
+			</fieldset>
+		</form>
 	</body>
 </html>
 

@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?><testrun name="TestRunTest" project="FoodTruck" tests="1" started="1" failures="0" errors="1" ignored="0">
-  <testsuite name="PersistenceFoodTruckTest" time="0.363">
-    <testcase name="testPersistence" classname="PersistenceFoodTruckTest" time="0.363">
-      <error>Fatal error: Class 'PersistenceFoodTruck' not found in C:\Users\Andre\ECSE321\Food-Truck-Management-System\web-workspace\FoodTruck\Test\PersistenceFoodTruckTest.php on line 12</error>
-    </testcase>
-  </testsuite>
-</testrun>

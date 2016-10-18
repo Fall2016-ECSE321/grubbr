@@ -34,7 +34,7 @@
 		<span>
 			<?php 
 			$ftm = FoodTruckManager::getInstance();
-			for($i=0;$i<sizeof($ftm->getMenuItems());$i++){
+			for($i=0;$i<(sizeof($ftm->getMenuItems()));$i++){
 				echo "Menu";
 				echo $ftm->getMenuItem_index($i)->getName()+" : "+getMenuItem_index($i)->getPrice()+" $ ";
 			}

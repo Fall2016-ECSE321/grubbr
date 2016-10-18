@@ -1,8 +1,0 @@
-<?php
-require_once __DIR__.'\..\Controller\InputValidator.php';
-class Controller
-{
-	public function __construct()
-	{
-	}
-}
