@@ -37,11 +37,13 @@ public class FoodTruckController {
 		try {
 			double price = Double.parseDouble(itemPrice);
 			
-			if (price <= 0 || Math.floor(price * 100) / 100 != price) {
-				error += "Menu item price is invalid! ";
+			if (!hasCorrectAmountOfDecimalPlaces(itemPrice)) {
+				error += "Menu item price cannot contain fractions of cents! ";
+			} else if (price <= 0) {
+				error += "Menu item price must be greater than 0! ";
 			}
 		} catch (NumberFormatException e) {
-			error += "Menu item price is invalid! ";
+			error += "Menu item price must be a number! ";
 		}
 		
 		error = error.trim();
@@ -54,5 +56,27 @@ public class FoodTruckController {
 		FoodTruckManager ftms = FoodTruckManager.getInstance();
 		ftms.addMenuItem(item);
 		PersistenceXStream.saveToXMLwithXStream(ftms);
+	}
+	
+	/**
+	 * Determines whether or not the text in the label is a valid price.
+	 * @param price The string fetched from the itemPrice text field
+	 * @return A boolean value that indicates whether or not the input is correct
+	 */
+	
+	private boolean hasCorrectAmountOfDecimalPlaces(String price) {
+		
+		//return true if there are no decimal places
+		if (price.indexOf('.')==-1) {
+			return true;
+		}
+		
+		//return true if there are one or two decimal places
+		if (price.length()-1-price.indexOf('.')<=2) {
+			return true;
+		}
+		
+		return false;
+		
 	}
 }

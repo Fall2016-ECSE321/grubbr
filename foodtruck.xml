@@ -24,5 +24,45 @@
       <price>4.5</price>
       <amountSold>0</amountSold>
     </item>
+    <item id="11">
+      <name>Super Poutine</name>
+      <price>10.3</price>
+      <amountSold>0</amountSold>
+    </item>
+    <item id="12">
+      <name>Dragon Poutine</name>
+      <price>7.2</price>
+      <amountSold>0</amountSold>
+    </item>
+    <item id="13">
+      <name>Dragon Poutine</name>
+      <price>6.2</price>
+      <amountSold>0</amountSold>
+    </item>
+    <item id="14">
+      <name>Dragon Poutine</name>
+      <price>5.2</price>
+      <amountSold>0</amountSold>
+    </item>
+    <item id="15">
+      <name>Premium bugs</name>
+      <price>10.2</price>
+      <amountSold>0</amountSold>
+    </item>
+    <item id="16">
+      <name>Good enough bugs</name>
+      <price>5.2</price>
+      <amountSold>0</amountSold>
+    </item>
+    <item id="17">
+      <name>Bugs Bunny</name>
+      <price>10.2</price>
+      <amountSold>0</amountSold>
+    </item>
+    <item id="18">
+      <name>Daffy Duck</name>
+      <price>10.2</price>
+      <amountSold>0</amountSold>
+    </item>
   </menuItems>
 </manager>

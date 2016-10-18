@@ -27,7 +27,7 @@ public class TestFoodTruckController {
 		assertEquals(0, ftms.getMenuItems().size());
 		
 		String itemName = "Burger";
-		String itemPrice = "4.50";
+		String itemPrice = "10.20";
 		
 		FoodTruckController ftc = new FoodTruckController();
 		
@@ -138,7 +138,7 @@ public class TestFoodTruckController {
 		}
 		
 		//check error
-		assertEquals("Menu item price is invalid!", errorMessage);
+		assertEquals("Menu item price must be a number!", errorMessage);
 		
 		//no change in error
 		assertEquals(0, ftms.getMenuItems().size());
@@ -161,7 +161,7 @@ public class TestFoodTruckController {
 		}
 		
 		//check error
-		assertEquals("Menu item price is invalid!", errorMessage);
+		assertEquals("Menu item price must be a number!", errorMessage);
 		
 		//no change in error
 		assertEquals(0, ftms.getMenuItems().size());
@@ -184,7 +184,7 @@ public class TestFoodTruckController {
 		}
 		
 		//check error
-		assertEquals("Menu item price is empty!", errorMessage);
+		assertEquals("Menu item price must be a number!", errorMessage);
 		
 		//no change in error
 		assertEquals(0, ftms.getMenuItems().size());
@@ -207,7 +207,7 @@ public class TestFoodTruckController {
 		}
 		
 		//check error
-		assertEquals("Menu item price is invalid!", errorMessage);
+		assertEquals("Menu item price must be greater than 0!", errorMessage);
 		
 		//no change in error
 		assertEquals(0, ftms.getMenuItems().size());
@@ -230,7 +230,7 @@ public class TestFoodTruckController {
 		}
 		
 		//check error
-		assertEquals("Menu item price is invalid!", errorMessage);
+		assertEquals("Menu item price must be greater than 0!", errorMessage);
 		
 		//no change in error
 		assertEquals(0, ftms.getMenuItems().size());
@@ -253,7 +253,7 @@ public class TestFoodTruckController {
 		}
 		
 		//check error
-		assertEquals("Menu item price is invalid!", errorMessage);
+		assertEquals("Menu item price cannot contain fractions of cents!", errorMessage);
 		
 		//no change in error
 		assertEquals(0, ftms.getMenuItems().size());
