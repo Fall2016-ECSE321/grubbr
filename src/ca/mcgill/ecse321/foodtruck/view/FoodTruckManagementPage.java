@@ -18,19 +18,27 @@ import javax.swing.JButton;
 
 import ca.mcgill.ecse321.foodtruck.controller.FoodTruckController;
 import ca.mcgill.ecse321.foodtruck.controller.InvalidInputException;
+import ca.mcgill.ecse321.foodtruck.model.FoodTruckManager;
+import ca.mcgill.ecse321.foodtruck.model.MenuItem;
 
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.Color;
+import java.util.HashMap;
+import java.util.Iterator;
+
+import javax.swing.JSplitPane;
 
 public class FoodTruckManagementPage {
 
 	private JFrame frame;
 	private JTextField txtItemName;
 	private JTextField txtItemPrice;
+	private JLabel lblMenu;
 	
 	//data elements
 	private String error = null;
+	private HashMap menu;
 
 	/**
 	 * Launch the application.
@@ -53,6 +61,7 @@ public class FoodTruckManagementPage {
 	 */
 	public FoodTruckManagementPage() {
 		initialize();
+		refreshData();
 	}
 
 	/**
@@ -60,11 +69,14 @@ public class FoodTruckManagementPage {
 	 */
 	private void initialize() {
 		frame = new JFrame();
-		frame.setBounds(100, 100, 224, 173);
+		frame.setBounds(100, 100, 419, 173);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
+		JSplitPane splitPane = new JSplitPane();
+		frame.getContentPane().add(splitPane, BorderLayout.CENTER);
+		
 		JPanel panel = new JPanel();
-		frame.getContentPane().add(panel, BorderLayout.WEST);
+		splitPane.setLeftComponent(panel);
 		
 		JLabel lblItemName = new JLabel("Item Name");
 		
@@ -115,6 +127,10 @@ public class FoodTruckManagementPage {
 					.addContainerGap(20, Short.MAX_VALUE))
 		);
 		panel.setLayout(gl_panel);
+		
+		lblMenu = new JLabel("");
+		lblMenu.setHorizontalAlignment(SwingConstants.CENTER);
+		splitPane.setRightComponent(lblMenu);
 	}
 	
 	/**
@@ -123,12 +139,26 @@ public class FoodTruckManagementPage {
 	
 	public void refreshData() {
 		
+		FoodTruckManager ftms = FoodTruckManager.getInstance();
+		
 		if (error == null || error.length()==0) {
 			txtItemName.setText("");
 			txtItemPrice.setText("");
 		} else {
 			JOptionPane.showMessageDialog(null,"ERROR: "+error);
 		}
+		
+		lblMenu.setText("");
+		String menuText = "<html>";
+		Iterator<MenuItem> menuIterator = ftms.getMenuItems().iterator();
+		
+		while (menuIterator.hasNext()) {
+			MenuItem item = menuIterator.next();
+			menuText += item.getName()+" - "+item.getPrice()+"<br>";
+		}
+		
+		lblMenu.setText(menuText);
+		
 	}
 	
 	public void addMenuItemButtonActionPerformed(ActionEvent event) {

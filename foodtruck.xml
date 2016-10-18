@@ -19,5 +19,10 @@
       <price>1.99</price>
       <amountSold>0</amountSold>
     </item>
+    <item id="10">
+      <name>Burger</name>
+      <price>4.5</price>
+      <amountSold>0</amountSold>
+    </item>
   </menuItems>
 </manager>
