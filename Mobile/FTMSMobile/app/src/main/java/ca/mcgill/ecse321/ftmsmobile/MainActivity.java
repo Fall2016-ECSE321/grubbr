@@ -56,6 +56,7 @@ public class MainActivity extends AppCompatActivity {
             itemNameView.setText("");
             itemPriceView.setText("");
         }
+        displayItems();
     }
 
     @Override
@@ -91,5 +92,12 @@ public class MainActivity extends AppCompatActivity {
             errorItem=e.getMessage();
         }
         refreshData();
+    }
+    public void displayItems(){
+        TextView itemList = (TextView) findViewById(R.id.menu_display);
+        FoodTruckManager ftm = FoodTruckManager.getInstance();
+        for (int i=0;i<ftm.getMenuItems().size();i++) {
+            itemList.setText(itemList.getText() + ftm.getMenuItem(i).getName() +" : " + ftm.getMenuItem(i).getPrice() + "$" + "\n");
+        }
     }
 }
