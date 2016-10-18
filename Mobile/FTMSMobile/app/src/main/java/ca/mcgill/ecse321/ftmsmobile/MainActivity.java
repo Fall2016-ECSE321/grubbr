@@ -96,6 +96,7 @@ public class MainActivity extends AppCompatActivity {
     public void displayItems(){
         TextView itemList = (TextView) findViewById(R.id.menu_display);
         FoodTruckManager ftm = FoodTruckManager.getInstance();
+        itemList.setText("");
         for (int i=0;i<ftm.getMenuItems().size();i++) {
             itemList.setText(itemList.getText() + ftm.getMenuItem(i).getName() +" : " + ftm.getMenuItem(i).getPrice() + "$" + "\n");
         }
