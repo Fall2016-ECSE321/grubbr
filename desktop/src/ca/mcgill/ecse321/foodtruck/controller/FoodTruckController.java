@@ -22,15 +22,15 @@ public class FoodTruckController {
 	
 	/**
 	 * Adds a new item to the menu.
-	 * @param itemName	the name of the item
-	 * @param itemPrice	the price of the item
+	 * @param itemName	the name of the item.
+	 * @param itemPrice	the price of the item.
 	 */
 	
 	public void createMenuItem(String itemName,String itemPrice) throws InvalidInputException{
 		
 		String error = "";
 		
-		if (itemName == null || itemName.trim().length() == 0) {
+		if (isEmpty(itemName)) {
 			error += "Menu item name cannot be empty! ";
 		}
 		
@@ -59,9 +59,9 @@ public class FoodTruckController {
 	}
 	
 	/**
-	 * Determines whether or not the text in the label is a valid price.
-	 * @param price The string fetched from the itemPrice text field
-	 * @return A boolean value that indicates whether or not the input is correct
+	 * Determines whether or not the text in the label is a valid dollar value.
+	 * @param price The string fetched from the itemPrice text field.
+	 * @return A boolean value that indicates whether or not the input is correct.
 	 */
 	
 	private boolean hasCorrectAmountOfDecimalPlaces(String price) {
@@ -75,8 +75,20 @@ public class FoodTruckController {
 		if (price.length()-1-price.indexOf('.')<=2) {
 			return true;
 		}
-		
 		return false;
+	}
+	
+	/**
+	 * Determines whether or not the text in the label is empty.
+	 * @param text	The string that you want to evaluate.
+	 * @return A boolean value that indicates whether or not the string is empty or not.
+	 */
+	
+	private boolean isEmpty(String text) {
 		
+		if (text == null || text.trim().length() == 0) {
+			return true;
+		}
+		return false;
 	}
 }
