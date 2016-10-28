@@ -92,7 +92,8 @@ public class FoodTruckController {
 	public void editSupplyQuantity(Supply supply,int count) {
 		
 		if (count < 0) {
-			supply.delete();
+			FoodTruckManager ftms = FoodTruckManager.getInstance();
+			ftms.removeSupply(supply);
 		} else {
 			supply.setCount(count);
 		}
@@ -128,7 +129,8 @@ public class FoodTruckController {
 	public void editEquipmentQuantity(Equipment equipment,int count) {
 		
 		if (count < 0) {
-			equipment.delete();
+			FoodTruckManager ftms = FoodTruckManager.getInstance();
+			ftms.removeEquipment(equipment);
 		} else {
 			equipment.setCount(count);
 		}
