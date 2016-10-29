@@ -49,6 +49,8 @@ public class FoodTruckController {
 			}
 		} catch (NumberFormatException e) {
 			error += "Menu item price must be a number! ";
+		} catch (NullPointerException e) {
+			error += "Menu item price must be a number! ";
 		}
 		
 		error = error.trim();
@@ -72,7 +74,19 @@ public class FoodTruckController {
 	 * @param supplyName	Name of the food supply in question.
 	 */
 	
-	public void createSupply(String supplyName) {
+	public void createSupply(String supplyName) throws InvalidInputException {
+		
+		String error = "";
+		
+		if (isEmpty(supplyName)) {
+			error += "Supply name cannot be empty! ";
+		}
+		
+		error = error.trim();
+		
+		if (error.length()>0) {
+			throw new InvalidInputException(error);
+		}
 		
 		supplyName = WordUtils.capitalizeFully(supplyName);
 		Supply supply = new Supply(supplyName,0);
@@ -89,15 +103,15 @@ public class FoodTruckController {
 	 * @param count		Quantity to be set.
 	 */
 	
-	public void editSupplyQuantity(Supply supply,int count) {
-		
+	public void editSupplyQuantity(Supply supply,int count) throws InvalidInputException {
+
+		FoodTruckManager ftms = FoodTruckManager.getInstance();
 		if (count < 0) {
-			FoodTruckManager ftms = FoodTruckManager.getInstance();
 			ftms.removeSupply(supply);
 		} else {
 			supply.setCount(count);
 		}
-		
+		PersistenceXStream.saveToXMLwithXStream(ftms);
 	}
 	
 	/**
@@ -109,7 +123,19 @@ public class FoodTruckController {
 	 * @param equipmentName
 	 */
 	
-	public void createEquipment(String equipmentName) {
+	public void createEquipment(String equipmentName) throws InvalidInputException {
+		
+		String error = "";
+		
+		if (isEmpty(equipmentName)) {
+			error += "Equipment name cannot be empty! ";
+		}
+		
+		error = error.trim();
+		
+		if (error.length()>0) {
+			throw new InvalidInputException(error);
+		}
 		
 		equipmentName = WordUtils.capitalizeFully(equipmentName);
 		Equipment equipment = new Equipment(equipmentName,0);
@@ -126,14 +152,15 @@ public class FoodTruckController {
 	 * @param count		Quantity to be set.
 	 */
 	
-	public void editEquipmentQuantity(Equipment equipment,int count) {
-		
+	public void editEquipmentQuantity(Equipment equipment,int count) throws InvalidInputException {
+
+		FoodTruckManager ftms = FoodTruckManager.getInstance();
 		if (count < 0) {
-			FoodTruckManager ftms = FoodTruckManager.getInstance();
 			ftms.removeEquipment(equipment);
 		} else {
 			equipment.setCount(count);
 		}
+		PersistenceXStream.saveToXMLwithXStream(ftms);
 		
 	}
 	
