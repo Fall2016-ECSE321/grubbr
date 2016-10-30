@@ -103,13 +103,30 @@ public class FoodTruckController {
 	 * @param count		Quantity to be set.
 	 */
 	
-	public void editSupplyQuantity(Supply supply,int count) throws InvalidInputException {
+	public void editSupplyQuantity(Supply supply,String count) throws InvalidInputException {
 
 		FoodTruckManager ftms = FoodTruckManager.getInstance();
-		if (count < 0) {
+		String error = "";
+		
+		int quantity = 0;
+		try {
+			quantity = Integer.parseInt(count);
+		} catch (NumberFormatException e) {
+			error += "Supply count must be a number! ";
+		} catch (NullPointerException e) {
+			error += "Supply count must be a number! ";
+		}
+		
+		error = error.trim();
+		
+		if (error.length()>0) {
+			throw new InvalidInputException(error);
+		}
+		
+		if (quantity < 0) {
 			ftms.removeSupply(supply);
 		} else {
-			supply.setCount(count);
+			supply.setCount(quantity);
 		}
 		PersistenceXStream.saveToXMLwithXStream(ftms);
 	}
@@ -152,13 +169,29 @@ public class FoodTruckController {
 	 * @param count		Quantity to be set.
 	 */
 	
-	public void editEquipmentQuantity(Equipment equipment,int count) throws InvalidInputException {
+	public void editEquipmentQuantity(Equipment equipment,String count) throws InvalidInputException {
 
 		FoodTruckManager ftms = FoodTruckManager.getInstance();
-		if (count < 0) {
+		String error="";
+		int quantity = 0;
+		try {
+			quantity = Integer.parseInt(count);
+		} catch (NumberFormatException e) {
+			error += "Equipment count must be a number! ";
+		} catch (NullPointerException e) {
+			error += "Equipment count must be a number! ";
+		}
+		
+		error = error.trim();
+		
+		if (error.length()>0) {
+			throw new InvalidInputException(error);
+		}
+		
+		if (quantity < 0) {
 			ftms.removeEquipment(equipment);
 		} else {
-			equipment.setCount(count);
+			equipment.setCount(quantity);
 		}
 		PersistenceXStream.saveToXMLwithXStream(ftms);
 		

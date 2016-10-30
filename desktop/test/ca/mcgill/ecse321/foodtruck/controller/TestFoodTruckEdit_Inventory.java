@@ -46,7 +46,7 @@ public class TestFoodTruckEdit_Inventory {
 	}
 	
 	@Test
-	public void testCreateSupplyNullName() {
+	public void testCreateSupplyNull() {
 		
 		FoodTruckManager ftms = FoodTruckManager.getInstance();
 		assertEquals(0, ftms.getSupplies().size());
@@ -121,13 +121,13 @@ public class TestFoodTruckEdit_Inventory {
 	}
 	
 	@Test
-	public void testEditSupplyQuantityAdd(){
+	public void testEditSupplyQuantityAdd() {
 		
 		FoodTruckManager ftms = FoodTruckManager.getInstance();
 		assertEquals(0, ftms.getSupplies().size());
 		
 		String supplyName = "Patty";
-		int quantity = 2;
+		String quantity = "10";
 		
 		FoodTruckController ftc = new FoodTruckController();
 		
@@ -152,13 +152,13 @@ public class TestFoodTruckEdit_Inventory {
 	}
 	
 	@Test
-	public void testEditSupplyQuantityDelete(){
+	public void testDeleteSupply() {
 		
 		FoodTruckManager ftms = FoodTruckManager.getInstance();
 		assertEquals(0, ftms.getSupplies().size());
 		
 		String supplyName = "Patty";
-		int quantity = -1;
+		String quantity = "-1";
 		
 		FoodTruckController ftc = new FoodTruckController();
 		
@@ -180,6 +180,70 @@ public class TestFoodTruckEdit_Inventory {
 		FoodTruckManager ftms2 = (FoodTruckManager)PersistenceXStream.loadFromXMLwithXStream();
 		
 		checkResultSupplyDelete(supplyName, quantity, ftms2);
+	}
+	
+	@Test
+	public void testEditSupplyQuantityEmpty() {
+	
+		FoodTruckManager ftms = FoodTruckManager.getInstance();
+		assertEquals(0, ftms.getSupplies().size());
+		
+		FoodTruckController ftc = new FoodTruckController();
+		String supplyName = "Spatula";
+		String quantity = "";
+		String errorMessage = "";
+		
+		try {
+			ftc.createSupply(supplyName);
+		} catch (InvalidInputException e) {
+			fail();
+		}
+		
+		Supply supply = ftms.getSupply(0);
+		
+		try {
+			ftc.editSupplyQuantity(supply, quantity);
+		} catch (InvalidInputException e) {
+			errorMessage = e.getMessage();
+		}
+		
+		//check error
+		assertEquals("Supply count must be a number!", errorMessage);
+		
+		//check no change in memory
+		assertEquals(0, ftms.getSupply(0).getCount());
+	}
+	
+	@Test
+	public void testEditSupplyQuantityNaN() {
+		
+		FoodTruckManager ftms = FoodTruckManager.getInstance();
+		assertEquals(0, ftms.getSupplies().size());
+		
+		FoodTruckController ftc = new FoodTruckController();
+		String supplyName = "Spatula";
+		String quantity = "I am not a number";
+		String errorMessage = "";
+		
+		try {
+			ftc.createSupply(supplyName);
+		} catch (InvalidInputException e) {
+			fail();
+		}
+		
+		Supply supply = ftms.getSupply(0);
+		
+		try {
+			ftc.editSupplyQuantity(supply, quantity);
+		} catch (InvalidInputException e) {
+			errorMessage = e.getMessage();
+		}
+		
+		//check error
+		assertEquals("Supply count must be a number!", errorMessage);
+		
+		//check no change in memory
+		assertEquals(0, ftms.getSupply(0).getCount());
 	}
 
 	@Test
@@ -205,7 +269,7 @@ public class TestFoodTruckEdit_Inventory {
 	}
 	
 	@Test
-	public void testCreateEquipmentNullName() {
+	public void testCreateEquipmentNull() {
 		
 		FoodTruckManager ftms = FoodTruckManager.getInstance();
 		assertEquals(0, ftms.getEquipment().size());
@@ -280,13 +344,13 @@ public class TestFoodTruckEdit_Inventory {
 	}
 	
 	@Test
-	public void testEditEquipmentQuantityAdd(){
+	public void testEditEquipmentQuantity() {
 		
 		FoodTruckManager ftms = FoodTruckManager.getInstance();
 		assertEquals(0, ftms.getEquipment().size());
 		
 		String equipName = "Spatula";
-		int quantity = 2;
+		String quantity = "2";
 		
 		FoodTruckController ftc = new FoodTruckController();
 		
@@ -311,12 +375,12 @@ public class TestFoodTruckEdit_Inventory {
 	}
 	
 	@Test
-	public void testEditEquipmentQuantityDelete(){
+	public void testDeleteEquipment() {
 		FoodTruckManager ftms = FoodTruckManager.getInstance();
 		assertEquals(0, ftms.getEquipment().size());
 		
 		String equipName = "Spatula";
-		int quantity = -1;
+		String quantity = "-1";
 		
 		FoodTruckController ftc = new FoodTruckController();
 		
@@ -328,30 +392,95 @@ public class TestFoodTruckEdit_Inventory {
 		
 		Equipment equip = ftms.getEquipment(0);
 		
-		try{
+		try {
 			ftc.editEquipmentQuantity(equip, quantity);
-		}catch(InvalidInputException e){
+		} catch (InvalidInputException e) {
 			fail();
 		}
 		
-		checkResultEquipDelete(equipName, quantity, ftms);
+		checkResultEquipDelete(ftms);
 		
 		FoodTruckManager ftms2 = (FoodTruckManager)PersistenceXStream.loadFromXMLwithXStream();
 		
-		checkResultEquipDelete(equipName, quantity, ftms2);
+		checkResultEquipDelete(ftms2);
 	}
 	
+	@Test
+	public void testEditEquipmentQuantityEmpty() {
+	
+		FoodTruckManager ftms = FoodTruckManager.getInstance();
+		assertEquals(0, ftms.getEquipment().size());
+		
+		FoodTruckController ftc = new FoodTruckController();
+		String equipName = "Spatula";
+		String quantity = "";
+		String errorMessage = "";
+		
+		try {
+			ftc.createEquipment(equipName);
+		} catch (InvalidInputException e) {
+			fail();
+		}
+		
+		Equipment equip = ftms.getEquipment(0);
+		
+		try {
+			ftc.editEquipmentQuantity(equip, quantity);
+		} catch (InvalidInputException e) {
+			errorMessage = e.getMessage();
+		}
+		
+		//check error
+		assertEquals("Equipment count must be a number!", errorMessage);
+		
+		//check no change in memory
+		assertEquals(0, ftms.getEquipment(0).getCount());
+	}
+	
+	@Test
+	public void testEditEquipmentQuantityNaN() {
+		
+		FoodTruckManager ftms = FoodTruckManager.getInstance();
+		assertEquals(0, ftms.getEquipment().size());
+		
+		FoodTruckController ftc = new FoodTruckController();
+		String equipName = "Spatula";
+		String quantity = "I am not a number";
+		String errorMessage = "";
+		
+		try {
+			ftc.createEquipment(equipName);
+		} catch (InvalidInputException e) {
+			fail();
+		}
+		
+		Equipment equip = ftms.getEquipment(0);
+		
+		try {
+			ftc.editEquipmentQuantity(equip, quantity);
+		} catch (InvalidInputException e) {
+			errorMessage = e.getMessage();
+		}
+		
+		//check error
+		assertEquals("Equipment count must be a number!", errorMessage);
+		
+		//check no change in memory
+		assertEquals(0, ftms.getEquipment(0).getCount());
+	}
+	
+	
+	
 	//Checking methods for Equipment
-	private void checkResultEquipDelete(String equipName, int quantity,
-			FoodTruckManager ftms) {
+	private void checkResultEquipDelete(FoodTruckManager ftms) {
 			assertEquals(0,ftms.getEquipment().size());
 	}
 
-	private void checkResultEquipAdd(String equipName, int quantity,
+	private void checkResultEquipAdd(String equipName, String quantity,
 			FoodTruckManager ftms) {
 		assertEquals(1,ftms.getEquipment().size());
 		assertEquals(equipName,ftms.getEquipment(0).getName());
-		assertEquals(quantity, ftms.getEquipment(0).getCount());
+		assertEquals(quantity, String.valueOf(ftms.getEquipment(0).getCount()));
 	}
 	
 	private void checkResultEquipment(String equipName, FoodTruckManager ftms) {
@@ -360,16 +489,16 @@ public class TestFoodTruckEdit_Inventory {
 	}	
 	
 	//Checking methods for Supply
-	private void checkResultSupplyDelete(String supplyName, int quantity,
+	private void checkResultSupplyDelete(String supplyName, String quantity,
 			FoodTruckManager ftms) {
 		assertEquals(0,ftms.getSupplies().size());
 	}
 
-	private void checkResultSupplyAdd(String supplyName, int quantity,
+	private void checkResultSupplyAdd(String supplyName, String quantity,
 			FoodTruckManager ftms) {
 		assertEquals(1,ftms.getSupplies().size());
 		assertEquals(supplyName,ftms.getSupply(0).getName());
-		assertEquals(quantity, ftms.getSupply(0).getCount());
+		assertEquals(quantity, String.valueOf(ftms.getSupply(0).getCount()));
 	}
 
 	private void checkResultSupply(String supplyName, FoodTruckManager ftms) {
