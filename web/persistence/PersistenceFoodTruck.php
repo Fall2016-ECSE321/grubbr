@@ -9,17 +9,21 @@ class PersistenceFoodTruck {
 	{
 		if (file_exists($this->filename))
 		{
-		$str = file_get_contents($this->filename);
-		$rm = unserialize($str);
+			$str = file_get_contents($this->filename);
+			$ftm = unserialize($str);
 		} else {
-		$rm = FoodTruckManager::getInstance();
+			$ftm = FoodTruckManager::getInstance();
 		}
-		return $rm;
+		return $ftm;
 	}
 	function writeDataToStore($ftm)
 	{
 		$str=serialize($ftm);
 		file_put_contents($this->filename,$str);
 	}
+// 	public function addMenuItem($aMenuItem)
+// 	{
+		
+// 	}
 }
 ?>
