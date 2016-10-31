@@ -8,8 +8,10 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
+import ca.mcgill.ecse321.foodtruck.model.Equipment;
 import ca.mcgill.ecse321.foodtruck.model.FoodTruckManager;
 import ca.mcgill.ecse321.foodtruck.model.MenuItem;
+import ca.mcgill.ecse321.foodtruck.model.Supply;
 
 public class TestPersistenceXStream {
 
@@ -24,6 +26,14 @@ public class TestPersistenceXStream {
 		//add to menu
 		ftms.addMenuItem(burger);
 		ftms.addMenuItem(fries);
+		
+		//Create supply and add to list
+		Supply patty = new Supply("Patty",0);
+		ftms.addSupply(patty);
+	
+		//Create equipment and add to list
+		Equipment Spatula = new Equipment("Spatula", 0);
+		ftms.addEquipment(Spatula);
 	}
 
 	@After
@@ -63,6 +73,16 @@ public class TestPersistenceXStream {
 		assertEquals(2.00, ftms.getMenuItem(1).getPrice(),0.004);
 		assertEquals(0, ftms.getMenuItem(0).getAmountSold());
 		assertEquals(0, ftms.getMenuItem(1).getAmountSold());
+		
+		//check Supplies
+		assertEquals(1, ftms.getSupplies().size());
+		assertEquals("Patty", ftms.getSupply(0).getName());
+		assertEquals(0, ftms.getSupply(0).getCount());
+		
+		//check equipments
+		assertEquals(1, ftms.getEquipment().size());
+		assertEquals("Spatula", ftms.getEquipment(0).getName());
+		assertEquals(0, ftms.getEquipment(0).getCount());
 	}
 
 }

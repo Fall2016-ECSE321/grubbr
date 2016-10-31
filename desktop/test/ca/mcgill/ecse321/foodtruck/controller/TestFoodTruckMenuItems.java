@@ -9,7 +9,7 @@ import org.junit.Test;
 import ca.mcgill.ecse321.foodtruck.model.FoodTruckManager;
 import ca.mcgill.ecse321.foodtruck.persistence.PersistenceXStream;
 
-public class TestFoodTruckController {
+public class TestFoodTruckMenuItems {
 
 	@Before
 	public void setUp() throws Exception {
@@ -120,7 +120,6 @@ public class TestFoodTruckController {
 	}
 	
 	@Test
-	
 	public void testCreateMenuItemAlphanumericPrice() {
 		FoodTruckManager ftms = FoodTruckManager.getInstance();
 		assertEquals(0, ftms.getMenuItems().size());
@@ -144,6 +143,7 @@ public class TestFoodTruckController {
 		assertEquals(0, ftms.getMenuItems().size());
 	}
 	
+	@Test
 	public void testCreateMenuItemNullPrice() {
 		FoodTruckManager ftms = FoodTruckManager.getInstance();
 		assertEquals(0, ftms.getMenuItems().size());
@@ -167,6 +167,7 @@ public class TestFoodTruckController {
 		assertEquals(0, ftms.getMenuItems().size());
 	}
 	
+	@Test
 	public void testCreateMenuItemEmptyPrice() {
 		FoodTruckManager ftms = FoodTruckManager.getInstance();
 		assertEquals(0, ftms.getMenuItems().size());
@@ -190,6 +191,7 @@ public class TestFoodTruckController {
 		assertEquals(0, ftms.getMenuItems().size());
 	}
 	
+	@Test
 	public void testCreateMenuItemNegativePrice() {
 		FoodTruckManager ftms = FoodTruckManager.getInstance();
 		assertEquals(0, ftms.getMenuItems().size());
@@ -213,6 +215,7 @@ public class TestFoodTruckController {
 		assertEquals(0, ftms.getMenuItems().size());
 	}
 	
+	@Test
 	public void testCreateMenuItemZeroPrice() {
 		FoodTruckManager ftms = FoodTruckManager.getInstance();
 		assertEquals(0, ftms.getMenuItems().size());
@@ -236,6 +239,7 @@ public class TestFoodTruckController {
 		assertEquals(0, ftms.getMenuItems().size());
 	}
 	
+	@Test
 	public void testCreateMenuItemTooManyDecimalsPrice() {
 		FoodTruckManager ftms = FoodTruckManager.getInstance();
 		assertEquals(0, ftms.getMenuItems().size());
