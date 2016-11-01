@@ -64,5 +64,10 @@
       <price>10.2</price>
       <amountSold>0</amountSold>
     </item>
+    <item id="19">
+      <name>Pho</name>
+      <price>10.5</price>
+      <amountSold>0</amountSold>
+    </item>
   </menuItems>
 </manager>

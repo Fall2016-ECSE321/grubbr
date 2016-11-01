@@ -28,6 +28,10 @@ import java.util.HashMap;
 import java.util.Iterator;
 
 import javax.swing.JSplitPane;
+import javax.swing.JTabbedPane;
+import javax.swing.JScrollPane;
+import javax.swing.BoxLayout;
+import javax.swing.JComboBox;
 
 public class FoodTruckManagementPage {
 
@@ -39,6 +43,10 @@ public class FoodTruckManagementPage {
 	//data elements
 	private String error = null;
 	private HashMap menu;
+	private JTextField txtEquipmentName;
+	private JTextField txtEquipmentQty;
+	private JTextField txtSupplyName;
+	private JTextField txtSupplyQty;
 
 	/**
 	 * Launch the application.
@@ -69,14 +77,17 @@ public class FoodTruckManagementPage {
 	 */
 	private void initialize() {
 		frame = new JFrame();
-		frame.setBounds(100, 100, 419, 173);
+		frame.setBounds(100, 100, 469, 360);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
-		JSplitPane splitPane = new JSplitPane();
-		frame.getContentPane().add(splitPane, BorderLayout.CENTER);
+		JTabbedPane tabbedPane = new JTabbedPane(JTabbedPane.TOP);
+		frame.getContentPane().add(tabbedPane, BorderLayout.CENTER);
+		
+		JSplitPane menuPane = new JSplitPane();
+		tabbedPane.addTab("Menu", null, menuPane, null);
 		
 		JPanel panel = new JPanel();
-		splitPane.setLeftComponent(panel);
+		menuPane.setLeftComponent(panel);
 		
 		JLabel lblItemName = new JLabel("Item Name");
 		
@@ -128,9 +139,179 @@ public class FoodTruckManagementPage {
 		);
 		panel.setLayout(gl_panel);
 		
+		JScrollPane scrollPane = new JScrollPane();
+		menuPane.setRightComponent(scrollPane);
+		
 		lblMenu = new JLabel("");
-		lblMenu.setHorizontalAlignment(SwingConstants.CENTER);
-		splitPane.setRightComponent(lblMenu);
+		scrollPane.setViewportView(lblMenu);
+		
+		JSplitPane equipmentPane = new JSplitPane();
+		tabbedPane.addTab("Equipment", null, equipmentPane, null);
+		
+		JScrollPane scrollPane_1 = new JScrollPane();
+		equipmentPane.setRightComponent(scrollPane_1);
+		
+		JLabel lblEquipment = new JLabel("<html>");
+		scrollPane_1.setRowHeaderView(lblEquipment);
+		
+		JPanel panel_2 = new JPanel();
+		equipmentPane.setLeftComponent(panel_2);
+		
+		JLabel lblAddEquipment = new JLabel("Add Equipment");
+		
+		JLabel lblEquipmentName = new JLabel("Name");
+		
+		txtEquipmentName = new JTextField();
+		txtEquipmentName.setColumns(10);
+		
+		JButton btnAddEquipment = new JButton("Add");
+		btnAddEquipment.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			}
+		});
+		
+		JLabel lblEditEquipment = new JLabel("Edit Quantity");
+		
+		JLabel lblEquipmentQty = new JLabel("Quantity");
+		
+		txtEquipmentQty = new JTextField();
+		txtEquipmentQty.setColumns(10);
+		
+		JButton btnEditEquipment = new JButton("Edit");
+		
+		JComboBox equipmentList = new JComboBox();
+		GroupLayout gl_panel_2 = new GroupLayout(panel_2);
+		gl_panel_2.setHorizontalGroup(
+			gl_panel_2.createParallelGroup(Alignment.LEADING)
+				.addGroup(gl_panel_2.createSequentialGroup()
+					.addGroup(gl_panel_2.createParallelGroup(Alignment.LEADING)
+						.addGroup(gl_panel_2.createSequentialGroup()
+							.addContainerGap()
+							.addGroup(gl_panel_2.createParallelGroup(Alignment.LEADING)
+								.addGroup(gl_panel_2.createParallelGroup(Alignment.LEADING)
+									.addComponent(lblAddEquipment)
+									.addComponent(lblEditEquipment))
+								.addGroup(gl_panel_2.createParallelGroup(Alignment.LEADING)
+									.addGroup(gl_panel_2.createSequentialGroup()
+										.addComponent(lblEquipmentQty)
+										.addPreferredGap(ComponentPlacement.RELATED)
+										.addComponent(txtEquipmentQty, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+									.addComponent(btnEditEquipment, Alignment.TRAILING))
+								.addGroup(gl_panel_2.createParallelGroup(Alignment.TRAILING)
+									.addComponent(btnAddEquipment)
+									.addGroup(gl_panel_2.createSequentialGroup()
+										.addComponent(lblEquipmentName)
+										.addGap(18)
+										.addComponent(txtEquipmentName, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)))))
+						.addComponent(equipmentList, Alignment.TRAILING, 0, 196, Short.MAX_VALUE))
+					.addContainerGap())
+		);
+		gl_panel_2.setVerticalGroup(
+			gl_panel_2.createParallelGroup(Alignment.LEADING)
+				.addGroup(gl_panel_2.createSequentialGroup()
+					.addGap(21)
+					.addComponent(lblAddEquipment)
+					.addPreferredGap(ComponentPlacement.UNRELATED)
+					.addGroup(gl_panel_2.createParallelGroup(Alignment.BASELINE)
+						.addComponent(lblEquipmentName)
+						.addComponent(txtEquipmentName, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+					.addPreferredGap(ComponentPlacement.RELATED)
+					.addComponent(btnAddEquipment)
+					.addGap(18)
+					.addComponent(lblEditEquipment)
+					.addGap(5)
+					.addComponent(equipmentList, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+					.addPreferredGap(ComponentPlacement.RELATED)
+					.addGroup(gl_panel_2.createParallelGroup(Alignment.BASELINE)
+						.addComponent(lblEquipmentQty)
+						.addComponent(txtEquipmentQty, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+					.addPreferredGap(ComponentPlacement.RELATED)
+					.addComponent(btnEditEquipment)
+					.addContainerGap(45, Short.MAX_VALUE))
+		);
+		panel_2.setLayout(gl_panel_2);
+		
+		JSplitPane supplyPane = new JSplitPane();
+		tabbedPane.addTab("Supplies", null, supplyPane, null);
+		
+		JPanel panel_1 = new JPanel();
+		supplyPane.setLeftComponent(panel_1);
+		
+		JLabel lblAddSupply = new JLabel("Add Supply");
+		
+		JLabel lblEditSupply = new JLabel("Edit Quantity");
+		
+		JButton btnAddSupply = new JButton("Add");
+		
+		JLabel lblSupplyName = new JLabel("Name");
+		
+		txtSupplyName = new JTextField();
+		txtSupplyName.setColumns(10);
+		
+		JLabel lblSupplyQty = new JLabel("Quantity");
+		
+		txtSupplyQty = new JTextField();
+		txtSupplyQty.setColumns(10);
+		
+		JButton btnEditSupply = new JButton("Edit");
+		
+		JComboBox supplyList = new JComboBox();
+		GroupLayout gl_panel_1 = new GroupLayout(panel_1);
+		gl_panel_1.setHorizontalGroup(
+			gl_panel_1.createParallelGroup(Alignment.LEADING)
+				.addGroup(gl_panel_1.createSequentialGroup()
+					.addGroup(gl_panel_1.createParallelGroup(Alignment.LEADING)
+						.addGroup(gl_panel_1.createSequentialGroup()
+							.addContainerGap()
+							.addGroup(gl_panel_1.createParallelGroup(Alignment.LEADING)
+								.addGroup(gl_panel_1.createParallelGroup(Alignment.LEADING)
+									.addComponent(lblAddSupply)
+									.addComponent(lblEditSupply))
+								.addGroup(gl_panel_1.createParallelGroup(Alignment.LEADING)
+									.addGroup(gl_panel_1.createSequentialGroup()
+										.addComponent(lblSupplyQty)
+										.addPreferredGap(ComponentPlacement.RELATED)
+										.addComponent(txtSupplyQty, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+									.addComponent(btnEditSupply, Alignment.TRAILING))
+								.addGroup(gl_panel_1.createParallelGroup(Alignment.TRAILING)
+									.addComponent(btnAddSupply)
+									.addGroup(gl_panel_1.createSequentialGroup()
+										.addComponent(lblSupplyName)
+										.addGap(18)
+										.addComponent(txtSupplyName, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)))))
+						.addComponent(supplyList, Alignment.TRAILING, 0, 196, Short.MAX_VALUE))
+					.addContainerGap())
+		);
+		gl_panel_1.setVerticalGroup(
+			gl_panel_1.createParallelGroup(Alignment.LEADING)
+				.addGroup(gl_panel_1.createSequentialGroup()
+					.addGap(21)
+					.addComponent(lblAddSupply)
+					.addPreferredGap(ComponentPlacement.UNRELATED)
+					.addGroup(gl_panel_1.createParallelGroup(Alignment.BASELINE)
+						.addComponent(lblSupplyName)
+						.addComponent(txtSupplyName, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+					.addPreferredGap(ComponentPlacement.RELATED)
+					.addComponent(btnAddSupply)
+					.addGap(18)
+					.addComponent(lblEditSupply)
+					.addGap(5)
+					.addComponent(supplyList, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+					.addPreferredGap(ComponentPlacement.RELATED)
+					.addGroup(gl_panel_1.createParallelGroup(Alignment.BASELINE)
+						.addComponent(lblSupplyQty)
+						.addComponent(txtSupplyQty, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+					.addPreferredGap(ComponentPlacement.RELATED)
+					.addComponent(btnEditSupply)
+					.addContainerGap(45, Short.MAX_VALUE))
+		);
+		panel_1.setLayout(gl_panel_1);
+		
+		JScrollPane scrollPane_2 = new JScrollPane();
+		supplyPane.setRightComponent(scrollPane_2);
+		
+		JLabel lblSupplies = new JLabel("<html>");
+		scrollPane_2.setViewportView(lblSupplies);
 	}
 	
 	/**
@@ -147,8 +328,6 @@ public class FoodTruckManagementPage {
 		} else {
 			JOptionPane.showMessageDialog(null,"ERROR: "+error);
 		}
-		
-		lblMenu.setText("");
 		String menuText = "<html>";
 		Iterator<MenuItem> menuIterator = ftms.getMenuItems().iterator();
 		
