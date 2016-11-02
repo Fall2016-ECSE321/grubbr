@@ -20,6 +20,9 @@ import ca.mcgill.ecse321.foodtruck.persistence.PersistenceFoodTruck;
 public class MainActivity extends AppCompatActivity {
 
     private String errorItem;
+    private String errorSupply;
+    private String errorEquip;
+
     private static boolean firstRun=true;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,6 +58,21 @@ public class MainActivity extends AppCompatActivity {
             itemNameView.setText("");
             itemPriceView.setText("");
         }
+
+        if (errorSupply != null){
+            supplyNameView.setError(errorSupply);
+        } else {
+            supplyNameView.setText("");
+            supplyCountView.setText("");
+        }
+
+        if (errorEquip != null){
+            equipmentNameView.setError(errorEquip);
+        } else {
+            equipmentNameView.setText("");
+            equipmentCountView.setText("");
+        }
+
         displayItems();
     }
 
@@ -97,11 +115,11 @@ public class MainActivity extends AppCompatActivity {
         TextView supplyNameView = (TextView) findViewById(R.id.newsupply_name);
         FoodTruckController ftc = new FoodTruckController();
 
-        errorItem=null;
+        errorSupply=null;
         try{
             ftc.createSupply(supplyNameView.getText().toString());
         } catch (InvalidInputException e){
-            errorItem=e.getMessage();
+            errorSupply=e.getMessage();
         }
         refreshData();
     }
@@ -110,11 +128,11 @@ public class MainActivity extends AppCompatActivity {
         TextView equipmentNameView = (TextView) findViewById(R.id.newequipment_name);
         FoodTruckController ftc = new FoodTruckController();
 
-        errorItem=null;
+        errorEquip=null;
         try{
             ftc.createEquipment(equipmentNameView.getText().toString());
         } catch (InvalidInputException e){
-            errorItem=e.getMessage();
+            errorEquip=e.getMessage();
         }
         refreshData();
     }
