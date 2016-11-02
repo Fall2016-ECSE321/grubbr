@@ -38,6 +38,7 @@ public class MainActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         refreshData();
     }
+
     private void refreshData(){
         FoodTruckManager ftm = FoodTruckManager.getInstance();
         TextView itemNameView = (TextView) findViewById(R.id.newitem_name);
@@ -52,27 +53,30 @@ public class MainActivity extends AppCompatActivity {
         //Sets the error message next to the "name" field regardless if the error
         //is in the name or in the price
         // I should change this to display the error message(s) somewhere like at the top
-        if (errorItem != null) {
-            itemNameView.setError(errorItem);
-        } else {
+        itemNameView.setError(errorItem);
+        supplyNameView.setError(errorSupply);
+        equipmentNameView.setError(errorEquip);
+
+        if (errorItem == null)
+        {
             itemNameView.setText("");
             itemPriceView.setText("");
         }
 
-        if (errorSupply != null){
-            supplyNameView.setError(errorSupply);
-        } else {
+        if (errorSupply == null)
+        {
             supplyNameView.setText("");
             supplyCountView.setText("");
         }
 
-        if (errorEquip != null){
-            equipmentNameView.setError(errorEquip);
-        } else {
+        if (errorEquip == null)
+        {
             equipmentNameView.setText("");
             equipmentCountView.setText("");
         }
-
+        errorItem=null;
+        errorEquip=null;
+        errorSupply=null;
         displayItems();
     }
 
@@ -84,7 +88,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
+    public boolean onOptionsItemSelected(MenuItem item){
         // Handle action bar item clicks here. The action bar will
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
