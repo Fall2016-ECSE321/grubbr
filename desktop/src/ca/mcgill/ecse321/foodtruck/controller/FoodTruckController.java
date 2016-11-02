@@ -92,6 +92,7 @@ public class FoodTruckController {
 		Supply supply = new Supply(supplyName,0);
 		FoodTruckManager ftms = FoodTruckManager.getInstance();
 		ftms.addSupply(supply);
+		
 		PersistenceXStream.saveToXMLwithXStream(ftms);
 	}
 	
