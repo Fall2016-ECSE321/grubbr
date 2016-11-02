@@ -33,23 +33,22 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
         refreshData();
     }
     private void refreshData(){
         FoodTruckManager ftm = FoodTruckManager.getInstance();
         TextView itemNameView = (TextView) findViewById(R.id.newitem_name);
         TextView itemPriceView= (TextView) findViewById(R.id.newitem_price);
+
+        TextView supplyNameView = (TextView) findViewById(R.id.newsupply_name);
+        TextView supplyCountView = (TextView) findViewById(R.id.newsupply_count);
+
+        TextView equipmentNameView = (TextView) findViewById(R.id.newequipment_name);
+        TextView equipmentCountView = (TextView) findViewById(R.id.newequipment_count);
+
         //Sets the error message next to the "name" field regardless if the error
         //is in the name or in the price
+        // I should change this to display the error message(s) somewhere like at the top
         if (errorItem != null) {
             itemNameView.setError(errorItem);
         } else {
@@ -93,6 +92,33 @@ public class MainActivity extends AppCompatActivity {
         }
         refreshData();
     }
+
+    public void addSupply(View v){
+        TextView supplyNameView = (TextView) findViewById(R.id.newsupply_name);
+        FoodTruckController ftc = new FoodTruckController();
+
+        errorItem=null;
+        try{
+            ftc.createSupply(supplyNameView.getText().toString());
+        } catch (InvalidInputException e){
+            errorItem=e.getMessage();
+        }
+        refreshData();
+    }
+
+    public void addEquipment(View v){
+        TextView equipmentNameView = (TextView) findViewById(R.id.newequipment_name);
+        FoodTruckController ftc = new FoodTruckController();
+
+        errorItem=null;
+        try{
+            ftc.createEquipment(equipmentNameView.getText().toString());
+        } catch (InvalidInputException e){
+            errorItem=e.getMessage();
+        }
+        refreshData();
+    }
+
     public void displayItems(){
         TextView itemList = (TextView) findViewById(R.id.menu_display);
         FoodTruckManager ftm = FoodTruckManager.getInstance();
