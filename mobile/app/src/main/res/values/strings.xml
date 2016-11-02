@@ -4,4 +4,10 @@
     <string name="newitemname_hint">Item Name</string>
     <string name="newitem_button">Add To Menu</string>
     <string name="newitemprice_hint">Item Price</string>
+    <string name="newsupply_hint">Supply Name</string>
+    <string name="newsupplycount_hint">Supply Amount</string>
+    <string name="newsupply_button">Add Supply</string>
+    <string name="newequipment_hint">Equipment Name</string>
+    <string name="newsequimpentcount_hint">Equipment Amount</string>
+    <string name="newequipment_button">Add Equipment</string>
 </resources>

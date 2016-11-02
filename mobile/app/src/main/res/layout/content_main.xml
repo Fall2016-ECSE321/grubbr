@@ -12,7 +12,7 @@
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context="ca.mcgill.ecse321.ftmsmobile.MainActivity"
     tools:showIn="@layout/activity_main">
-
+    
     <LinearLayout
         android:orientation="vertical"
         android:layout_height="wrap_content"
@@ -50,5 +50,52 @@
             android:hint="No items entered !"
             android:layout_height="fill_parent"
             android:layout_width="fill_parent"/>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:background="@android:color/holo_blue_dark"/>
+        <EditText
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:gravity="center"
+            android:text="Inventory"
+            android:textColor="#000000"
+            android:enabled="false"/>
+        <EditText
+            android:layout_height="wrap_content"
+            android:layout_width="fill_parent"
+            android:id="@+id/newsupply_name"
+            android:hint="@string/newsupply_hint"/>
+        <EditText
+            android:layout_width="wrap_content"
+            android:layout_height="fill_parent"
+            android:id="@+id/newsupply_count"
+            android:hint="@string/newsupplycount_hint"/>
+        <Button
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:text="@string/newsupply_button"
+            android:layout_gravity="end"
+            android:onClick="addItem"/>
+        <EditText
+            android:layout_height="wrap_content"
+            android:layout_width="fill_parent"
+            android:id="@+id/newequipment_name"
+            android:hint="@string/newequipment_hint"/>
+        <EditText
+            android:layout_width="wrap_content"
+            android:layout_height="fill_parent"
+            android:id="@+id/newequipment_count"
+            android:hint="@string/newsequimpentcount_hint"/>
+        <Button
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:text="@string/newequipment_button"
+            android:layout_gravity="end"
+            android:onClick="addItem"/>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:background="@android:color/holo_blue_dark"/>
     </LinearLayout>
 </RelativeLayout>
