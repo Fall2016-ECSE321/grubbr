@@ -2,9 +2,11 @@ package ca.mcgill.ecse321.foodtruck.controller;
 
 import org.apache.commons.lang3.text.WordUtils;
 
+import ca.mcgill.ecse321.foodtruck.model.Employee;
 import ca.mcgill.ecse321.foodtruck.model.Equipment;
 import ca.mcgill.ecse321.foodtruck.model.FoodTruckManager;
 import ca.mcgill.ecse321.foodtruck.model.MenuItem;
+import ca.mcgill.ecse321.foodtruck.model.Shift;
 import ca.mcgill.ecse321.foodtruck.model.Supply;
 import ca.mcgill.ecse321.foodtruck.persistence.PersistenceXStream;
 
@@ -12,7 +14,7 @@ import ca.mcgill.ecse321.foodtruck.persistence.PersistenceXStream;
  * Controller for the Food Truck Management System.
  * 
  * @author erick
- * @version 0.2
+ * @version 0.3
  *
  */
 
@@ -197,6 +199,42 @@ public class FoodTruckController {
 		PersistenceXStream.saveToXMLwithXStream(ftms);
 		
 	}
+	
+	/**
+	 * Adds an employee to the FTMS database.
+	 * @param employee	the employee that we want to add
+	 */
+	public void createEmployee(Employee employee) {
+		FoodTruckManager ftms = FoodTruckManager.getInstance();
+		
+		ftms.addEmployee(employee);
+		PersistenceXStream.saveToXMLwithXStream(ftms);
+	}
+	
+	/**
+	 * Schedules a shift for an employee.
+	 * @param employee	the employee for whom we are scheduling the shift
+	 * @param shift		the shift to be scheduled
+	 */
+	public void createShift(Employee employee, Shift shift) {
+		FoodTruckManager ftms = FoodTruckManager.getInstance();
+		
+		employee.addShift(shift);
+		PersistenceXStream.saveToXMLwithXStream(ftms);
+	}
+	
+	/**
+	 * Removes a shift for an employee.
+	 * @param employee	the employee for whom we are removing the shift
+	 * @param shift		the shift to be removed
+	 */
+	public void removeShift(Employee employee, Shift shift) {
+		FoodTruckManager ftms = FoodTruckManager.getInstance();
+		
+		employee.removeShift(shift);
+		PersistenceXStream.saveToXMLwithXStream(ftms);
+	}
+	
 	
 	/**
 	 * Determines whether or not the text in the label is a valid dollar value.

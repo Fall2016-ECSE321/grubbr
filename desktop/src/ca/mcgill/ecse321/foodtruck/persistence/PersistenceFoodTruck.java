@@ -2,9 +2,11 @@ package ca.mcgill.ecse321.foodtruck.persistence;
 
 import java.util.Iterator;
 
+import ca.mcgill.ecse321.foodtruck.model.Employee;
 import ca.mcgill.ecse321.foodtruck.model.Equipment;
 import ca.mcgill.ecse321.foodtruck.model.FoodTruckManager;
 import ca.mcgill.ecse321.foodtruck.model.MenuItem;
+import ca.mcgill.ecse321.foodtruck.model.Shift;
 import ca.mcgill.ecse321.foodtruck.model.Supply;
 
 /**
@@ -33,6 +35,8 @@ public class PersistenceFoodTruck {
 		PersistenceXStream.setAlias("manager", FoodTruckManager.class);
 		PersistenceXStream.setAlias("supply", Supply.class);
 		PersistenceXStream.setAlias("equipment", Equipment.class);
+		PersistenceXStream.setAlias("employee", Employee.class);
+		PersistenceXStream.setAlias("shift", Shift.class);
 	}
 	
 	public static void loadFoodTruckModel() {
@@ -53,6 +57,10 @@ public class PersistenceFoodTruck {
 			Iterator<Equipment> equipmentIterator = ftms2.getEquipment().iterator();
 			while (equipmentIterator.hasNext()) {
 				ftms.addEquipment(equipmentIterator.next());
+			}
+			Iterator<Employee> employeeIterator = ftms2.getEmployees().iterator();
+			while (employeeIterator.hasNext()) {
+				ftms.addEmployee(employeeIterator.next());
 			}
 		}
 	}
