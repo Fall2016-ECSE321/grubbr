@@ -79,46 +79,133 @@
 			//echo sizeof($ftm->getEquipment());
 			
 			//MENU LISTBOX
-			echo "<p>Menu Items<br>";
-			echo "<select name='Menu' size="; echo sizeof($ftm->getMenuItems()); ">";
+			$y = null;
+			echo "<form action='removeitem.php' method ='post'>";
+				echo "<p>Menu Items<br>";
+				echo "<select name='selectedMenuItem' size="; echo sizeof($ftm->getMenuItems()); ">";
+				for($i=0;$i<sizeof($ftm->getMenuItems());$i++){
+					echo " </br>";
+					$x = $ftm->getMenuItem_index($i)->getName();
+					echo "<option value = '$x'>";
+							echo $ftm->getMenuItem_index($i)->getName()." : ";
+							echo $ftm->getMenuItem_index($i)->getPrice()."$ ";
+							"</option>";
+							
+				}
+				echo "</select>";
+				//REMOVE MENU ITEM
+				echo "<br>";
+			echo "<input type='submit' value='Remove selected Item'/>";
+			echo "</p>";
+			echo "</form>";
+// 			if(isset($_POST['selectedMenuItem'])){
+// 				$selected = $_POST['selectedMenuItem'];
+// 			}
+			
+			echo "<form action='editprice.php' method ='post'>";
+			echo "<select name='selectedMenuItem' size="; echo sizeof($ftm->getMenuItems()); ">";
 			for($i=0;$i<sizeof($ftm->getMenuItems());$i++){
 				echo " </br>";
-				echo "<option value='Option 1' selected>";
-						echo $ftm->getMenuItem_index($i)->getName()." : ";
-						echo $ftm->getMenuItem_index($i)->getPrice()."$ ";
-						"</option>";
-						
+				$x = $ftm->getMenuItem_index($i)->getName();
+				echo "<option value = '$x'>";
+				echo $ftm->getMenuItem_index($i)->getName()." : ";
+				echo $ftm->getMenuItem_index($i)->getPrice()."$ ";
+				"</option>";
+					
 			}
 			echo "</select>";
-			echo "</p>";
+			//REMOVE MENU ITEM
+			echo "<br>";
+					echo "<p>Edit Selected Price: <input type='text' name='editMenuPrice' placeholder='New Price'/>";
+
+				echo "<input type='submit' value='OK'/>";
+			echo "</form>";
+			
+// 			if(isset($_POST['selectedMenuItem'])){
+// 				echo $_POST['selectedMenuItem'];
+// 				$pft = new PersistenceFoodTruck();
+// 				$ftm = $pft->loadDataFromStore();
+// 				$ftm->removeMenuItemByName($_POST['selectedMenuItem']);
+// 				$pft->writeDataToStore($ftm);
+// 				echo "<meta http-equiv='refresh' content='0; url=index.php' />";
+// 			}
 			
 			//EQUIPMENT LISTBOX
+			echo "<form action='removeequipment.php' method ='post'>";
 			echo "<p>Equipment Items<br>";
-			echo "<select name='Equipment' size="; echo sizeof($ftm->getEquipment()); ">";
+			echo "<select name='selectedEquipment' size="; echo sizeof($ftm->getEquipment()); ">";
 			for($i=0;$i<sizeof($ftm->getEquipment());$i++){
 					
 				echo " </br>";
-				echo "<option value='Option 1' selected>";
+				$x=$ftm->getEquipment_index($i)->getName();
+				echo "<option value='$x' selected>";
 				echo $ftm->getEquipment_index($i)->getName()." : ";
 				echo $ftm->getEquipment_index($i)->getCount();
  				"</option>";
 			}
 			echo "</select>";
+			echo "<br>";
+			echo "<input type='submit' value='Remove selected Equipment'/>";
 			echo "</p>";
+			echo "</form>";
 			
-			//EQUIPMENT LISTBOX
+			echo "<form action='editequipmentcount.php' method ='post'>";
+			echo "<select name='selectedEquipment' size="; echo sizeof($ftm->getEquipment()); ">";
+			for($i=0;$i<sizeof($ftm->getEquipment());$i++){
+					
+				echo " </br>";
+				$x=$ftm->getEquipment_index($i)->getName();
+				echo "<option value='$x' selected>";
+				echo $ftm->getEquipment_index($i)->getName()." : ";
+				echo $ftm->getEquipment_index($i)->getCount();
+				"</option>";
+			}
+			echo "</select>";
+			//REMOVE MENU ITEM
+			echo "<br>";
+			echo "<p>Edit Selected Amount: <input type='text' name='editEquipmentCount' placeholder='New Amount'/>";
+				
+			echo "<input type='submit' value='OK'/>";
+			echo "</form>";
+			
+			
+			//SUPPLY LISTBOX
+			echo "<form action='removesupply.php' method ='post'>";
 			echo "<p>Supply Items<br>";
-			echo "<select name='Supply' size="; echo sizeof($ftm->getSupplies()); ">";
+			echo "<select name='selectedSupply' size="; echo sizeof($ftm->getSupplies()); ">";
 			for($i=0;$i<sizeof($ftm->getSupplies());$i++){
 					
 				echo " </br>";
-				echo "<option value='Option 1' selected>";
+				$x=$ftm->getSupply_index($i)->getName();
+				echo "<option value='$x' selected>";
 				echo $ftm->getSupply_index($i)->getName()." : ";
 				echo $ftm->getSupply_index($i)->getCount();
 				"</option>";
 			}
 			echo "</select>";
+			echo "<br>";
+			echo "<input type='submit' value='Remove selected Supply'/>";
 			echo "</p>";
+			echo "</form>";
+			
+			echo "<form action='editsupplycount.php' method ='post'>";
+			echo "<select name='selectedSupply' size="; echo sizeof($ftm->getSupplies()); ">";
+			for($i=0;$i<sizeof($ftm->getSupplies());$i++){
+					
+				echo " </br>";
+				$x=$ftm->getSupply_index($i)->getName();
+				echo "<option value='$x' selected>";
+				echo $ftm->getSupply_index($i)->getName()." : ";
+				echo $ftm->getSupply_index($i)->getCount();
+				"</option>";
+			}
+			echo "</select>";
+			//REMOVE MENU ITEM
+			echo "<br>";
+			echo "<p>Edit Selected Amount: <input type='text' name='editSupplyCount' placeholder='New Amount'/>";
+			
+			echo "<input type='submit' value='OK'/>";
+			echo "</form>";
 			
 			
 			?>
