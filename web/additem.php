@@ -14,6 +14,7 @@
 <!DOCTYPE html>
 <html>
 	<head>
-		<meta http-equiv="refresh" content="0; url=/FoodTruck/" />
+	<!--url=/FoodTruck/-->
+		<meta http-equiv="refresh" content="0; url=index.php" />
 	</head>
 </html>

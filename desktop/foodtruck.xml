@@ -1,67 +1,86 @@
 <manager id="1">
   <employees id="2"/>
   <order id="3"/>
-  <supplies id="4"/>
-  <equipment id="5"/>
-  <menuItems id="6">
-    <item id="7">
+  <supplies id="4">
+    <supply id="5">
+      <name>Tomato</name>
+      <count>3</count>
+    </supply>
+  </supplies>
+  <equipment id="6">
+    <equipment id="7">
+      <name>Spatula</name>
+      <count>0</count>
+    </equipment>
+    <equipment id="8">
+      <name>Deep Fryer</name>
+      <count>4</count>
+    </equipment>
+  </equipment>
+  <menuItems id="9">
+    <item id="10">
       <name>Poutine</name>
       <price>6.25</price>
       <amountSold>0</amountSold>
     </item>
-    <item id="8">
+    <item id="11">
       <name>Soda</name>
       <price>1.5</price>
       <amountSold>0</amountSold>
     </item>
-    <item id="9">
+    <item id="12">
       <name>Chicken Nuggets</name>
       <price>1.99</price>
       <amountSold>0</amountSold>
     </item>
-    <item id="10">
+    <item id="13">
       <name>Burger</name>
       <price>4.5</price>
       <amountSold>0</amountSold>
     </item>
-    <item id="11">
+    <item id="14">
       <name>Super Poutine</name>
       <price>10.3</price>
       <amountSold>0</amountSold>
     </item>
-    <item id="12">
+    <item id="15">
       <name>Dragon Poutine</name>
       <price>7.2</price>
       <amountSold>0</amountSold>
     </item>
-    <item id="13">
+    <item id="16">
       <name>Dragon Poutine</name>
       <price>6.2</price>
       <amountSold>0</amountSold>
     </item>
-    <item id="14">
+    <item id="17">
       <name>Dragon Poutine</name>
       <price>5.2</price>
       <amountSold>0</amountSold>
     </item>
-    <item id="15">
+    <item id="18">
       <name>Premium bugs</name>
       <price>10.2</price>
       <amountSold>0</amountSold>
     </item>
-    <item id="16">
+    <item id="19">
       <name>Good enough bugs</name>
       <price>5.2</price>
       <amountSold>0</amountSold>
     </item>
-    <item id="17">
+    <item id="20">
       <name>Bugs Bunny</name>
       <price>10.2</price>
       <amountSold>0</amountSold>
     </item>
-    <item id="18">
+    <item id="21">
       <name>Daffy Duck</name>
       <price>10.2</price>
+      <amountSold>0</amountSold>
+    </item>
+    <item id="22">
+      <name>Pho</name>
+      <price>10.5</price>
       <amountSold>0</amountSold>
     </item>
   </menuItems>

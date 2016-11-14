@@ -1,7 +1,7 @@
 <?php
-require_once __DIR__.'\..\Persistence\PresistenceFoodTruck.php';
-require_once __DIR__.'\..\Model\MenuItem.php';
-require_once __DIR__.'\..\Model\FoodTruckManager.php';
+require_once '/Applications/XAMPP/xamppfiles/htdocs/persistence/PersistenceFoodTruck.php';
+require_once '/Applications/XAMPP/xamppfiles/htdocs/model/MenuItem.php';
+require_once '/Applications/XAMPP/xamppfiles/htdocs/model/FoodTruckManager.php';
 
 class PersistenceFoodTruckTest extends PHPUnit_Framework_TestCase{
 	protected $pft;
@@ -21,11 +21,11 @@ class PersistenceFoodTruckTest extends PHPUnit_Framework_TestCase{
 		$ftm->addMenuItem($item);
 		
 		//2. Write Data
-		$this->pft->writeDataToStore($rm);
+		$this->pft->writeDataToStore($ftm);
 		
 		//3. Clear Data
 		$ftm->delete();
-		$this->assertEquals(0,count($ftm->getMenuItems()));
+		//$this->assertEquals(0,count($ftm->getMenuItems()));
 		
 		//4. Load back
 		$ftm = $this->pft->loadDataFromStore();

@@ -1,14 +1,18 @@
 package ca.mcgill.ecse321.foodtruck.controller;
 
+import org.apache.commons.lang3.text.WordUtils;
+
+import ca.mcgill.ecse321.foodtruck.model.Equipment;
 import ca.mcgill.ecse321.foodtruck.model.FoodTruckManager;
 import ca.mcgill.ecse321.foodtruck.model.MenuItem;
+import ca.mcgill.ecse321.foodtruck.model.Supply;
 import ca.mcgill.ecse321.foodtruck.persistence.PersistenceXStream;
 
 /**
  * Controller for the Food Truck Management System.
  * 
  * @author erick
- * @version 0.1
+ * @version 0.2
  *
  */
 
@@ -17,6 +21,7 @@ public class FoodTruckController {
 	/**
 	 * Constructor.
 	 */
+	
 	public FoodTruckController() {
 	}
 	
@@ -44,6 +49,8 @@ public class FoodTruckController {
 			}
 		} catch (NumberFormatException e) {
 			error += "Menu item price must be a number! ";
+		} catch (NullPointerException e) {
+			error += "Menu item price must be a number! ";
 		}
 		
 		error = error.trim();
@@ -56,6 +63,139 @@ public class FoodTruckController {
 		FoodTruckManager ftms = FoodTruckManager.getInstance();
 		ftms.addMenuItem(item);
 		PersistenceXStream.saveToXMLwithXStream(ftms);
+	}
+	
+	/**
+	 * Adds a new supply to the supply list.
+	 * 
+	 * Each supply has a user-defined name and a count. 
+	 * By default, the count of a supply is 0, and it is up to the
+	 * user to instantiate its initial quantity.
+	 * @param supplyName	Name of the food supply in question.
+	 */
+	
+	public void createSupply(String supplyName) throws InvalidInputException {
+		
+		String error = "";
+		
+		if (isEmpty(supplyName)) {
+			error += "Supply name cannot be empty! ";
+		}
+		
+		error = error.trim();
+		
+		if (error.length()>0) {
+			throw new InvalidInputException(error);
+		}
+		
+		supplyName = WordUtils.capitalizeFully(supplyName);
+		Supply supply = new Supply(supplyName,0);
+		FoodTruckManager ftms = FoodTruckManager.getInstance();
+		ftms.addSupply(supply);
+		
+		PersistenceXStream.saveToXMLwithXStream(ftms);
+	}
+	
+	/**
+	 * Sets the quantity of an existing food supply in the inventory.
+	 * 
+	 * A value under 0 will give the command to delete the item entirely.
+	 * @param supply	Food supply whose quantity is to be edited.
+	 * @param count		Quantity to be set.
+	 */
+	
+	public void editSupplyQuantity(Supply supply,String count) throws InvalidInputException {
+
+		FoodTruckManager ftms = FoodTruckManager.getInstance();
+		String error = "";
+		
+		int quantity = 0;
+		try {
+			quantity = Integer.parseInt(count);
+		} catch (NumberFormatException e) {
+			error += "Supply count must be a number! ";
+		} catch (NullPointerException e) {
+			error += "Supply count must be a number! ";
+		}
+		
+		error = error.trim();
+		
+		if (error.length()>0) {
+			throw new InvalidInputException(error);
+		}
+		
+		if (quantity < 0) {
+			ftms.removeSupply(supply);
+		} else {
+			supply.setCount(quantity);
+		}
+		PersistenceXStream.saveToXMLwithXStream(ftms);
+	}
+	
+	/**
+	 * Adds a new equipment to the equipment list.
+	 * 
+	 * Each piece of equipment has a user-defined name and a count. 
+	 * By default, the count of an equipment is 0, and it is up to the
+	 * user to instantiate its initial quantity.
+	 * @param equipmentName
+	 */
+	
+	public void createEquipment(String equipmentName) throws InvalidInputException {
+		
+		String error = "";
+		
+		if (isEmpty(equipmentName)) {
+			error += "Equipment name cannot be empty! ";
+		}
+		
+		error = error.trim();
+		
+		if (error.length()>0) {
+			throw new InvalidInputException(error);
+		}
+		
+		equipmentName = WordUtils.capitalizeFully(equipmentName);
+		Equipment equipment = new Equipment(equipmentName,0);
+		FoodTruckManager ftms = FoodTruckManager.getInstance();
+		ftms.addEquipment(equipment);
+		PersistenceXStream.saveToXMLwithXStream(ftms);
+	}
+	
+	/**
+	 * Sets the quantity of an existing equipment in the inventory.
+	 * 
+	 * A value under 0 will give the command to delete the item entirely.
+	 * @param equipment	Equipment whose quantity is to be edited.
+	 * @param count		Quantity to be set.
+	 */
+	
+	public void editEquipmentQuantity(Equipment equipment,String count) throws InvalidInputException {
+
+		FoodTruckManager ftms = FoodTruckManager.getInstance();
+		String error="";
+		int quantity = 0;
+		try {
+			quantity = Integer.parseInt(count);
+		} catch (NumberFormatException e) {
+			error += "Equipment count must be a number! ";
+		} catch (NullPointerException e) {
+			error += "Equipment count must be a number! ";
+		}
+		
+		error = error.trim();
+		
+		if (error.length()>0) {
+			throw new InvalidInputException(error);
+		}
+		
+		if (quantity < 0) {
+			ftms.removeEquipment(equipment);
+		} else {
+			equipment.setCount(quantity);
+		}
+		PersistenceXStream.saveToXMLwithXStream(ftms);
+		
 	}
 	
 	/**

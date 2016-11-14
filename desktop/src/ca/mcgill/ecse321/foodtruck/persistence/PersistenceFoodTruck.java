@@ -2,15 +2,17 @@ package ca.mcgill.ecse321.foodtruck.persistence;
 
 import java.util.Iterator;
 
+import ca.mcgill.ecse321.foodtruck.model.Equipment;
 import ca.mcgill.ecse321.foodtruck.model.FoodTruckManager;
 import ca.mcgill.ecse321.foodtruck.model.MenuItem;
+import ca.mcgill.ecse321.foodtruck.model.Supply;
 
 /**
  * Persistence layer for the Food Truck Management System.
  * Uses XStream to store data in XML files.
  * 
  * @author erick
- * @version 0.1
+ * @version 0.2
  */
 
 public class PersistenceFoodTruck {
@@ -29,6 +31,8 @@ public class PersistenceFoodTruck {
 		PersistenceXStream.setFilename(filename);
 		PersistenceXStream.setAlias("item", MenuItem.class);
 		PersistenceXStream.setAlias("manager", FoodTruckManager.class);
+		PersistenceXStream.setAlias("supply", Supply.class);
+		PersistenceXStream.setAlias("equipment", Equipment.class);
 	}
 	
 	public static void loadFoodTruckModel() {
@@ -41,6 +45,14 @@ public class PersistenceFoodTruck {
 			Iterator<MenuItem> menuIterator = ftms2.getMenuItems().iterator();
 			while (menuIterator.hasNext()) {
 				ftms.addMenuItem(menuIterator.next());
+			}
+			Iterator<Supply> supplyIterator = ftms2.getSupplies().iterator();
+			while (supplyIterator.hasNext()) {
+				ftms.addSupply(supplyIterator.next());
+			}
+			Iterator<Equipment> equipmentIterator = ftms2.getEquipment().iterator();
+			while (equipmentIterator.hasNext()) {
+				ftms.addEquipment(equipmentIterator.next());
 			}
 		}
 	}
