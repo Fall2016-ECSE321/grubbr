@@ -1,7 +1,10 @@
 <?php
-require_once __DIR__.'\..\persistence\PresistenceFoodTruck.php';
-require_once __DIR__.'\..\model\MenuItem.php';
-require_once __DIR__.'\..\model\FoodTruckManager.php';
+define('__ROOT__', dirname(dirname(__FILE__)));
+require_once '/Applications/XAMPP/xamppfiles/htdocs/persistence/PersistenceFoodTruck.php';
+require_once '/Applications/XAMPP/xamppfiles/htdocs/model/MenuItem.php';
+require_once '/Applications/XAMPP/xamppfiles/htdocs/model/FoodTruckManager.php';
+require_once '/Applications/XAMPP/xamppfiles/htdocs/controller/controller.php';
+//require_once __DIR__.'/../model/FoodTruckManager.php';
 
 class ControllerTest extends PHPUnit_Framework_TestCase
 {
@@ -80,7 +83,7 @@ class ControllerTest extends PHPUnit_Framework_TestCase
     }
     
     public function testCreateItemNoPrice() {
-    	$this->assertEquals(0, count($this->ftm->getParticipants()));
+    	$this->assertEquals(0, count($this->ftm->getMenuItems()));
     
     	$name = "Burger";
     	$price=null;
@@ -98,7 +101,7 @@ class ControllerTest extends PHPUnit_Framework_TestCase
     	$this->assertEquals(0, count($this->ftm->getMenuItems()));
     }
     public function testCreateItemNegativePrice() {
-    	$this->assertEquals(0, count($this->ftm->getParticipants()));
+    	$this->assertEquals(0, count($this->ftm->getMenuItems()));
     
     	$name = "Burger";
     	$price=-10;
@@ -118,7 +121,7 @@ class ControllerTest extends PHPUnit_Framework_TestCase
     
     //NaN = Not a Number
     public function testCreateItemPriceNaN() {
-    	$this->assertEquals(0, count($this->ftm->getParticipants()));
+    	$this->assertEquals(0, count($this->ftm->getMenuItems()));
     
     	$name = "Burger";
     	$price="ABC";
