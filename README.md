@@ -9,7 +9,19 @@ The program has to function on three platforms and has to respond to the followi
 
 ##Changelog
 
-###v 0.1
+###v 2.0
+Second deliverable of the project.
+
+- Add functionality to manage (add/edit/remove) food supplies
+- Add functionality to manage (add/edit/remove) food truck equipment
+
+###v 1.1
+Small bug fixes.
+
+- Add display for the menu in PHP version
+- Fix decimal error handling for menu item prices for Desktop and Mobile versions
+
+###v 1.0
 First deliverable of the project.
 
 - Add functionality to add an item to the food truck menu
