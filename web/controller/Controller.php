@@ -81,4 +81,67 @@ class Controller
 			$pft->writeDataToStore($ftm);
 		}
 	}
+	
+	public function removeMenuItem($aMenuItem){
+			$pft = new PersistenceFoodTruck();
+			$ftm = $pft->loadDataFromStore();
+			$ftm->removeMenuItemByName($aMenuItem);
+			$pft->writeDataToStore($ftm);
+	}
+	
+	public function removeSupply($aSupplyName){
+		$pft = new PersistenceFoodTruck();
+		$ftm = $pft->loadDataFromStore();
+		$ftm->removeSupplyByName($aSupplyName);
+		$pft->writeDataToStore($ftm);
+	}
+	
+	public function removeEquipment($aEquipmentName){
+		$pft = new PersistenceFoodTruck();
+		$ftm = $pft->loadDataFromStore();
+		$ftm->removeEquipmentByName($aEquipmentName);
+		$pft->writeDataToStore($ftm);
+	}
+	
+	public function editMenuItemPrice($aMenuItem, $aPrice){
+		$price = InputValidator::validate_input($aPrice);
+		if(!is_numeric($price)){
+			throw new Exception("Item price must be a number");
+		} else  {
+			echo $price;
+			echo $aMenuItem;
+			$pft = new PersistenceFoodTruck();
+			$ftm = $pft->loadDataFromStore();
+			$ftm->editMenuItemPrice($aMenuItem, $price);
+			$pft->writeDataToStore($ftm);
+		}
+	}
+	
+	public function editSupplyCount($aSupplyItem, $aCount){
+		$count = InputValidator::validate_input($aCount);
+		$supplyitem = InputValidator::validate_input($aSupplyItem);
+		if(!is_numeric($count)){
+			throw new Exception("Item count must be a number");
+		} else  {
+			$pft = new PersistenceFoodTruck();
+			$ftm = $pft->loadDataFromStore();
+			$ftm->editSupplyCount($supplyitem, $count);
+			$pft->writeDataToStore($ftm);
+		}
+	}
+	
+	public function editEquipmentCount($aEquipmentItem, $aCount){
+		$count = InputValidator::validate_input($aCount);
+		$equipmentItem = InputValidator::validate_input($aEquipmentItem);
+		if(!is_numeric($count)){
+			throw new Exception("Item count must be a number");
+		} else  {
+			$pft = new PersistenceFoodTruck();
+			$ftm = $pft->loadDataFromStore();
+			$ftm->editEquipmentCount($equipmentItem, $count);
+			$pft->writeDataToStore($ftm);
+		}
+	}
+	
+	
 }
