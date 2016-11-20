@@ -19,24 +19,30 @@
             android:background="?attr/colorPrimary"
             app:popupTheme="@style/AppTheme.PopupOverlay">
             <TextView
-                android:id="@+id/tab1"
+                android:id="@+id/menutab"
                 android:layout_height="wrap_content"
                 android:layout_width="wrap_content"
                 android:text="Menu Items"
                 android:layout_marginLeft="90px"
-                android:layout_marginRight="100px"/>
+                android:layout_marginRight="100px"
+                android:clickable="true"
+                android:onClick="menuTab"/>
             <TextView
-                android:id="@+id/tab2"
+                android:id="@+id/supplytab"
                 android:layout_height="wrap_content"
                 android:layout_width="wrap_content"
                 android:text="Supplies"
-                android:layout_marginRight="100px"/>
+                android:layout_marginRight="100px"
+                android:clickable="true"
+                android:onClick="supplyTab"/>
 
             <TextView
-                android:id="@+id/tab3"
+                android:id="@+id/equipmenttab"
                 android:layout_height="wrap_content"
                 android:layout_width="wrap_content"
-                android:text="Equipment" />
+                android:text="Equipment"
+                android:clickable="true"
+                android:onClick="equipTab"/>
         </android.support.v7.widget.Toolbar>
 
     </android.support.design.widget.AppBarLayout>

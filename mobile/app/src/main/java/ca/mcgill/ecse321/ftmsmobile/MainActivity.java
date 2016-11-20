@@ -8,13 +8,19 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.ArrayAdapter;
+import android.widget.Spinner;
 import android.widget.TextView;
 
 import java.io.File;
+import java.util.HashMap;
+import java.util.Iterator;
 
 import ca.mcgill.ecse321.foodtruck.controller.FoodTruckController;
 import ca.mcgill.ecse321.foodtruck.controller.InvalidInputException;
+import ca.mcgill.ecse321.foodtruck.model.Equipment;
 import ca.mcgill.ecse321.foodtruck.model.FoodTruckManager;
+import ca.mcgill.ecse321.foodtruck.model.Supply;
 import ca.mcgill.ecse321.foodtruck.persistence.PersistenceFoodTruck;
 
 public class MainActivity extends AppCompatActivity {
@@ -22,6 +28,11 @@ public class MainActivity extends AppCompatActivity {
     private String errorItem;
     private String errorSupply;
     private String errorEquip;
+    private String errorSCount;
+    private String errorECount;
+
+    private HashMap<Integer, Equipment> equipments;
+    private HashMap<Integer, Supply> supplies;
 
     private static boolean firstRun=true;
     @Override
@@ -39,10 +50,14 @@ public class MainActivity extends AppCompatActivity {
         refreshData();
     }
 
+    public void menuTab(View v){
+
+    }
+
     private void refreshData(){
         FoodTruckManager ftm = FoodTruckManager.getInstance();
         TextView itemNameView = (TextView) findViewById(R.id.newitem_name);
-        TextView itemPriceView= (TextView) findViewById(R.id.newitem_price);
+        TextView itemPriceView = (TextView) findViewById(R.id.newitem_price);
 
         TextView supplyNameView = (TextView) findViewById(R.id.newsupply_name);
         TextView supplyCountView = (TextView) findViewById(R.id.newsupply_count);
@@ -56,6 +71,7 @@ public class MainActivity extends AppCompatActivity {
         itemNameView.setError(errorItem);
         supplyNameView.setError(errorSupply);
         equipmentNameView.setError(errorEquip);
+        supplyCountView.setError(errorSCount);
 
         if (errorItem == null)
         {
@@ -66,17 +82,48 @@ public class MainActivity extends AppCompatActivity {
         if (errorSupply == null)
         {
             supplyNameView.setText("");
-            supplyCountView.setText("");
+
+            //Initialize spinner data
+            Spinner supplySpinner = (Spinner) findViewById(R.id.supplyspinner);
+            ArrayAdapter<CharSequence> supplyAdapter = new ArrayAdapter<CharSequence>(this, android.R.layout.simple_spinner_item);
+            supplyAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+            this.supplies = new HashMap<Integer,Supply>();
+            int i=0;
+            for (Iterator<Supply> supplies = ftm.getSupplies().iterator(); supplies.hasNext(); i++){
+                Supply s = supplies.next();
+                supplyAdapter.add(s.getName());
+                this.supplies.put(i,s);
+            }
+            supplySpinner.setAdapter(supplyAdapter);
+
         }
 
         if (errorEquip == null)
         {
             equipmentNameView.setText("");
-            equipmentCountView.setText("");
+            //Initialize spinner data
+            Spinner equipmentSpinner = (Spinner) findViewById(R.id.equipmentspinner);
+            ArrayAdapter<CharSequence> equipmentAdapter = new ArrayAdapter<CharSequence>(this, android.R.layout.simple_spinner_item);
+            equipmentAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+            this.equipments = new HashMap<Integer,Equipment>();
+            int i=0;
+            for (Iterator<Equipment> equipments = ftm.getEquipment().iterator(); equipments.hasNext(); i++){
+                Equipment e = equipments.next();
+                equipmentAdapter.add(e.getName());
+                this.equipments.put(i,e);
+            }
+            equipmentSpinner.setAdapter(equipmentAdapter);
         }
+
+        if (errorSCount == null) {
+            supplyCountView.setText("");
+        }
+
         errorItem=null;
         errorEquip=null;
         errorSupply=null;
+        errorSCount=null;
+        errorECount=null;
         displayItems();
     }
 
@@ -139,6 +186,44 @@ public class MainActivity extends AppCompatActivity {
             errorEquip=e.getMessage();
         }
         refreshData();
+    }
+
+    public void changeSupplyCount(View v){
+
+        FoodTruckController ftc = new FoodTruckController();
+
+        TextView supplyCount = (TextView) findViewById(R.id.newsupply_count);
+        Spinner supplySpinner = (Spinner) findViewById(R.id.supplyspinner);
+
+        Supply selectedSupply = supplies.get(supplySpinner.getSelectedItemPosition());
+
+        try {
+            ftc.editSupplyQuantity(selectedSupply, supplyCount.getText().toString());
+        } catch (InvalidInputException e){
+            //Records the error
+            errorSCount = e.getMessage();
+        }
+    }
+
+    public void changeEquipmentCount(View v){
+        FoodTruckController ftc = new FoodTruckController();
+
+        TextView equipmentCount = (TextView) findViewById(R.id.newequipment_count);
+        Spinner equipmentSpinner = (Spinner) findViewById(R.id.equipmentspinner);
+
+        Equipment selectedEquipment = equipments.get(equipmentSpinner.getSelectedItemPosition());
+
+        try{
+            ftc.editEquipmentQuantity(selectedEquipment,equipmentCount.getText().toString());
+        } catch (InvalidInputException e){
+            //Records the error
+            errorECount = e.getMessage();
+        }
+    }
+
+    public void changeSupplyQuantity(View v){
+        TextView supplyCountView = (TextView) findViewById(R.id.newsupply_count);
+
     }
 
     public void displayItems(){

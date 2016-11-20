@@ -8,6 +8,10 @@
     <string name="newsupplycount_hint">Supply Amount</string>
     <string name="newsupply_button">Add Supply</string>
     <string name="newequipment_hint">Equipment Name</string>
-    <string name="newsequimpentcount_hint">Equipment Amount</string>
+    <string name="newequipmentcount_hint">Equipment Amount</string>
     <string name="newequipment_button">Add Equipment</string>
+    <string name="supplycount_button">Change Amount</string>
+    <string name="equipmentcount_button">Change Amount</string>
+    <string name="maintitle">Main Menu</string>
+    <string name="maintext">Welcome to Team 5\'s mobile implementation of the Food Truck Management service ! Above, you will find tabs related to different aspects of the management of your food truck.</string>
 </resources>
