@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ArrayAdapter;
+import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 
@@ -50,7 +51,60 @@ public class MainActivity extends AppCompatActivity {
         refreshData();
     }
 
-    public void menuTab(View v){
+    public void changeTab(View v){
+        LinearLayout mainmenu = (LinearLayout) findViewById(R.id.Main);
+        LinearLayout menu = (LinearLayout) findViewById(R.id.Menu);
+        LinearLayout equip = (LinearLayout) findViewById(R.id.Equipment);
+        LinearLayout supply = (LinearLayout) findViewById(R.id.Supply);
+        String id = getResources().getResourceEntryName(v.getId());
+
+        switch(id){
+            case "Menu":
+                if (mainmenu.getVisibility()==View.VISIBLE){
+                    mainmenu.setVisibility(View.GONE);
+                    menu.setVisibility(View.VISIBLE);
+                    equip.setVisibility(View.GONE);
+                    supply.setVisibility(View.GONE);
+                } else if(mainmenu.getVisibility()==View.GONE){
+                    mainmenu.setVisibility(View.VISIBLE);
+                    menu.setVisibility(View.GONE);
+                    equip.setVisibility(View.GONE);
+                    supply.setVisibility(View.GONE);
+                }
+                break;
+            case "Equipment":
+                if (mainmenu.getVisibility()==View.VISIBLE){
+                    mainmenu.setVisibility(View.GONE);
+                    menu.setVisibility(View.GONE);
+                    equip.setVisibility(View.VISIBLE);
+                    supply.setVisibility(View.GONE);
+                } else if(mainmenu.getVisibility()==View.GONE){
+                    mainmenu.setVisibility(View.VISIBLE);
+                    menu.setVisibility(View.GONE);
+                    equip.setVisibility(View.GONE);
+                    supply.setVisibility(View.GONE);
+                }
+                break;
+            case "Supply":
+                if (mainmenu.getVisibility()==View.VISIBLE){
+                    mainmenu.setVisibility(View.GONE);
+                    menu.setVisibility(View.GONE);
+                    equip.setVisibility(View.GONE);
+                    supply.setVisibility(View.VISIBLE);
+                } else if(mainmenu.getVisibility()==View.GONE){
+                    mainmenu.setVisibility(View.VISIBLE);
+                    menu.setVisibility(View.GONE);
+                    equip.setVisibility(View.GONE);
+                    supply.setVisibility(View.GONE);
+                }
+                break;
+            default:
+                mainmenu.setVisibility(View.VISIBLE);
+                menu.setVisibility(View.GONE);
+                equip.setVisibility(View.GONE);
+                supply.setVisibility(View.GONE);
+                break;
+        }
 
     }
 

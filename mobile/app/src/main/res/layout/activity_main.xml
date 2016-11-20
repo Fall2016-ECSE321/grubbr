@@ -26,7 +26,7 @@
                 android:layout_marginLeft="90px"
                 android:layout_marginRight="100px"
                 android:clickable="true"
-                android:onClick="menuTab"/>
+                android:onClick="changeTab"/>
             <TextView
                 android:id="@+id/supplytab"
                 android:layout_height="wrap_content"
@@ -34,7 +34,7 @@
                 android:text="Supplies"
                 android:layout_marginRight="100px"
                 android:clickable="true"
-                android:onClick="supplyTab"/>
+                android:onClick="changeTab"/>
 
             <TextView
                 android:id="@+id/equipmenttab"
@@ -42,7 +42,7 @@
                 android:layout_width="wrap_content"
                 android:text="Equipment"
                 android:clickable="true"
-                android:onClick="equipTab"/>
+                android:onClick="changeTab"/>
         </android.support.v7.widget.Toolbar>
 
     </android.support.design.widget.AppBarLayout>
