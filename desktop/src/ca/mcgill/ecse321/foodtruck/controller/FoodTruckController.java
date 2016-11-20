@@ -1,5 +1,7 @@
 package ca.mcgill.ecse321.foodtruck.controller;
 
+import java.sql.Time;
+
 import org.apache.commons.lang3.text.WordUtils;
 
 import ca.mcgill.ecse321.foodtruck.model.Employee;
@@ -201,10 +203,14 @@ public class FoodTruckController {
 	}
 	
 	/**
-	 * Adds an employee to the FTMS database.
-	 * @param employee	the employee that we want to add
+	 * Adds an employee to the database.
+	 * @param employeeName		name of the employee we want to add
+	 * @param role				their role within the company
+	 * @param salary			how much money they earn per hour
 	 */
-	public void createEmployee(Employee employee) {
+	public void createEmployee(String employeeName, String role, double salary) {
+		
+		Employee employee = new Employee(employeeName,role, salary);
 		FoodTruckManager ftms = FoodTruckManager.getInstance();
 		
 		ftms.addEmployee(employee);
@@ -213,10 +219,17 @@ public class FoodTruckController {
 	
 	/**
 	 * Schedules a shift for an employee.
-	 * @param employee	the employee for whom we are scheduling the shift
-	 * @param shift		the shift to be scheduled
+	 * @param employee	the employee that we are scheduling
+	 * @param day		the day of the week of the shift
+	 * @param startTime	the start time of the shift
+	 * @param endTime	the end time of the shift
 	 */
-	public void createShift(Employee employee, Shift shift) {
+	public void createShift(Employee employee, String day, Time startTime, Time endTime) {
+		
+		long duration = endTime.getTime()-startTime.getTime();
+		int numHours = (int) (duration/1000/60/60);
+		
+		Shift shift = new Shift(day, startTime, endTime, numHours);
 		FoodTruckManager ftms = FoodTruckManager.getInstance();
 		
 		employee.addShift(shift);
