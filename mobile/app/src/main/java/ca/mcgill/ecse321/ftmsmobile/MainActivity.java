@@ -59,7 +59,7 @@ public class MainActivity extends AppCompatActivity {
         String id = getResources().getResourceEntryName(v.getId());
 
         switch(id){
-            case "Menu":
+            case "menutab":
                 if (mainmenu.getVisibility()==View.VISIBLE){
                     mainmenu.setVisibility(View.GONE);
                     menu.setVisibility(View.VISIBLE);
@@ -72,7 +72,7 @@ public class MainActivity extends AppCompatActivity {
                     supply.setVisibility(View.GONE);
                 }
                 break;
-            case "Equipment":
+            case "equipmenttab":
                 if (mainmenu.getVisibility()==View.VISIBLE){
                     mainmenu.setVisibility(View.GONE);
                     menu.setVisibility(View.GONE);
@@ -85,7 +85,7 @@ public class MainActivity extends AppCompatActivity {
                     supply.setVisibility(View.GONE);
                 }
                 break;
-            case "Supply":
+            case "supplytab":
                 if (mainmenu.getVisibility()==View.VISIBLE){
                     mainmenu.setVisibility(View.GONE);
                     menu.setVisibility(View.GONE);

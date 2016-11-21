@@ -26,14 +26,14 @@
                 android:layout_width="fill_parent"
                 android:layout_height="fill_parent"
                 android:text="@string/maintitle"
-                android:textSize="100px"
+                android:textSize="50px"
                 android:textColor="#000000"
                 android:textAlignment="center"/>
             <TextView
                 android:layout_width="fill_parent"
                 android:layout_height="fill_parent"
                 android:text="@string/maintext"
-                android:textSize="50px"
+                android:textSize="24px"
                 android:textColor="#000000"
                 android:textAlignment="center"
                 android:layout_marginTop="50px"
