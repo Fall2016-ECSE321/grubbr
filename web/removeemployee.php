@@ -12,7 +12,9 @@ require_once 'controller/Controller.php';
 session_start();
 
 $c = new Controller();
-$c->removeEmployee($_POST['selectedEmployee']);
+$c->removeEmployee($_POST['fire_name']);
+
+
 
 ?>
 <!DOCTYPE html>

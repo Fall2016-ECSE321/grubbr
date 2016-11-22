@@ -24,7 +24,7 @@ $selectedEmployee = $ftm->getEmployee_index($selectedEmployeeIndex);
 
 ?>
 <!DOCTYPE html>
-<html>
+<html xmlns="http://www.w3.org/1999/html">
     <head>
         <h1>Employee Edit Page</h1>
         <a href="index.php">back</a>
@@ -60,8 +60,19 @@ $selectedEmployee = $ftm->getEmployee_index($selectedEmployeeIndex);
                     <input type="time" name="shift_time" placeholder="Enter Shift Time"/>
                     <input type="date" name="shift_date" placeholder="Enter Shift Date"/>
                 </p>
+
                 <p><input type="submit" value="Add shift"/></p>
             </fieldset>
         </form>
+        <br>
+
+        Fire Employee
+        <form action="removeemployee.php" method="post"/>
+            <input type = "hidden" name="fire_name" value="<?php echo $selectedEmployee->getName()?>"/>
+            <input type="submit" value="Fire Employee"/>
+        </form>
+
+
+    </form>
     </body>
 </html>
