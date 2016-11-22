@@ -310,6 +310,25 @@ class FoodTruckManager
   	return $index;
   }
 
+    public function indexOfEmployeeByName($aEmployee)
+    {
+        $wasFound = false;
+        $index = 0;
+        foreach($this->employees as $employee)
+        {
+            //if ($menuItem->getName()->equals($aMenuItem))
+            if(strcmp($employee->getName(),$aEmployee)==0)
+            {
+                $wasFound = true;
+                break;
+            }
+            $index += 1;
+        }
+        $index = $wasFound ? $index : -1;
+        //echo $index;
+        return $index;
+    }
+
   public static function minimumNumberOfEmployees()
   {
     return 0;
@@ -324,17 +343,7 @@ class FoodTruckManager
     return $wasAdded;
   }
 
-  public function removeEmployee($aEmployee)
-  {
-    $wasRemoved = false;
-    if ($this->indexOfEmployee($aEmployee) != -1)
-    {
-      unset($this->employees[$this->indexOfEmployee($aEmployee)]);
-      $this->employees = array_values($this->employees);
-      $wasRemoved = true;
-    }
-    return $wasRemoved;
-  }
+
 
   public function addEmployeeAt($aEmployee, $index)
   {  
@@ -610,7 +619,20 @@ class FoodTruckManager
   	}
   	return $wasRemoved;
   }
-  
+
+    public function removeEmployeeByName($aEmployee)
+    {
+        $wasRemoved = false;
+        if ($this->indexOfEmployeeByName($aEmployee) != -1)
+        {
+            unset($this->employees[$this->indexOfEmployeeByName($aEmployee)]);
+
+            $this->employees = array_values($this->employees);
+            $wasRemoved = true;
+        }
+        return $wasRemoved;
+    }
+
   public function editMenuItemPrice($aMenuItem, $aPrice)
   {
   	$priceEdited = false;

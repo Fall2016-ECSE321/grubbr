@@ -4,6 +4,7 @@ require_once __DIR__.'/../model/FoodTruckManager.php';
 require_once __DIR__.'/../model/MenuItem.php';
 require_once __DIR__.'/../model/Equipment.php';
 require_once __DIR__.'/../model/Supply.php';
+require_once __DIR__.'/../model/Employee.php';
 require_once __DIR__.'/../persistence/PersistenceFoodTruck.php';
 
 class Controller
@@ -82,6 +83,29 @@ class Controller
 		}
 	}
 	
+	public function createEmployee($employee_name,$employee_role, $employee_salary){
+		$name = InputValidator::validate_input($employee_name);
+		$role = InputValidator::validate_input($employee_role);
+		$salary = InputValidator::validate_input($employee_salary);
+		if($name==null || strlen($name)==0){
+			throw new Exception("Employee name cannot be empty");
+		} else if ($role == null || strlen($role)==0){
+			throw new Exception("Employee role cannot be empty");
+		} 
+		// 		else if(!is_numeric($count)){
+		// 			throw new Exception("Item count must be a number");
+		// 		}
+		else if(!is_numeric($salary)){
+			throw new Exception("Salary must be a number");
+		}else{
+			$pft = new PersistenceFoodTruck();
+			$ftm = $pft->loadDataFromStore();
+			$employee = new Employee($name, $role, $salary);
+			$ftm->addEmployee($employee);
+			$pft->writeDataToStore($ftm);
+		}
+	}
+	
 	public function removeMenuItem($aMenuItem){
 			$pft = new PersistenceFoodTruck();
 			$ftm = $pft->loadDataFromStore();
@@ -95,14 +119,21 @@ class Controller
 		$ftm->removeSupplyByName($aSupplyName);
 		$pft->writeDataToStore($ftm);
 	}
-	
+
 	public function removeEquipment($aEquipmentName){
 		$pft = new PersistenceFoodTruck();
 		$ftm = $pft->loadDataFromStore();
 		$ftm->removeEquipmentByName($aEquipmentName);
 		$pft->writeDataToStore($ftm);
 	}
-	
+
+    public function removeEmployee($aEmployee){
+        $pft = new PersistenceFoodTruck();
+        $ftm = $pft->loadDataFromStore();
+        $ftm->removeEmployeeByName($aEmployee);
+        $pft->writeDataToStore($ftm);
+    }
+
 	public function editMenuItemPrice($aMenuItem, $aPrice){
 		$price = InputValidator::validate_input($aPrice);
 		if(!is_numeric($price)){
