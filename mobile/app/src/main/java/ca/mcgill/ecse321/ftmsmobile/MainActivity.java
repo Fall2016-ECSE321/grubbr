@@ -11,6 +11,7 @@ import android.view.MenuItem;
 import android.widget.ArrayAdapter;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
+import android.widget.SpinnerAdapter;
 import android.widget.TextView;
 
 import java.io.File;
@@ -42,8 +43,22 @@ public class MainActivity extends AppCompatActivity {
         if (firstRun) {
             PersistenceFoodTruck.setFilename(getFilesDir().getAbsolutePath() + File.separator + "foodtruck.xml");
             PersistenceFoodTruck.loadFoodTruckModel();
-            firstRun=false;
+
+            //Initialize weekday spinner
+            /*String week[] = new String[7];
+            week[0] = "Monday";
+            week[1] = "Tuesday";
+            week[2] = "Wednesday";
+            week[3] = "Thursday";
+            week[4] = "Friday";
+            week[5] = "Saturday";
+            week[6] = "Sunday";
+            ArrayAdapter<String> weekAdapter = new ArrayAdapter<String>(this,android.R.layout.simple_spinner_item,week);
+            Spinner weekspin = (Spinner) findViewById(R.id.weekdays);
+            //weekspin.setAdapter((SpinnerAdapter)weekAdapter);
+            */firstRun=false;
         }
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -56,53 +71,47 @@ public class MainActivity extends AppCompatActivity {
         LinearLayout menu = (LinearLayout) findViewById(R.id.Menu);
         LinearLayout equip = (LinearLayout) findViewById(R.id.Equipment);
         LinearLayout supply = (LinearLayout) findViewById(R.id.Supply);
+        LinearLayout employee = (LinearLayout) findViewById(R.id.Employee);
+
         String id = getResources().getResourceEntryName(v.getId());
+
+        menu.setVisibility(View.GONE);
+        equip.setVisibility(View.GONE);
+        supply.setVisibility(View.GONE);
+        employee.setVisibility(View.GONE);
 
         switch(id){
             case "menutab":
                 if (mainmenu.getVisibility()==View.VISIBLE){
                     mainmenu.setVisibility(View.GONE);
                     menu.setVisibility(View.VISIBLE);
-                    equip.setVisibility(View.GONE);
-                    supply.setVisibility(View.GONE);
-                } else if(mainmenu.getVisibility()==View.GONE){
+                } else {
                     mainmenu.setVisibility(View.VISIBLE);
-                    menu.setVisibility(View.GONE);
-                    equip.setVisibility(View.GONE);
-                    supply.setVisibility(View.GONE);
                 }
                 break;
             case "equipmenttab":
-                if (mainmenu.getVisibility()==View.VISIBLE){
+                if (mainmenu.getVisibility()==View.VISIBLE) {
                     mainmenu.setVisibility(View.GONE);
-                    menu.setVisibility(View.GONE);
                     equip.setVisibility(View.VISIBLE);
-                    supply.setVisibility(View.GONE);
-                } else if(mainmenu.getVisibility()==View.GONE){
+                } else {
                     mainmenu.setVisibility(View.VISIBLE);
-                    menu.setVisibility(View.GONE);
-                    equip.setVisibility(View.GONE);
-                    supply.setVisibility(View.GONE);
                 }
                 break;
             case "supplytab":
-                if (mainmenu.getVisibility()==View.VISIBLE){
+                if (mainmenu.getVisibility()==View.VISIBLE) {
                     mainmenu.setVisibility(View.GONE);
-                    menu.setVisibility(View.GONE);
-                    equip.setVisibility(View.GONE);
                     supply.setVisibility(View.VISIBLE);
-                } else if(mainmenu.getVisibility()==View.GONE){
+                } else {
                     mainmenu.setVisibility(View.VISIBLE);
-                    menu.setVisibility(View.GONE);
-                    equip.setVisibility(View.GONE);
-                    supply.setVisibility(View.GONE);
                 }
                 break;
-            default:
-                mainmenu.setVisibility(View.VISIBLE);
-                menu.setVisibility(View.GONE);
-                equip.setVisibility(View.GONE);
-                supply.setVisibility(View.GONE);
+            case "employeetab":
+                if (mainmenu.getVisibility()==View.VISIBLE) {
+                    mainmenu.setVisibility(View.GONE);
+                    employee.setVisibility(View.VISIBLE);
+                } else {
+                    mainmenu.setVisibility(View.VISIBLE);
+                }
                 break;
         }
 

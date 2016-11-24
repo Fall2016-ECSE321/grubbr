@@ -14,4 +14,5 @@
     <string name="equipmentcount_button">Change Amount</string>
     <string name="maintitle">Main Menu</string>
     <string name="maintext">Welcome to Team 5\'s mobile implementation of the Food Truck Management service ! Above, you will find tabs related to different aspects of the management of your food truck.</string>
+    <string name="employeetitle">Employee Schedules</string>
 </resources>

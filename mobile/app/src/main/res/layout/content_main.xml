@@ -13,10 +13,7 @@
     tools:context="ca.mcgill.ecse321.ftmsmobile.MainActivity"
     tools:showIn="@layout/activity_main">
 
-    <ScrollView
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent">
-        <LinearLayout
+      <LinearLayout
             android:orientation="vertical"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -39,10 +36,6 @@
                 android:layout_marginTop="50px"
                 android:layout_gravity="center_vertical|right"/>
         </LinearLayout>
-    </ScrollView>
-    <ScrollView
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent">
         <LinearLayout
             android:orientation="vertical"
             android:layout_height="wrap_content"
@@ -94,10 +87,6 @@
                 android:layout_height="2dp"
                 android:background="@android:color/holo_blue_dark"/>
             </LinearLayout>
-    </ScrollView>
-    <ScrollView
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent">
         <LinearLayout
             android:orientation="vertical"
             android:layout_height="wrap_content"
@@ -153,10 +142,6 @@
                 android:layout_height="2dp"
                 android:background="@android:color/holo_blue_dark"/>
         </LinearLayout>
-    </ScrollView>
-    <ScrollView
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent">
         <LinearLayout
             android:orientation="vertical"
             android:layout_height="wrap_content"
@@ -211,5 +196,105 @@
                 android:layout_height="2dp"
                 android:background="@android:color/holo_blue_dark"/>
         </LinearLayout>
-    </ScrollView>
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            android:id="@+id/Employee">
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="@string/employeetitle"
+                android:textColor="#000000"
+                android:gravity="center"/>
+            <Spinner
+                android:layout_height="wrap_content"
+                android:layout_width="fill_parent"
+                android:id="@+id/employeespinner"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:textColor="#000000"
+                android:id="@+id/employee_display"
+                android:scrollbars="vertical"
+                android:enabled="false"
+                android:hint="No Shifts !"/>
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
+                android:background="@android:color/holo_blue_dark"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:textColor="#000000"
+                android:textAlignment="center"
+                android:text="Select Day/Time For New Shift"
+                android:scrollbars="vertical"
+                android:enabled="false"/>
+            <Spinner
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/weekdays"/>
+            <!--<LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/weekdays"
+                android:orientation="horizontal">
+                <RadioButton
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:hint="Monday"/>
+                <RadioButton
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:hint="Tuesday"/>
+                <RadioButton
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:hint="Wednesday"/>
+                </LinearLayout>
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/weekdays2"
+                android:orientation="horizontal">
+                <RadioButton
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="end"
+                    android:hint="Thursday"/>
+                <RadioButton
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="end"
+                    android:hint="Friday"/>
+                <RadioButton
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="end"
+                    android:hint="Saturday"/>
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/weekdays3"
+                android:orientation="horizontal">
+                <RadioButton
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="end"
+                    android:hint="Saturday"/>
+            </LinearLayout>-->
+        <TimePicker
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/employee_time"
+                android:layout_gravity="center"/>
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="end"
+                android:text="Add Shift"/>
+        </LinearLayout>
 </RelativeLayout>
