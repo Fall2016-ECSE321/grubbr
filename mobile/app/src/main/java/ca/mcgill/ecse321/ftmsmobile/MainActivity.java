@@ -1,8 +1,6 @@
 package ca.mcgill.ecse321.ftmsmobile;
 
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
@@ -11,7 +9,6 @@ import android.view.MenuItem;
 import android.widget.ArrayAdapter;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
-import android.widget.SpinnerAdapter;
 import android.widget.TextView;
 
 import java.io.File;
@@ -44,27 +41,55 @@ public class MainActivity extends AppCompatActivity {
             PersistenceFoodTruck.setFilename(getFilesDir().getAbsolutePath() + File.separator + "foodtruck.xml");
             PersistenceFoodTruck.loadFoodTruckModel();
 
-            //Initialize weekday spinner
-            /*String week[] = new String[7];
-            week[0] = "Monday";
-            week[1] = "Tuesday";
-            week[2] = "Wednesday";
-            week[3] = "Thursday";
-            week[4] = "Friday";
-            week[5] = "Saturday";
-            week[6] = "Sunday";
-            ArrayAdapter<String> weekAdapter = new ArrayAdapter<String>(this,android.R.layout.simple_spinner_item,week);
-            Spinner weekspin = (Spinner) findViewById(R.id.weekdays);
-            //weekspin.setAdapter((SpinnerAdapter)weekAdapter);
-            */firstRun=false;
+            firstRun=false;
         }
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
+        //Initialize weekday spinner
+        String week[] = new String[7];
+        week[0] = "Monday";
+        week[1] = "Tuesday";
+        week[2] = "Wednesday";
+        week[3] = "Thursday";
+        week[4] = "Friday";
+        week[5] = "Saturday";
+        week[6] = "Sunday";
+        ArrayAdapter<String> weekAdapter = new ArrayAdapter<String>(this,android.R.layout.simple_spinner_item,week);
+        Spinner weekspin = (Spinner) findViewById(R.id.weekdays);
+        weekspin.setAdapter(weekAdapter);
+
         refreshData();
     }
+
+    //Recycled code from Event Registration App
+    public void showTimePickerDialog(View v) {
+        TextView tf = (TextView) v;
+        Bundle args = getTimeFromLabel(tf.getText());
+        args.putInt("id", v.getId());
+        TimePickerFragment newFragment = new TimePickerFragment();
+        newFragment.setArguments(args);
+        newFragment.show(getSupportFragmentManager(), "timePicker");
+    }
+    private Bundle getTimeFromLabel(CharSequence text) {
+        Bundle rtn = new Bundle();
+        String comps[] = text.toString().split(":");
+        int hour = 12;
+        int minute = 0;
+        if (comps.length == 2) {
+            hour = Integer.parseInt(comps[0]); minute = Integer.parseInt(comps[1]);
+        }
+        rtn.putInt("hour", hour); rtn.putInt("minute", minute);
+        return rtn;
+    }
+    public void setTime(int id, int h, int m) {
+        TextView tv = (TextView) findViewById(id);
+        tv.setText(String.format("%02d:%02d", h, m));
+    }
+    // End recycled code
 
     public void changeTab(View v){
         LinearLayout mainmenu = (LinearLayout) findViewById(R.id.Main);
