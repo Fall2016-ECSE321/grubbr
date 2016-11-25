@@ -170,6 +170,7 @@ public class MainActivity extends AppCompatActivity {
         if (errorSupply == null)
         {
             supplyNameView.setText("");
+            supplyCountView.setText("");
 
             //Initialize spinner data
             Spinner supplySpinner = (Spinner) findViewById(R.id.supplyspinner);
@@ -189,6 +190,8 @@ public class MainActivity extends AppCompatActivity {
         if (errorEquip == null)
         {
             equipmentNameView.setText("");
+            equipmentCountView.setText("");
+
             //Initialize spinner data
             Spinner equipmentSpinner = (Spinner) findViewById(R.id.equipmentspinner);
             ArrayAdapter<CharSequence> equipmentAdapter = new ArrayAdapter<CharSequence>(this, android.R.layout.simple_spinner_item);
@@ -212,7 +215,11 @@ public class MainActivity extends AppCompatActivity {
         errorSupply=null;
         errorSCount=null;
         errorECount=null;
+
+        //Display changes to user
         displayItems();
+        displayEquip();
+        displaySupplies();
     }
 
     @Override
@@ -291,6 +298,7 @@ public class MainActivity extends AppCompatActivity {
             //Records the error
             errorSCount = e.getMessage();
         }
+        refreshData();
     }
 
     public void changeEquipmentCount(View v){
@@ -307,11 +315,25 @@ public class MainActivity extends AppCompatActivity {
             //Records the error
             errorECount = e.getMessage();
         }
+        refreshData();
     }
 
-    public void changeSupplyQuantity(View v){
-        TextView supplyCountView = (TextView) findViewById(R.id.newsupply_count);
+    public void displaySupplies(){
+        TextView supplyList = (TextView) findViewById(R.id.supply_display);
+        FoodTruckManager ftm = FoodTruckManager.getInstance();
+        supplyList.setText("");
+        for(int i=0;i<ftm.getSupplies().size();i++){
+            supplyList.setText(supplyList.getText() + ftm.getSupply(i).getName() + "x" + ftm.getSupply(i).getCount() + "\n");
+        }
+    }
 
+    public void displayEquip (){
+        TextView equipList = (TextView) findViewById(R.id.equipment_display);
+        FoodTruckManager ftm = FoodTruckManager.getInstance();
+        equipList.setText("");
+        for(int i=0;i<ftm.getEquipment().size();i++){
+            equipList.setText(equipList.getText() + ftm.getEquipment(i).getName() + "x" + ftm.getEquipment(i).getCount() + "\n");
+        }
     }
 
     public void displayItems(){

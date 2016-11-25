@@ -17,7 +17,7 @@
             android:orientation="vertical"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:visibility="gone"
+            android:visibility="visible"
             android:id="@+id/Main">
             <TextView
                 android:layout_width="fill_parent"
@@ -178,8 +178,7 @@
             <Spinner
                 android:layout_height="wrap_content"
                 android:layout_width="fill_parent"
-                android:id="@+id/equipmentspinner"
-                />
+                android:id="@+id/equipmentspinner"/>
             <EditText
                 android:layout_width="wrap_content"
                 android:layout_height="fill_parent"
@@ -200,7 +199,7 @@
             android:orientation="vertical"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:visibility="visible"
+            android:visibility="gone"
             android:id="@+id/Employee">
             <TextView
                 android:layout_width="match_parent"
@@ -238,56 +237,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/weekdays"/>
-            <!--<LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/weekdays"
-                android:orientation="horizontal">
-                <RadioButton
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:hint="Monday"/>
-                <RadioButton
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:hint="Tuesday"/>
-                <RadioButton
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:hint="Wednesday"/>
-                </LinearLayout>
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/weekdays2"
-                android:orientation="horizontal">
-                <RadioButton
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_gravity="end"
-                    android:hint="Thursday"/>
-                <RadioButton
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_gravity="end"
-                    android:hint="Friday"/>
-                <RadioButton
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_gravity="end"
-                    android:hint="Saturday"/>
-            </LinearLayout>
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/weekdays3"
-                android:orientation="horizontal">
-                <RadioButton
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_gravity="end"
-                    android:hint="Saturday"/>
-            </LinearLayout>-->
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
@@ -302,6 +251,7 @@
                 android:layout_height="wrap_content"
                 android:id="@+id/employee_starttime"
                 android:textAlignment="center"
+                android:textColor="#550000"
                 android:hint="@string/shifttime"
                 android:onClick="showTimePickerDialog"/>
             <TextView
@@ -319,6 +269,7 @@
                 android:layout_height="wrap_content"
                 android:id="@+id/employee_endtime"
                 android:textAlignment="center"
+                android:textColor="#550000"
                 android:hint="@string/shifttime"
                 android:onClick="showTimePickerDialog"/>
 
