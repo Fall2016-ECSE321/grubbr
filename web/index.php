@@ -2,13 +2,11 @@
 <html>
 	<head> 
 		<meta charset="UTF-8">
-		<!-- Import Boostrap -->
-		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
-		<title> Food Truck Manager </title>
-		<style>
-			.error {color:#FF0000;}
-		</style>
+		<!-- Import Bootstrap -->
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"/>
+		<link rel="stylesheet" href="/web/stylesheets/stylesheet.css"/>
+		<title>grubbr.</title>
 	</head>
 	<body>
 		<?php 
@@ -21,62 +19,74 @@
 			session_start();
 		?>
 		<div class="container-fluid">
-		<div class="row">
-		<div class="col-xs-12 col md-3">
-			<h1> Add Item </h1>
-			<form action = "additem.php" method="post">
-				<fieldset>
-					<br>
-					<p>Item Name: <input type="text" name="newitem_name" placeholder="Enter Name"/>
-					<p>Item Price: <input type="text" name="newitem_price" placeholder="Enter Price"/>
-					<span class="error">
-					<?php
-					if (isset($_SESSION['errorItem']) && !empty($_SESSION['errorItem'])){
-						echo " * " . $_SESSION["errorItem"];
-					}
-					?>
-					</span></p>	
-					<p><input type="submit" value="Add Item"/></p>
-					<br>
-				</fieldset>
-			</form>
+			<div class="jumbotron text-center">
+				<h1>grubbr.</h1>
 			</div>
-			<h2> Add Equipment</h2>
-			<form action = "addinventory.php" method="post">
-				<fieldset>
+		</div>
+		<div class="container-fluid text-center">
+		<div class="row">
+			<div class="col-xs-12 col-sm-3">
+				<h2> Add Item </h2>
+				<form action = "additem.php" method="post">
+					<fieldset>
+						<br>
+						<p>Item Name: <input type="text" name="newitem_name" placeholder="Enter Name"/>
+						<p>Item Price: <input type="text" name="newitem_price" placeholder="Enter Price"/>
+						<span class="error">
+						<?php
+						if (isset($_SESSION['errorItem']) && !empty($_SESSION['errorItem'])){
+							echo " * " . $_SESSION["errorItem"];
+						}
+						?>
+						</span></p>	
+						<p><input type="submit" value="Add Item"/></p>
+						<br>
+					</fieldset>
+				</form>
+			</div>
+			<div class="col-xs-12 col-sm-3">
+				<h2> Add Equipment</h2>
+				<form action = "addinventory.php" method="post">
+					<fieldset>
+						<br>
+						<p>Equipment Name: <input type="text" name="newequipment_name" placeHolder="Enter Name"/>
+						<p>Amount: <input type="text" name="newequipment_amount" placeholder="Enter Count"/>
+						<span class="error">
+						</span></p>	
+						<p><input type="submit" value="Add To Inventory"/></p>
 					<br>
-					<p>Equipment Name: <input type="text" name="newequipment_name" placeHolder="Enter Name"/>
-					<p>Amount: <input type="text" name="newequipment_amount" placeholder="Enter Count"/>
-					<span class="error">
-					</span></p>	
-					<p><input type="submit" value="Add To Inventory"/></p>
-				<br>
-				</fieldset>
-			</form>
-		<h2> Add Supply</h2>
-		<form action = "addsupply.php" method="post">
-			<fieldset>
-				<br>
-				<p>Supply Name: <input type="text" name="newsupply_name" placeHolder="Enter Name"/>
-				<p>Amount: <input type="text" name="newesupply_amount" placeholder="Enter Count"/>
-				<p><input type="submit" value="Add To Inventory"/></p>
-			<br>
-			</fieldset>
-		</form>
+					</fieldset>
+				</form>
+			</div>
+			
+			<div class="col-xs-12 col-sm-3">
+				<h2> Add Supply</h2>
+				<form action = "addsupply.php" method="post">
+					<fieldset>
+						<br>
+						<p>Supply Name: <input type="text" name="newsupply_name" placeHolder="Enter Name"/>
+						<p>Amount: <input type="text" name="newesupply_amount" placeholder="Enter Count"/>
+						<p><input type="submit" value="Add To Inventory"/></p>
+					<br>
+					</fieldset>
+				</form>
+			</div>
+			<div class="col-xs-12 col-sm-3">
+				<h2> Add Employee</h2>
+				<form action='addemployee.php' method="post">
+					<fieldset>
+						<br>
+						<p>Name: <input type="text" name="newEmployee_Name" placeHolder="Enter Name"/>
+						<p>Role: <input type="text" name="newEmployee_Role" placeholder="Enter Role"/>
+						<p>Salary: <input type="text" name="newEmployee_Salary" placeholder="Enter Salary"/>
+						
+						<p><input type="submit" value="Add Employee"/></p>
+					<br>
+					</fieldset>
+				</form>
+			</div>
 		
-		<h2> Add Employee</h2>
-		<form action='addemployee.php' method="post">
-			<fieldset>
-				<br>
-				<p>Name: <input type="text" name="newEmployee_Name" placeHolder="Enter Name"/>
-				<p>Role: <input type="text" name="newEmployee_Role" placeholder="Enter Role"/>
-				<p>Salary: <input type="text" name="newEmployee_Salary" placeholder="Enter Salary"/>
-				
-				<p><input type="submit" value="Add Employee"/></p>
-			<br>
-			</fieldset>
-		</form>
-		
+		<br>
 		<span>
 		<p>
 			<?php 	
@@ -190,8 +200,6 @@
 			echo "<input type='submit' value='OK'/>";
 			echo "</form>";
 
-
-
 			//SUPPLY LISTBOX
 //			echo "<form action='removesupply.php' method ='post'>";
 //			echo "<select name='selectedSupply' size="; echo sizeof($ftm->getSupplies()); ">";
@@ -261,18 +269,17 @@
 			echo "<input type='submit' value='Edit Selected Employee'/>";
 			echo "</form>";
 
-
-			
-
 			?>
-			
-			
-			
 			
 			</p>
 		</span>
 		</div>
 		</div>
+
+		<!--Scripts-->
+		<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
 	</body>
 </html>
 
