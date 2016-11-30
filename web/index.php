@@ -2,6 +2,9 @@
 <html>
 	<head> 
 		<meta charset="UTF-8">
+		<!-- Import Boostrap -->
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
 		<title> Food Truck Manager </title>
 		<style>
 			.error {color:#FF0000;}
@@ -17,37 +20,39 @@
 			require_once "persistence/PersistenceFoodTruck.php";
 			session_start();
 		?>
-		<h1> Add Item </h1>
-		<form action = "additem.php" method="post">
-			<fieldset>
+		<div class="container-fluid">
+		<div class="row">
+		<div class="col-xs-12 col md-3">
+			<h1> Add Item </h1>
+			<form action = "additem.php" method="post">
+				<fieldset>
+					<br>
+					<p>Item Name: <input type="text" name="newitem_name" placeholder="Enter Name"/>
+					<p>Item Price: <input type="text" name="newitem_price" placeholder="Enter Price"/>
+					<span class="error">
+					<?php
+					if (isset($_SESSION['errorItem']) && !empty($_SESSION['errorItem'])){
+						echo " * " . $_SESSION["errorItem"];
+					}
+					?>
+					</span></p>	
+					<p><input type="submit" value="Add Item"/></p>
+					<br>
+				</fieldset>
+			</form>
+			</div>
+			<h2> Add Equipment</h2>
+			<form action = "addinventory.php" method="post">
+				<fieldset>
+					<br>
+					<p>Equipment Name: <input type="text" name="newequipment_name" placeHolder="Enter Name"/>
+					<p>Amount: <input type="text" name="newequipment_amount" placeholder="Enter Count"/>
+					<span class="error">
+					</span></p>	
+					<p><input type="submit" value="Add To Inventory"/></p>
 				<br>
-				<p>Item Name: <input type="text" name="newitem_name" placeholder="Enter Name"/>
-				<p>Item Price: <input type="text" name="newitem_price" placeholder="Enter Price"/>
-				<span class="error">
-				<?php
-				if (isset($_SESSION['errorItem']) && !empty($_SESSION['errorItem'])){
-					echo " * " . $_SESSION["errorItem"];
-				}
-				?>
-				</span></p>	
-				<p><input type="submit" value="Add Item"/></p>
-				<br>
-			</fieldset>
-		</form>
-		
-		<h2> Add Equipment</h2>
-		<form action = "addinventory.php" method="post">
-			<fieldset>
-				<br>
-				<p>Equipment Name: <input type="text" name="newequipment_name" placeHolder="Enter Name"/>
-				<p>Amount: <input type="text" name="newequipment_amount" placeholder="Enter Count"/>
-				<span class="error">
-				</span></p>	
-				<p><input type="submit" value="Add To Inventory"/></p>
-			<br>
-			</fieldset>
-		</form>
-		
+				</fieldset>
+			</form>
 		<h2> Add Supply</h2>
 		<form action = "addsupply.php" method="post">
 			<fieldset>
@@ -266,6 +271,8 @@
 			
 			</p>
 		</span>
+		</div>
+		</div>
 	</body>
 </html>
 
