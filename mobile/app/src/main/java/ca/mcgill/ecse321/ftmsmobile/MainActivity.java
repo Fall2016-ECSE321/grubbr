@@ -291,9 +291,15 @@ public class MainActivity extends AppCompatActivity {
         Spinner supplySpinner = (Spinner) findViewById(R.id.supplyspinner);
 
         Supply selectedSupply = supplies.get(supplySpinner.getSelectedItemPosition());
-
+        String count;
+        int rmvId = R.id.remove_supply;
+        if(v.getId() == rmvId){
+            count = "-1";
+        } else {
+            count = supplyCount.getText().toString();
+        }
         try {
-            ftc.editSupplyQuantity(selectedSupply, supplyCount.getText().toString());
+            ftc.editSupplyQuantity(selectedSupply, count);
         } catch (InvalidInputException e){
             //Records the error
             errorSCount = e.getMessage();
@@ -309,8 +315,16 @@ public class MainActivity extends AppCompatActivity {
 
         Equipment selectedEquipment = equipments.get(equipmentSpinner.getSelectedItemPosition());
 
+        String count;
+        int rmvId = R.id.remove_equip;
+        if(v.getId() == rmvId){
+            count = "-1";
+        } else {
+            count = equipmentCount.getText().toString();
+        }
+
         try{
-            ftc.editEquipmentQuantity(selectedEquipment,equipmentCount.getText().toString());
+            ftc.editEquipmentQuantity(selectedEquipment,count);
         } catch (InvalidInputException e){
             //Records the error
             errorECount = e.getMessage();
