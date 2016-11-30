@@ -33,6 +33,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JComboBox;
 import javax.swing.BoxLayout;
 import javax.swing.JSpinner;
+import javax.swing.SpinnerDateModel;
 import javax.swing.SpinnerModel;
 import javax.swing.SwingConstants;
 
@@ -443,56 +444,78 @@ public class FoodTruckManagementPage {
 		
 		JButton btnAddShift = new JButton("Add Shift");
 		
-		JComboBox comboBox_2 = new JComboBox();
-		
 		JLabel lblShift = new JLabel("Shift");
 		
 		JButton btnRemoveShift = new JButton("Remove Shift");
+		
+		JComboBox comboBox_2 = new JComboBox();
+		
+		JSpinner spinner = new JSpinner(new SpinnerDateModel());
+		JSpinner.DateEditor startTimeEditor = new JSpinner.DateEditor(spinner, "HH:mm");
+		spinner.setEditor(startTimeEditor); // will only show the current time
+		
+		JSpinner spinner_1 = new JSpinner(new SpinnerDateModel());
+		JSpinner.DateEditor endTimeEditor = new JSpinner.DateEditor(spinner_1, "HH:mm");
+		spinner_1.setEditor(endTimeEditor); // will only show the current time
 		GroupLayout gl_panel_3 = new GroupLayout(panel_3);
 		gl_panel_3.setHorizontalGroup(
 			gl_panel_3.createParallelGroup(Alignment.LEADING)
 				.addGroup(gl_panel_3.createSequentialGroup()
-					.addContainerGap()
-					.addGroup(gl_panel_3.createParallelGroup(Alignment.TRAILING)
+					.addGroup(gl_panel_3.createParallelGroup(Alignment.LEADING)
 						.addGroup(gl_panel_3.createSequentialGroup()
-							.addGroup(gl_panel_3.createParallelGroup(Alignment.LEADING)
+							.addContainerGap()
+							.addGroup(gl_panel_3.createParallelGroup(Alignment.TRAILING)
 								.addGroup(gl_panel_3.createSequentialGroup()
-									.addGap(42)
-									.addComponent(scrollPane_3, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-								.addComponent(lblName))
-							.addPreferredGap(ComponentPlacement.RELATED, 21, Short.MAX_VALUE)
-							.addComponent(textField, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-						.addGroup(gl_panel_3.createSequentialGroup()
-							.addGroup(gl_panel_3.createParallelGroup(Alignment.LEADING)
-								.addComponent(lblRole)
-								.addComponent(lblSalary))
-							.addPreferredGap(ComponentPlacement.RELATED, 30, Short.MAX_VALUE)
-							.addGroup(gl_panel_3.createParallelGroup(Alignment.LEADING, false)
-								.addComponent(textField_2)
-								.addComponent(textField_1)))
-						.addComponent(lblStartTime, Alignment.LEADING)
-						.addComponent(lblEndTime, Alignment.LEADING)
-						.addGroup(gl_panel_3.createSequentialGroup()
-							.addComponent(lblDay)
-							.addPreferredGap(ComponentPlacement.RELATED, 42, Short.MAX_VALUE)
-							.addGroup(gl_panel_3.createParallelGroup(Alignment.LEADING, false)
-								.addComponent(btnFireEmployee, Alignment.TRAILING)
-								.addGroup(gl_panel_3.createSequentialGroup()
-									.addGap(6)
 									.addGroup(gl_panel_3.createParallelGroup(Alignment.LEADING)
-										.addComponent(comboBox_2, Alignment.TRAILING, 0, 125, Short.MAX_VALUE)
-										.addComponent(comboBox_1, 0, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))))
-						.addGroup(gl_panel_3.createSequentialGroup()
-							.addComponent(lblName_1)
-							.addPreferredGap(ComponentPlacement.RELATED, 28, Short.MAX_VALUE)
-							.addGroup(gl_panel_3.createParallelGroup(Alignment.LEADING, false)
+										.addGroup(gl_panel_3.createSequentialGroup()
+											.addGap(42)
+											.addComponent(scrollPane_3, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+										.addComponent(lblName))
+									.addPreferredGap(ComponentPlacement.RELATED, 21, Short.MAX_VALUE)
+									.addComponent(textField, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
 								.addGroup(gl_panel_3.createSequentialGroup()
-									.addGap(6)
-									.addComponent(comboBox, 0, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-								.addComponent(btnNewButton, Alignment.TRAILING)))
-						.addComponent(btnAddShift)
-						.addComponent(lblShift)
-						.addComponent(btnRemoveShift))
+									.addGroup(gl_panel_3.createParallelGroup(Alignment.LEADING)
+										.addComponent(lblRole)
+										.addComponent(lblSalary))
+									.addPreferredGap(ComponentPlacement.RELATED, 30, Short.MAX_VALUE)
+									.addGroup(gl_panel_3.createParallelGroup(Alignment.LEADING, false)
+										.addComponent(textField_2)
+										.addComponent(textField_1)))
+								.addGroup(gl_panel_3.createSequentialGroup()
+									.addComponent(lblDay)
+									.addPreferredGap(ComponentPlacement.RELATED, 42, Short.MAX_VALUE)
+									.addGroup(gl_panel_3.createParallelGroup(Alignment.LEADING, false)
+										.addComponent(btnFireEmployee, Alignment.TRAILING)
+										.addGroup(gl_panel_3.createSequentialGroup()
+											.addGap(6)
+											.addComponent(comboBox_1, 0, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+								.addGroup(gl_panel_3.createSequentialGroup()
+									.addComponent(lblName_1)
+									.addPreferredGap(ComponentPlacement.RELATED, 28, Short.MAX_VALUE)
+									.addGroup(gl_panel_3.createParallelGroup(Alignment.LEADING, false)
+										.addGroup(gl_panel_3.createSequentialGroup()
+											.addGap(6)
+											.addComponent(comboBox, 0, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+										.addComponent(btnNewButton, Alignment.TRAILING)))
+								.addComponent(btnAddShift)
+								.addComponent(btnRemoveShift)))
+						.addGroup(gl_panel_3.createSequentialGroup()
+							.addContainerGap()
+							.addComponent(lblShift)
+							.addGap(43)
+							.addComponent(comboBox_2, 0, 125, Short.MAX_VALUE))
+						.addGroup(gl_panel_3.createSequentialGroup()
+							.addGroup(gl_panel_3.createParallelGroup(Alignment.LEADING)
+								.addGroup(gl_panel_3.createSequentialGroup()
+									.addGap(5)
+									.addComponent(lblStartTime))
+								.addGroup(gl_panel_3.createSequentialGroup()
+									.addContainerGap()
+									.addComponent(lblEndTime)))
+							.addGap(15)
+							.addGroup(gl_panel_3.createParallelGroup(Alignment.LEADING)
+								.addComponent(spinner_1, GroupLayout.DEFAULT_SIZE, 119, Short.MAX_VALUE)
+								.addComponent(spinner, GroupLayout.DEFAULT_SIZE, 119, Short.MAX_VALUE))))
 					.addContainerGap())
 		);
 		gl_panel_3.setVerticalGroup(
@@ -525,18 +548,22 @@ public class FoodTruckManagementPage {
 						.addComponent(comboBox_1, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
 						.addComponent(lblDay))
 					.addPreferredGap(ComponentPlacement.RELATED)
-					.addComponent(lblStartTime)
-					.addPreferredGap(ComponentPlacement.RELATED)
-					.addComponent(lblEndTime)
-					.addPreferredGap(ComponentPlacement.RELATED)
-					.addComponent(btnAddShift)
-					.addPreferredGap(ComponentPlacement.RELATED)
 					.addGroup(gl_panel_3.createParallelGroup(Alignment.BASELINE)
-						.addComponent(comboBox_2, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-						.addComponent(lblShift))
-					.addPreferredGap(ComponentPlacement.RELATED)
+						.addComponent(lblStartTime)
+						.addComponent(spinner, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+					.addGap(8)
+					.addGroup(gl_panel_3.createParallelGroup(Alignment.BASELINE)
+						.addComponent(lblEndTime)
+						.addComponent(spinner_1, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+					.addPreferredGap(ComponentPlacement.RELATED, 10, Short.MAX_VALUE)
+					.addComponent(btnAddShift)
+					.addGap(5)
+					.addGroup(gl_panel_3.createParallelGroup(Alignment.BASELINE)
+						.addComponent(lblShift)
+						.addComponent(comboBox_2, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+					.addGap(7)
 					.addComponent(btnRemoveShift)
-					.addContainerGap(22, Short.MAX_VALUE))
+					.addGap(47))
 		);
 		panel_3.setLayout(gl_panel_3);
 		
