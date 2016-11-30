@@ -204,6 +204,27 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:text="@string/add_employee_title"
+                android:textColor="#000000"
+                android:gravity="center"/>
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Enter New Employee's Name"
+                android:id="@+id/employee_name" />
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Enter New Employee's Function"
+                android:id="@+id/employee_function" />
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="end"
+                android:text="Add Employee"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
                 android:text="@string/employeetitle"
                 android:textColor="#000000"
                 android:gravity="center"/>
