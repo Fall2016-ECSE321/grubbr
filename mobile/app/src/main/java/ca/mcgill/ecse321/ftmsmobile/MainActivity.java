@@ -1,25 +1,38 @@
 package ca.mcgill.ecse321.ftmsmobile;
 
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.ArrayAdapter;
+import android.widget.LinearLayout;
+import android.widget.Spinner;
 import android.widget.TextView;
 
 import java.io.File;
+import java.util.HashMap;
+import java.util.Iterator;
 
 import ca.mcgill.ecse321.foodtruck.controller.FoodTruckController;
 import ca.mcgill.ecse321.foodtruck.controller.InvalidInputException;
+import ca.mcgill.ecse321.foodtruck.model.Equipment;
 import ca.mcgill.ecse321.foodtruck.model.FoodTruckManager;
+import ca.mcgill.ecse321.foodtruck.model.Supply;
 import ca.mcgill.ecse321.foodtruck.persistence.PersistenceFoodTruck;
 
 public class MainActivity extends AppCompatActivity {
 
     private String errorItem;
+    private String errorSupply;
+    private String errorEquip;
+    private String errorSCount;
+    private String errorECount;
+
+    private HashMap<Integer, Equipment> equipments;
+    private HashMap<Integer, Supply> supplies;
+
     private static boolean firstRun=true;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,36 +40,186 @@ public class MainActivity extends AppCompatActivity {
         if (firstRun) {
             PersistenceFoodTruck.setFilename(getFilesDir().getAbsolutePath() + File.separator + "foodtruck.xml");
             PersistenceFoodTruck.loadFoodTruckModel();
+
             firstRun=false;
         }
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
+        //Initialize weekday spinner
+        String week[] = new String[7];
+        week[0] = "Monday";
+        week[1] = "Tuesday";
+        week[2] = "Wednesday";
+        week[3] = "Thursday";
+        week[4] = "Friday";
+        week[5] = "Saturday";
+        week[6] = "Sunday";
+        ArrayAdapter<String> weekAdapter = new ArrayAdapter<String>(this,android.R.layout.simple_spinner_item,week);
+        Spinner weekspin = (Spinner) findViewById(R.id.weekdays);
+        weekspin.setAdapter(weekAdapter);
+
         refreshData();
     }
+
+    //Recycled code from Event Registration App
+    public void showTimePickerDialog(View v) {
+        TextView tf = (TextView) v;
+        Bundle args = getTimeFromLabel(tf.getText());
+        args.putInt("id", v.getId());
+        TimePickerFragment newFragment = new TimePickerFragment();
+        newFragment.setArguments(args);
+        newFragment.show(getSupportFragmentManager(), "timePicker");
+    }
+    private Bundle getTimeFromLabel(CharSequence text) {
+        Bundle rtn = new Bundle();
+        String comps[] = text.toString().split(":");
+        int hour = 12;
+        int minute = 0;
+        if (comps.length == 2) {
+            hour = Integer.parseInt(comps[0]); minute = Integer.parseInt(comps[1]);
+        }
+        rtn.putInt("hour", hour); rtn.putInt("minute", minute);
+        return rtn;
+    }
+    public void setTime(int id, int h, int m) {
+        TextView tv = (TextView) findViewById(id);
+        tv.setText(String.format("%02d:%02d", h, m));
+    }
+    // End recycled code
+
+    public void changeTab(View v){
+        LinearLayout mainmenu = (LinearLayout) findViewById(R.id.Main);
+        LinearLayout menu = (LinearLayout) findViewById(R.id.Menu);
+        LinearLayout equip = (LinearLayout) findViewById(R.id.Equipment);
+        LinearLayout supply = (LinearLayout) findViewById(R.id.Supply);
+        LinearLayout employee = (LinearLayout) findViewById(R.id.Employee);
+
+        String id = getResources().getResourceEntryName(v.getId());
+
+        menu.setVisibility(View.GONE);
+        equip.setVisibility(View.GONE);
+        supply.setVisibility(View.GONE);
+        employee.setVisibility(View.GONE);
+
+        switch(id){
+            case "menutab":
+                if (mainmenu.getVisibility()==View.VISIBLE){
+                    mainmenu.setVisibility(View.GONE);
+                    menu.setVisibility(View.VISIBLE);
+                } else {
+                    mainmenu.setVisibility(View.VISIBLE);
+                }
+                break;
+            case "equipmenttab":
+                if (mainmenu.getVisibility()==View.VISIBLE) {
+                    mainmenu.setVisibility(View.GONE);
+                    equip.setVisibility(View.VISIBLE);
+                } else {
+                    mainmenu.setVisibility(View.VISIBLE);
+                }
+                break;
+            case "supplytab":
+                if (mainmenu.getVisibility()==View.VISIBLE) {
+                    mainmenu.setVisibility(View.GONE);
+                    supply.setVisibility(View.VISIBLE);
+                } else {
+                    mainmenu.setVisibility(View.VISIBLE);
+                }
+                break;
+            case "employeetab":
+                if (mainmenu.getVisibility()==View.VISIBLE) {
+                    mainmenu.setVisibility(View.GONE);
+                    employee.setVisibility(View.VISIBLE);
+                } else {
+                    mainmenu.setVisibility(View.VISIBLE);
+                }
+                break;
+        }
+
+    }
+
     private void refreshData(){
         FoodTruckManager ftm = FoodTruckManager.getInstance();
         TextView itemNameView = (TextView) findViewById(R.id.newitem_name);
-        TextView itemPriceView= (TextView) findViewById(R.id.newitem_price);
+        TextView itemPriceView = (TextView) findViewById(R.id.newitem_price);
+
+        TextView supplyNameView = (TextView) findViewById(R.id.newsupply_name);
+        TextView supplyCountView = (TextView) findViewById(R.id.newsupply_count);
+
+        TextView equipmentNameView = (TextView) findViewById(R.id.newequipment_name);
+        TextView equipmentCountView = (TextView) findViewById(R.id.newequipment_count);
+
         //Sets the error message next to the "name" field regardless if the error
         //is in the name or in the price
-        if (errorItem != null) {
-            itemNameView.setError(errorItem);
-        } else {
+        // I should change this to display the error message(s) somewhere like at the top
+        itemNameView.setError(errorItem);
+        supplyNameView.setError(errorSupply);
+        equipmentNameView.setError(errorEquip);
+        supplyCountView.setError(errorSCount);
+
+        if (errorItem == null)
+        {
             itemNameView.setText("");
             itemPriceView.setText("");
         }
+
+        if (errorSupply == null)
+        {
+            supplyNameView.setText("");
+            supplyCountView.setText("");
+
+            //Initialize spinner data
+            Spinner supplySpinner = (Spinner) findViewById(R.id.supplyspinner);
+            ArrayAdapter<CharSequence> supplyAdapter = new ArrayAdapter<CharSequence>(this, android.R.layout.simple_spinner_item);
+            supplyAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+            this.supplies = new HashMap<Integer,Supply>();
+            int i=0;
+            for (Iterator<Supply> supplies = ftm.getSupplies().iterator(); supplies.hasNext(); i++){
+                Supply s = supplies.next();
+                supplyAdapter.add(s.getName());
+                this.supplies.put(i,s);
+            }
+            supplySpinner.setAdapter(supplyAdapter);
+
+        }
+
+        if (errorEquip == null)
+        {
+            equipmentNameView.setText("");
+            equipmentCountView.setText("");
+
+            //Initialize spinner data
+            Spinner equipmentSpinner = (Spinner) findViewById(R.id.equipmentspinner);
+            ArrayAdapter<CharSequence> equipmentAdapter = new ArrayAdapter<CharSequence>(this, android.R.layout.simple_spinner_item);
+            equipmentAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+            this.equipments = new HashMap<Integer,Equipment>();
+            int i=0;
+            for (Iterator<Equipment> equipments = ftm.getEquipment().iterator(); equipments.hasNext(); i++){
+                Equipment e = equipments.next();
+                equipmentAdapter.add(e.getName());
+                this.equipments.put(i,e);
+            }
+            equipmentSpinner.setAdapter(equipmentAdapter);
+        }
+
+        if (errorSCount == null) {
+            supplyCountView.setText("");
+        }
+
+        errorItem=null;
+        errorEquip=null;
+        errorSupply=null;
+        errorSCount=null;
+        errorECount=null;
+
+        //Display changes to user
         displayItems();
+        displayEquip();
+        displaySupplies();
     }
 
     @Override
@@ -67,7 +230,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
+    public boolean onOptionsItemSelected(MenuItem item){
         // Handle action bar item clicks here. The action bar will
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
@@ -93,6 +256,86 @@ public class MainActivity extends AppCompatActivity {
         }
         refreshData();
     }
+
+    public void addSupply(View v){
+        TextView supplyNameView = (TextView) findViewById(R.id.newsupply_name);
+        FoodTruckController ftc = new FoodTruckController();
+
+        errorSupply=null;
+        try{
+            ftc.createSupply(supplyNameView.getText().toString());
+        } catch (InvalidInputException e){
+            errorSupply=e.getMessage();
+        }
+        refreshData();
+    }
+
+    public void addEquipment(View v){
+        TextView equipmentNameView = (TextView) findViewById(R.id.newequipment_name);
+        FoodTruckController ftc = new FoodTruckController();
+
+        errorEquip=null;
+        try{
+            ftc.createEquipment(equipmentNameView.getText().toString());
+        } catch (InvalidInputException e){
+            errorEquip=e.getMessage();
+        }
+        refreshData();
+    }
+
+    public void changeSupplyCount(View v){
+
+        FoodTruckController ftc = new FoodTruckController();
+
+        TextView supplyCount = (TextView) findViewById(R.id.newsupply_count);
+        Spinner supplySpinner = (Spinner) findViewById(R.id.supplyspinner);
+
+        Supply selectedSupply = supplies.get(supplySpinner.getSelectedItemPosition());
+
+        try {
+            ftc.editSupplyQuantity(selectedSupply, supplyCount.getText().toString());
+        } catch (InvalidInputException e){
+            //Records the error
+            errorSCount = e.getMessage();
+        }
+        refreshData();
+    }
+
+    public void changeEquipmentCount(View v){
+        FoodTruckController ftc = new FoodTruckController();
+
+        TextView equipmentCount = (TextView) findViewById(R.id.newequipment_count);
+        Spinner equipmentSpinner = (Spinner) findViewById(R.id.equipmentspinner);
+
+        Equipment selectedEquipment = equipments.get(equipmentSpinner.getSelectedItemPosition());
+
+        try{
+            ftc.editEquipmentQuantity(selectedEquipment,equipmentCount.getText().toString());
+        } catch (InvalidInputException e){
+            //Records the error
+            errorECount = e.getMessage();
+        }
+        refreshData();
+    }
+
+    public void displaySupplies(){
+        TextView supplyList = (TextView) findViewById(R.id.supply_display);
+        FoodTruckManager ftm = FoodTruckManager.getInstance();
+        supplyList.setText("");
+        for(int i=0;i<ftm.getSupplies().size();i++){
+            supplyList.setText(supplyList.getText() + ftm.getSupply(i).getName() + "x" + ftm.getSupply(i).getCount() + "\n");
+        }
+    }
+
+    public void displayEquip (){
+        TextView equipList = (TextView) findViewById(R.id.equipment_display);
+        FoodTruckManager ftm = FoodTruckManager.getInstance();
+        equipList.setText("");
+        for(int i=0;i<ftm.getEquipment().size();i++){
+            equipList.setText(equipList.getText() + ftm.getEquipment(i).getName() + "x" + ftm.getEquipment(i).getCount() + "\n");
+        }
+    }
+
     public void displayItems(){
         TextView itemList = (TextView) findViewById(R.id.menu_display);
         FoodTruckManager ftm = FoodTruckManager.getInstance();

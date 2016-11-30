@@ -466,6 +466,8 @@ class FoodTruckManager
     }
     return $wasAdded;
   }
+  
+
 
   public function addOrMoveEquipmentAt($aEquipment, $index)
   {
