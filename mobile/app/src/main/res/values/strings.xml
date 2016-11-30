@@ -17,4 +17,6 @@
     <string name="employeetitle">Employee Schedules</string>
     <string name="shifttime">Click here to change the time!</string>
     <string name="add_employee_title">Add A New Employee</string>
+    <string name="supplyremove_button">Remove Supply</string>
+    <string name="equipmentremove_button">Remove Equipment</string>
 </resources>

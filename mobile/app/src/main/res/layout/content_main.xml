@@ -131,12 +131,25 @@
                 android:layout_height="fill_parent"
                 android:id="@+id/newsupply_count"
                 android:hint="@string/newsupplycount_hint"/>
-            <Button
-                android:layout_height="wrap_content"
-                android:layout_width="wrap_content"
-                android:text="@string/supplycount_button"
-                android:layout_gravity="end"
-                android:onClick="changeSupplyCount"/>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+                <Button
+                    android:layout_height="wrap_content"
+                    android:layout_width="wrap_content"
+                    android:textColor="#840000"
+                    android:text="@string/supplyremove_button"
+                    android:layout_gravity="left"
+                    android:id="@+id/remove_supply"
+                    android:onClick="changeSupplyCount"/>
+                <Button
+                    android:layout_height="wrap_content"
+                    android:layout_width="wrap_content"
+                    android:text="@string/supplycount_button"
+                    android:layout_gravity="right"
+                    android:id="@+id/change_supply_count"
+                    android:onClick="changeSupplyCount"/>
+            </LinearLayout>
             <View
                 android:layout_width="match_parent"
                 android:layout_height="2dp"
@@ -184,12 +197,25 @@
                 android:layout_height="fill_parent"
                 android:id="@+id/newequipment_count"
                 android:hint="@string/newequipmentcount_hint"/>
-            <Button
-                android:layout_height="wrap_content"
-                android:layout_width="wrap_content"
-                android:text="@string/equipmentcount_button"
-                android:layout_gravity="end"
-                android:onClick="changeEquipmentCount"/>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+                <Button
+                    android:layout_height="wrap_content"
+                    android:layout_width="wrap_content"
+                    android:text="@string/equipmentremove_button"
+                    android:layout_gravity="left"
+                    android:textColor="#840000"
+                    android:id="@+id/remove_equip"
+                    android:onClick="changeEquipmentCount"/>
+                <Button
+                    android:layout_height="wrap_content"
+                    android:layout_width="wrap_content"
+                    android:text="@string/equipmentcount_button"
+                    android:layout_gravity="right"
+                    android:id="@+id/change_equip_count"
+                    android:onClick="changeEquipmentCount"/>
+            </LinearLayout>
             <View
                 android:layout_width="match_parent"
                 android:layout_height="2dp"
