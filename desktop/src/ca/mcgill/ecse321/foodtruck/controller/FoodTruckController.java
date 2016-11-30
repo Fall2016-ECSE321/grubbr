@@ -4,6 +4,7 @@ import java.sql.Time;
 
 import org.apache.commons.lang3.text.WordUtils;
 
+import ca.mcgill.ecse321.foodtruck.controller.InvalidInputException;
 import ca.mcgill.ecse321.foodtruck.model.Employee;
 import ca.mcgill.ecse321.foodtruck.model.Equipment;
 import ca.mcgill.ecse321.foodtruck.model.FoodTruckManager;
@@ -63,6 +64,7 @@ public class FoodTruckController {
 			throw new InvalidInputException(error);
 		}
 		
+		itemName = WordUtils.capitalizeFully(itemName);
 		MenuItem item = new MenuItem(itemName, Double.parseDouble(itemPrice), 0);
 		FoodTruckManager ftms = FoodTruckManager.getInstance();
 		ftms.addMenuItem(item);
@@ -208,12 +210,50 @@ public class FoodTruckController {
 	 * @param role				their role within the company
 	 * @param salary			how much money they earn per hour
 	 */
-	public void createEmployee(String employeeName, String role, double salary) {
+	public void createEmployee(String employeeName, String role, String salary) throws InvalidInputException {
 		
-		Employee employee = new Employee(employeeName,role, salary);
+		String error = "";
+		
+		if (isEmpty(employeeName)) {
+			error += "Employee name cannot be empty! ";
+		}
+		if (isEmpty(role)) {
+			error += "Role cannot be empty! ";
+		}
+		
+		double salaryNumber=0;
+		try {
+			salaryNumber = Double.parseDouble(salary);
+			
+			if (!hasCorrectAmountOfDecimalPlaces(salary)) {
+				error += "Salary cannot contain fractions of cents! ";
+			} else if (salaryNumber < 10.75) {
+				error += "Minimum wage is 10.75! Treat your workers fairly! ";
+			}
+			
+		} catch (NumberFormatException e) {
+			error += "Salary must be a number! ";
+		} catch (NullPointerException e) {
+			error += "Salary must be a number! ";
+		}
+		
+		error = error.trim();
+		
+		if (error.length()>0) {
+			throw new InvalidInputException(error);
+		}
+		
+		employeeName = WordUtils.capitalizeFully(employeeName);
+		Employee employee = new Employee(employeeName,role,salaryNumber);
 		FoodTruckManager ftms = FoodTruckManager.getInstance();
 		
 		ftms.addEmployee(employee);
+		PersistenceXStream.saveToXMLwithXStream(ftms);
+	}
+	
+	public void removeEmployee(Employee employee) {
+		FoodTruckManager ftms = FoodTruckManager.getInstance();
+		ftms.removeEmployee(employee);
 		PersistenceXStream.saveToXMLwithXStream(ftms);
 	}
 	
@@ -224,7 +264,21 @@ public class FoodTruckController {
 	 * @param startTime	the start time of the shift
 	 * @param endTime	the end time of the shift
 	 */
-	public void createShift(Employee employee, String day, Time startTime, Time endTime) {
+	public void createShift(Employee employee, String day, Time startTime, Time endTime) throws InvalidInputException {
+		
+		String error = "";
+		if (endTime != null && startTime != null && endTime.getTime() < startTime.getTime()) {
+			error = error + "Shift end time cannot be before shift start time! ";
+		}
+		
+		if (isEmpty(day)) {
+			error += "Please select a day of the week! ";
+		}
+		error = error.trim();
+		
+		if (error.length()>0) {
+			throw new InvalidInputException(error);
+		}
 		
 		long duration = endTime.getTime()-startTime.getTime();
 		int numHours = (int) (duration/1000/60/60);
