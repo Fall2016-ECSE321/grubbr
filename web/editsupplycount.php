@@ -1,8 +1,15 @@
 <?php
 require_once 'controller/Controller.php';
 session_start();
+$count = $_POST['editSupplyCount'];
+$name = $_POST['selectedSupply'];
 $c = new Controller();
-$c->editSupplyCount($_POST['selectedSupply'], $_POST['editSupplyCount']);
+if($count < 0){
+	$c->removeSupply($name);
+} else {
+	$c->editSupplyCount($name, $count);
+}
+
 ?>
 <!DOCTYPE html>
 <html>

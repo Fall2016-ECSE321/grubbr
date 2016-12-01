@@ -1,8 +1,19 @@
 <?php
 require_once 'controller/Controller.php';
 session_start();
+
+$name = $_POST['selectedEquipment'];
+$count = $_POST['editEquipmentCount'];
+
 $c = new Controller();
-$c->editEquipmentCount($_POST['selectedEquipment'], $_POST['editEquipmentCount']);
+if($count < 0){
+	$c->removeEquipment($name);
+} else {
+	$c->editEquipmentCount($name, $count);
+}
+
+
+
 ?>
 <!DOCTYPE html>
 <html>

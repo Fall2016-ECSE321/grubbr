@@ -252,6 +252,82 @@ class FoodTruckManager
     $index = $wasFound ? $index : -1;
     return $index;
   }
+  
+  public function indexOfMenuItemByName($aMenuItem)
+  {
+  	$wasFound = false;
+  	$index = 0;
+  	foreach($this->menuItems as $menuItem)
+  	{
+  		//if ($menuItem->getName()->equals($aMenuItem))
+  		if(strcmp($menuItem->getName(),$aMenuItem)==0)
+  		{
+  			$wasFound = true;
+  			break;
+  		}
+  		$index += 1;
+  	}
+  	$index = $wasFound ? $index : -1;
+  	//echo $index;
+  	return $index;
+  }
+  
+  public function indexOfSupplyByName($aSupplyItem)
+  {
+  	$wasFound = false;
+  	$index = 0;
+  	foreach($this->supplies as $supply)
+  	{
+  		//if ($menuItem->getName()->equals($aMenuItem))
+  		if(strcmp($supply->getName(),$aSupplyItem)==0)
+  		{
+  			$wasFound = true;
+  			break;
+  		}
+  		$index += 1;
+  	}
+  	$index = $wasFound ? $index : -1;
+  	//echo $index;
+  	return $index;
+  }
+  
+  public function indexOfEquipmentByName($aEquipmentItem)
+  {
+  	$wasFound = false;
+  	$index = 0;
+  	foreach($this->equipment as $equipment)
+  	{
+  		//if ($menuItem->getName()->equals($aMenuItem))
+  		if(strcmp($equipment->getName(),$aEquipmentItem)==0)
+  		{
+  			$wasFound = true;
+  			break;
+  		}
+  		$index += 1;
+  	}
+  	$index = $wasFound ? $index : -1;
+  	//echo $index;
+  	return $index;
+  }
+
+    public function indexOfEmployeeByName($aEmployee)
+    {
+        $wasFound = false;
+        $index = 0;
+        foreach($this->employees as $employee)
+        {
+            //if ($menuItem->getName()->equals($aMenuItem))
+            if(strcmp($employee->getName(),$aEmployee)==0)
+            {
+                $wasFound = true;
+                break;
+            }
+            $index += 1;
+        }
+        $index = $wasFound ? $index : -1;
+        //echo $index;
+        return $index;
+    }
 
   public static function minimumNumberOfEmployees()
   {
@@ -267,17 +343,7 @@ class FoodTruckManager
     return $wasAdded;
   }
 
-  public function removeEmployee($aEmployee)
-  {
-    $wasRemoved = false;
-    if ($this->indexOfEmployee($aEmployee) != -1)
-    {
-      unset($this->employees[$this->indexOfEmployee($aEmployee)]);
-      $this->employees = array_values($this->employees);
-      $wasRemoved = true;
-    }
-    return $wasRemoved;
-  }
+
 
   public function addEmployeeAt($aEmployee, $index)
   {  
@@ -511,6 +577,93 @@ class FoodTruckManager
       $wasRemoved = true;
     }
     return $wasRemoved;
+  }
+  
+  public function removeMenuItemByName($aMenuItem)
+  {
+  	$wasRemoved = false;
+  	if ($this->indexOfMenuItemByName($aMenuItem) != -1)
+  	{
+  		echo $this->indexOfMenuItemByName($aMenuItem);
+  		unset($this->menuItems[$this->indexOfMenuItemByName($aMenuItem)]);
+  		
+  		$this->menuItems = array_values($this->menuItems);
+  		$wasRemoved = true;
+  	}
+  	return $wasRemoved;
+  }
+  
+  public function removeSupplyByName($aSupplyItem)
+  {
+  	$wasRemoved = false;
+  	if ($this->indexOfSupplyByName($aSupplyItem) != -1)
+  	{
+  		echo $this->indexOfSupplyByName($aSupplyItem);
+  		unset($this->supplies[$this->indexOfSupplyByName($aSupplyItem)]);
+  
+  		$this->supplies = array_values($this->supplies);
+  		$wasRemoved = true;
+  	}
+  	return $wasRemoved;
+  }
+  
+  public function removeEquipmentByName($aEquipmentItem)
+  {
+  	$wasRemoved = false;
+  	if ($this->indexOfEquipmentByName($aEquipmentItem) != -1)
+  	{
+  		unset($this->equipment[$this->indexOfEquipmentByName($aEquipmentItem)]);
+  
+  		$this->equipment = array_values($this->equipment);
+  		$wasRemoved = true;
+  	}
+  	return $wasRemoved;
+  }
+
+    public function removeEmployeeByName($aEmployee)
+    {
+        $wasRemoved = false;
+        if ($this->indexOfEmployeeByName($aEmployee) != -1)
+        {
+            unset($this->employees[$this->indexOfEmployeeByName($aEmployee)]);
+
+            $this->employees = array_values($this->employees);
+            $wasRemoved = true;
+        }
+        return $wasRemoved;
+    }
+
+  public function editMenuItemPrice($aMenuItem, $aPrice)
+  {
+  	$priceEdited = false;
+  	if ($this->indexOfMenuItemByName($aMenuItem) != -1)
+  	{
+  		echo $this->indexOfMenuItemByName($aMenuItem);
+  		$this->menuItems[$this->indexOfMenuItemByName($aMenuItem)]->setPrice($aPrice);
+  		$this->menuItems = array_values($this->menuItems);
+  		$priceEdited = true;
+  	}
+  	return $priceEdited;
+  }
+  
+  public function editSupplyCount($aSupplyItem, $aCount){
+  	$countEdited = false;
+  	if($this->indexOfSupplyByName($aSupplyItem) != -1)
+  	{
+  		$this->supplies[$this->indexOfSupplyByName($aSupplyItem)]->setCount($aCount);
+  		$this->supplies = array_values($this->supplies);
+  		$countEdited = true;
+  	}
+  }
+  
+  public function editEquipmentCount($aEquipmentItem, $aCount){
+  	$countEdited = false;
+  	if($this->indexOfEquipmentByName($aEquipmentItem) != -1)
+  	{
+  		$this->equipment[$this->indexOfEquipmentByName($aEquipmentItem)]->setCount($aCount);
+  		$this->equipment = array_values($this->equipment);
+  		$countEdited = true;
+  	}
   }
 
   public function addMenuItemAt($aMenuItem, $index)

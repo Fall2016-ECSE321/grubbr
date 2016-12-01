@@ -2,7 +2,18 @@
 require_once 'controller/Controller.php';
 session_start();
 $c = new Controller();
-$c->editMenuItemPrice($_POST['selectedMenuItem'], $_POST['editMenuPrice']);
+
+$name = $_POST['selectedMenuItem'];
+$price = $_POST['editMenuPrice'];
+
+$c = new Controller();
+if($price < 0){
+	$c->removeMenuItem($name);
+} else {
+	$c->editMenuItemPrice($name, $price);
+}
+
+
 ?>
 <!DOCTYPE html>
 <html>
