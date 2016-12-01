@@ -7,7 +7,6 @@ import org.junit.Before;
 import org.junit.Test;
 
 import java.sql.Time;
-import java.util.*;
 
 import ca.mcgill.ecse321.foodtruck.model.Employee;
 import ca.mcgill.ecse321.foodtruck.model.FoodTruckManager;
@@ -27,7 +26,6 @@ public class TestFoodTruckStaff {
 	}
 
 	
-	//Test Employees
 	@Test
 	public void testCreateEmployee() {
 		FoodTruckManager ftms = FoodTruckManager.getInstance();
@@ -71,10 +69,11 @@ public class TestFoodTruckStaff {
 			ftc.createEmployee(staffName, staffRole, staffSalary);
 		} catch (InvalidInputException e) {
 			errorMessage = e.getMessage();
+			System.out.println(errorMessage);
 		}
 		
 		//check error
-		assertEquals("Employee name cannot be empty! ", errorMessage);
+		assertEquals("Employee name cannot be empty!", errorMessage);
 		
 		//check no change in memory
 		assertEquals(false, ftms.hasEmployees());
@@ -102,7 +101,7 @@ public class TestFoodTruckStaff {
 		}
 		
 		//check error
-		assertEquals("Employee name cannot be empty! ", errorMessage);
+		assertEquals("Employee name cannot be empty!", errorMessage);
 		
 		//check no change in memory
 		assertEquals(false, ftms.hasEmployees());
@@ -130,7 +129,7 @@ public class TestFoodTruckStaff {
 		}
 		
 		//check error
-		assertEquals("Employee name cannot be empty! ", errorMessage);
+		assertEquals("Employee name cannot be empty!", errorMessage);
 		
 		//check no change in memory
 		assertEquals(false, ftms.hasEmployees());
@@ -158,7 +157,7 @@ public class TestFoodTruckStaff {
 		}
 		
 		//check error
-		assertEquals("Role cannot be empty! ", errorMessage);
+		assertEquals("Role cannot be empty!", errorMessage);
 		
 		//check no change in memory
 		assertEquals(false, ftms.hasEmployees());
@@ -186,7 +185,7 @@ public class TestFoodTruckStaff {
 		}
 		
 		//check error
-		assertEquals("Role cannot be empty! ", errorMessage);
+		assertEquals("Role cannot be empty!", errorMessage);
 		
 		//check no change in memory
 		assertEquals(false, ftms.hasEmployees());
@@ -214,7 +213,7 @@ public class TestFoodTruckStaff {
 		}
 		
 		//check error
-		assertEquals("Role cannot be empty! ", errorMessage);
+		assertEquals("Role cannot be empty!", errorMessage);
 		
 		//check no change in memory
 		assertEquals(false, ftms.hasEmployees());
@@ -242,7 +241,7 @@ public class TestFoodTruckStaff {
 		}
 		
 		//check error
-		assertEquals("Salary cannot contain fractions of cents! ", errorMessage);
+		assertEquals("Salary cannot contain fractions of cents!", errorMessage);
 		
 		//check no change in memory
 		assertEquals(false, ftms.hasEmployees());
@@ -270,7 +269,7 @@ public class TestFoodTruckStaff {
 		}
 		
 		//check error
-		assertEquals("Minimum wage is 10.75! Treat your workers fairly! ", errorMessage);
+		assertEquals("Minimum wage is 10.75! Treat your workers fairly!", errorMessage);
 		
 		//check no change in memory
 		assertEquals(false, ftms.hasEmployees());
@@ -298,7 +297,7 @@ public class TestFoodTruckStaff {
 		}
 		
 		//check error
-		assertEquals("Salary must be a number! ", errorMessage);
+		assertEquals("Salary must be a number!", errorMessage);
 		
 		//check no change in memory
 		assertEquals(false, ftms.hasEmployees());
@@ -326,7 +325,7 @@ public class TestFoodTruckStaff {
 		}
 		
 		//check error
-		assertEquals("Salary must be a number! ", errorMessage);
+		assertEquals("Salary must be a number!", errorMessage);
 		
 		//check no change in memory
 		assertEquals(false, ftms.hasEmployees());
@@ -372,8 +371,8 @@ public class TestFoodTruckStaff {
 		String staffSalary = "12.75";
 		
 		String day = "Monday";
-		Time startTime = Time.valueOf("09:00");
-		Time endTime = Time.valueOf("12:00");
+		Time startTime = new Time(9000);
+		Time endTime = new Time(10000);
 		
 		FoodTruckController ftc = new FoodTruckController();
 		
@@ -401,8 +400,8 @@ public class TestFoodTruckStaff {
 		Employee Biceps=null;
 		
 		String day = "Monday";
-		Time startTime = Time.valueOf("09:00");
-		Time endTime = Time.valueOf("12:00");
+		Time startTime = new Time(9000);
+		Time endTime = new Time(10000);
 		
 		String errorMessage = null;
 		
@@ -415,7 +414,7 @@ public class TestFoodTruckStaff {
 		}
 			
 		//check error
-		assertEquals("Please fill out the entire form before adding a shift in! ", errorMessage);
+		assertEquals("Please fill out the entire form before adding a shift in!", errorMessage);
 		
 		//check no change in memory
 		assertEquals(false, ftms.hasEmployees());
@@ -434,8 +433,8 @@ public class TestFoodTruckStaff {
 		String staffSalary = "12.75";
 		
 		String day = null;
-		Time startTime = Time.valueOf("09:00");
-		Time endTime = Time.valueOf("12:00");
+		Time startTime = new Time(9000);
+		Time endTime = new Time(10000);
 		
 		String errorMessage = null;
 		
@@ -450,7 +449,8 @@ public class TestFoodTruckStaff {
 		}
 			
 		//check error
-		assertEquals("Please fill out the entire form before adding a shift in! ", errorMessage);
+		assertEquals("Please fill out the entire form before adding a shift in! "
+				+ "Please select a day of the week!", errorMessage);
 		
 		//check no change in memory
 		assertEquals(false, ftms.getEmployee(0).hasShifts());
@@ -469,8 +469,8 @@ public class TestFoodTruckStaff {
 		String staffSalary = "12.75";
 		
 		String day = "";
-		Time startTime = Time.valueOf("09:00");
-		Time endTime = Time.valueOf("12:00");
+		Time startTime = new Time(9000);
+		Time endTime = new Time(10000);
 		
 		String errorMessage = null;
 		
@@ -485,7 +485,7 @@ public class TestFoodTruckStaff {
 		}
 			
 		//check error
-		assertEquals("Please select a day of the week! ", errorMessage);
+		assertEquals("Please select a day of the week!", errorMessage);
 		
 		//check no change in memory
 		assertEquals(false, ftms.getEmployee(0).hasShifts());
@@ -504,8 +504,8 @@ public class TestFoodTruckStaff {
 		String staffSalary = "12.75";
 		
 		String day = " ";
-		Time startTime = Time.valueOf("09:00");
-		Time endTime = Time.valueOf("12:00");
+		Time startTime = new Time(9000);
+		Time endTime = new Time(10000);
 		
 		String errorMessage = null;
 		
@@ -520,7 +520,7 @@ public class TestFoodTruckStaff {
 		}
 			
 		//check error
-		assertEquals("Please select a day of the week! ", errorMessage);
+		assertEquals("Please select a day of the week!", errorMessage);
 		
 		//check no change in memory
 		assertEquals(false, ftms.getEmployee(0).hasShifts());
@@ -540,7 +540,7 @@ public class TestFoodTruckStaff {
 		
 		String day = "Monday";
 		Time startTime = null;
-		Time endTime = Time.valueOf("12:00");
+		Time endTime = new Time(10000);
 		
 		String errorMessage = null;
 		
@@ -555,7 +555,7 @@ public class TestFoodTruckStaff {
 		}
 			
 		//check error
-		assertEquals("Please fill out the entire form before adding a shift in! ", errorMessage);
+		assertEquals("Please fill out the entire form before adding a shift in!", errorMessage);
 		
 		//check no change in memory
 		assertEquals(false, ftms.getEmployee(0).hasShifts());
@@ -574,7 +574,7 @@ public class TestFoodTruckStaff {
 		String staffSalary = "12.75";
 		
 		String day = "Monday";
-		Time startTime = Time.valueOf("09:00");
+		Time startTime = new Time(9000);		
 		Time endTime = null;
 		
 		String errorMessage = null;
@@ -590,7 +590,7 @@ public class TestFoodTruckStaff {
 		}
 			
 		//check error
-		assertEquals("Please fill out the entire form before adding a shift in! ", errorMessage);
+		assertEquals("Please fill out the entire form before adding a shift in!", errorMessage);
 		
 		//check no change in memory
 		assertEquals(false, ftms.getEmployee(0).hasShifts());
@@ -609,8 +609,8 @@ public class TestFoodTruckStaff {
 		String staffSalary = "12.75";
 		
 		String day = "Monday";
-		Time startTime = Time.valueOf("09:00");
-		Time endTime = Time.valueOf("08:00");
+		Time startTime = new Time(10000);
+		Time endTime = new Time(9000);
 		
 		String errorMessage = null;
 		
@@ -625,7 +625,7 @@ public class TestFoodTruckStaff {
 		}
 			
 		//check error
-		assertEquals("Shift end time cannot be before shift start time! ", errorMessage);
+		assertEquals("Shift end time cannot be before shift start time!", errorMessage);
 		
 		//check no change in memory
 		assertEquals(false, ftms.getEmployee(0).hasShifts());
@@ -645,8 +645,8 @@ public class TestFoodTruckStaff {
 		String staffSalary = "12.75";
 		
 		String day = "Monday";
-		Time startTime = Time.valueOf("09:00");
-		Time endTime = Time.valueOf("12:00");
+		Time startTime = new Time(9000);
+		Time endTime = new Time(10000);
 		
 		FoodTruckController ftc = new FoodTruckController();
 		
@@ -678,8 +678,8 @@ public class TestFoodTruckStaff {
 		String staffSalary = "12.75";
 		
 		String day = "Monday";
-		Time startTime = Time.valueOf("09:00");
-		Time endTime = Time.valueOf("12:00");
+		Time startTime = new Time(9000);
+		Time endTime = new Time(10000);
 		
 		FoodTruckController ftc = new FoodTruckController();
 		
@@ -695,7 +695,7 @@ public class TestFoodTruckStaff {
 		}
 			
 		//check error
-		assertEquals("Please fill out the form before removing shift! ", errorMessage);
+		assertEquals("Please fill out the form before removing shift!", errorMessage);
 		
 		//check no change in memory
 		assertEquals(true, ftms.getEmployee(0).hasShifts());
@@ -715,8 +715,8 @@ public class TestFoodTruckStaff {
 		String staffSalary = "12.75";
 		
 		String day = "Monday";
-		Time startTime = Time.valueOf("09:00");
-		Time endTime = Time.valueOf("12:00");
+		Time startTime = new Time(9000);
+		Time endTime = new Time(10000);
 		
 		FoodTruckController ftc = new FoodTruckController();
 		
@@ -732,7 +732,7 @@ public class TestFoodTruckStaff {
 		}
 			
 		//check error
-		assertEquals("Please fill out the form before removing shift! ", errorMessage);
+		assertEquals("Please fill out the form before removing shift!", errorMessage);
 		
 		//check no change in memory
 		assertEquals(true, ftms.getEmployee(0).hasShifts());
@@ -742,7 +742,7 @@ public class TestFoodTruckStaff {
 	
 	//Checking methods for Staff
 	private void checkResultAddStaff(String staffName, FoodTruckManager ftms) {
-		assertEquals(staffName,ftms.getEmployee(0));
+		assertEquals(staffName,ftms.getEmployee(0).getName());
 		assertEquals(1,ftms.getEmployees().size());
 		assertEquals(true,ftms.hasEmployees());		
 	}
@@ -755,14 +755,12 @@ public class TestFoodTruckStaff {
 	//Checking methods for Shift
 	private void checkResultAddShift(Employee biceps, FoodTruckManager ftms) {
 		assertEquals(1,biceps.numberOfShifts(),ftms.getEmployee(0).numberOfShifts());
-		assertEquals(biceps.getShift(0),ftms.getEmployee(0).getShift(0));
 		assertEquals(true,biceps.hasShifts());
 		assertEquals(true,ftms.getEmployee(0).hasShifts());
 	}
 	
 	private void checkResultRemoveShift(Employee biceps, FoodTruckManager ftms) {
 		assertEquals(0,biceps.numberOfShifts(),ftms.getEmployee(0).numberOfShifts());
-		assertEquals(biceps.getShift(0),ftms.getEmployee(0).getShift(0));
 		assertEquals(false,biceps.hasShifts());
 		assertEquals(false,ftms.getEmployee(0).hasShifts());
 	}
