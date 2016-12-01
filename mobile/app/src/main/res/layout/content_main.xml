@@ -17,7 +17,7 @@
             android:orientation="vertical"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:visibility="visible"
+            android:visibility="gone"
             android:id="@+id/Main">
             <TextView
                 android:layout_width="fill_parent"
@@ -225,7 +225,7 @@
             android:orientation="vertical"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:visibility="gone"
+            android:visibility="visible"
             android:id="@+id/Employee">
             <TextView
                 android:layout_width="match_parent"
@@ -243,6 +243,12 @@
                 android:layout_height="wrap_content"
                 android:hint="Enter New Employee's Function"
                 android:id="@+id/employee_function" />
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Employee's Salary"
+                android:inputType="number"
+                android:id="@+id/employee_salary" />
             <Button
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -265,7 +271,8 @@
                 android:id="@+id/employee_display"
                 android:scrollbars="vertical"
                 android:enabled="false"
-                android:hint="No Shifts !"
+                android:onClick="showShifts"
+                android:hint="Click to view shifts"
                 android:paddingBottom="10dp"/>
             <View
                 android:layout_width="match_parent"
@@ -278,6 +285,7 @@
                 android:textAlignment="center"
                 android:paddingTop="25dp"
                 android:text="Select Day/Time For New Shift"
+                android:id="@+id/employeeShiftTitle"
                 android:scrollbars="vertical"
                 android:enabled="false"/>
             <Spinner
