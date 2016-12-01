@@ -32,6 +32,7 @@ public class MainActivity extends AppCompatActivity {
     private String errorECount;
     private String errorAddStaff;
     private String errorAddShift;
+    private String errorRemoveStaff;
 
     private HashMap<Integer, Equipment> equipments;
     private HashMap<Integer, Supply> supplies;
@@ -146,7 +147,7 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    private void refreshData(){
+    private void refreshData() {
         FoodTruckManager ftm = FoodTruckManager.getInstance();
         TextView itemNameView = (TextView) findViewById(R.id.newitem_name);
         TextView itemPriceView = (TextView) findViewById(R.id.newitem_price);
@@ -177,14 +178,12 @@ public class MainActivity extends AppCompatActivity {
         employeeName.setError(errorAddStaff);
         employeeShiftTitleView.setError(errorAddShift);
 
-        if (errorItem == null)
-        {
+        if (errorItem == null) {
             itemNameView.setText("");
             itemPriceView.setText("");
         }
 
-        if (errorSupply == null)
-        {
+        if (errorSupply == null) {
             supplyNameView.setText("");
             supplyCountView.setText("");
 
@@ -192,19 +191,18 @@ public class MainActivity extends AppCompatActivity {
             Spinner supplySpinner = (Spinner) findViewById(R.id.supplyspinner);
             ArrayAdapter<CharSequence> supplyAdapter = new ArrayAdapter<CharSequence>(this, android.R.layout.simple_spinner_item);
             supplyAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-            this.supplies = new HashMap<Integer,Supply>();
-            int i=0;
-            for (Iterator<Supply> supplies = ftm.getSupplies().iterator(); supplies.hasNext(); i++){
+            this.supplies = new HashMap<Integer, Supply>();
+            int i = 0;
+            for (Iterator<Supply> supplies = ftm.getSupplies().iterator(); supplies.hasNext(); i++) {
                 Supply s = supplies.next();
                 supplyAdapter.add(s.getName());
-                this.supplies.put(i,s);
+                this.supplies.put(i, s);
             }
             supplySpinner.setAdapter(supplyAdapter);
 
         }
 
-        if (errorEquip == null)
-        {
+        if (errorEquip == null) {
             equipmentNameView.setText("");
             equipmentCountView.setText("");
 
@@ -212,12 +210,12 @@ public class MainActivity extends AppCompatActivity {
             Spinner equipmentSpinner = (Spinner) findViewById(R.id.equipmentspinner);
             ArrayAdapter<CharSequence> equipmentAdapter = new ArrayAdapter<CharSequence>(this, android.R.layout.simple_spinner_item);
             equipmentAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-            this.equipments = new HashMap<Integer,Equipment>();
-            int i=0;
-            for (Iterator<Equipment> equipments = ftm.getEquipment().iterator(); equipments.hasNext(); i++){
+            this.equipments = new HashMap<Integer, Equipment>();
+            int i = 0;
+            for (Iterator<Equipment> equipments = ftm.getEquipment().iterator(); equipments.hasNext(); i++) {
                 Equipment e = equipments.next();
                 equipmentAdapter.add(e.getName());
-                this.equipments.put(i,e);
+                this.equipments.put(i, e);
             }
             equipmentSpinner.setAdapter(equipmentAdapter);
         }
@@ -226,42 +224,48 @@ public class MainActivity extends AppCompatActivity {
             supplyCountView.setText("");
         }
 
-        if(errorAddStaff == null){
+        if (errorAddShift == null) {
+            startTime.setText("");
+            endTime.setText("");
+        }
+
+        if (selectedEmployee.getSelectedItemPosition() >= 0) {
+            displayShifts(employees.get(selectedEmployee.getSelectedItemPosition()));
+        }
+
+        if (errorAddStaff == null) {
             employeeName.setText("");
             employeePay.setText("");
             employeeRole.setText("");
 
             //Initialize spinner data
             Spinner employeeSpinner = (Spinner) findViewById(R.id.employeespinner);
-            ArrayAdapter<CharSequence> employeeAdapter = new ArrayAdapter<CharSequence>(this,android.R.layout.simple_spinner_item);
+            ArrayAdapter<CharSequence> employeeAdapter = new ArrayAdapter<CharSequence>(this, android.R.layout.simple_spinner_item);
             employeeAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-            this.employees = new HashMap<Integer,Employee>();
-            int i=0;
-            for(Iterator<Employee> employees = ftm.getEmployees().iterator();employees.hasNext();i++){
+            this.employees = new HashMap<Integer, Employee>();
+            int i = 0;
+            for (Iterator<Employee> employees = ftm.getEmployees().iterator(); employees.hasNext(); i++) {
                 Employee emp = employees.next();
-                employeeAdapter.add(emp.getName()+" - "+emp.getRole()+" - "+emp.getSalaryPerHour()+"$/hr");
-                this.employees.put(i,emp);
+                employeeAdapter.add(emp.getName() + " - " + emp.getRole() + " - " + emp.getSalaryPerHour() + "$/hr");
+                this.employees.put(i, emp);
             }
             employeeSpinner.setAdapter(employeeAdapter);
         }
 
-        if(errorAddShift==null){
-            startTime.setText("");
-            endTime.setText("");
-        }
 
-        errorItem=null;
-        errorEquip=null;
-        errorSupply=null;
-        errorSCount=null;
-        errorECount=null;
-        errorAddStaff=null;
+
+        errorItem = null;
+        errorEquip = null;
+        errorSupply = null;
+        errorSCount = null;
+        errorECount = null;
+        errorAddStaff = null;
+        errorRemoveStaff = null;
 
         //Display changes to user
         displayItems();
         displayEquip();
         displaySupplies();
-        //displayShifts(employees.get(selectedEmployee.getSelectedItemPosition()));
     }
 
     @Override
@@ -415,6 +419,18 @@ public class MainActivity extends AppCompatActivity {
         refreshData();
     }
 
+    public void removeEmployee(View v){
+        FoodTruckController ftc = new FoodTruckController();
+        Spinner selectedEmployee = (Spinner) findViewById(R.id.employeespinner);
+
+        //try {
+            ftc.removeEmployee(this.employees.get(selectedEmployee.getSelectedItemPosition()));
+        /*} catch (InvalidInputException e){
+            errorRemoveStaff = e.getMessage();
+        }*/
+        refreshData();
+    }
+
     //Helper Method -- Recycled from Event Registration
     private java.sql.Time getSqlTimeFromLabel(CharSequence text) {
         String timeString = text.toString()+":00";
@@ -448,14 +464,16 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    /*public void showShifts(View v){
+    public void showShifts(View v) {
         Spinner selectedEmployee = (Spinner) findViewById(R.id.employeespinner);
-        displayShifts(this.employees.get(selectedEmployee.getSelectedItemPosition()));
-    }*/
+        if (selectedEmployee.getSelectedItemPosition() >= 0) {
+            displayShifts(this.employees.get(selectedEmployee.getSelectedItemPosition()));
+        }
+    }
 
     public void displayShifts(Employee emp){
         TextView shiftList = (TextView) findViewById(R.id.employee_display);
-        shiftList.setText("");
+        shiftList.setText("Employee: "+emp.getName()+" - "+emp.getRole()+"\nSalary: "+emp.getSalaryPerHour()+"$/hr\n");
         for (int i=0;i<emp.getShifts().size();i++){
             shiftList.setText(shiftList.getText()+emp.getShift(i).getDayOfWeek()+" : "+emp.getShift(i).getStartTime()+" to "+emp.getShift(i).getEndTime()+"\n");
         }

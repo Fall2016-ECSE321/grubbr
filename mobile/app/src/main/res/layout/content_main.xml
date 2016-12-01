@@ -221,6 +221,9 @@
                 android:layout_height="2dp"
                 android:background="@android:color/holo_blue_dark"/>
         </LinearLayout>
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
         <LinearLayout
             android:orientation="vertical"
             android:layout_width="match_parent"
@@ -272,9 +275,14 @@
                 android:id="@+id/employee_display"
                 android:scrollbars="vertical"
                 android:enabled="false"
-                android:onClick="showShifts"
-                android:hint="Click to view shifts"
+                android:hint="No Shifts !"
                 android:paddingBottom="10dp"/>
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="end"
+                android:text="Display Shifts"
+                android:onClick="showShifts"/>
             <View
                 android:layout_width="match_parent"
                 android:layout_height="2dp"
@@ -328,11 +336,25 @@
                 android:textColor="#550000"
                 android:hint="@string/shifttime"
                 android:onClick="showTimePickerDialog"/>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="end">
 
-            <Button
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="end"
-                android:text="Add Shift"/>
+                <Button
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Fire Employee"
+                    android:textColor="#840000"
+                    android:onClick="removeEmployee"/>
+
+                <Button
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Add Shift"
+                    android:onClick="addShift"
+                    android:id="@+id/button3" />
+            </LinearLayout>
         </LinearLayout>
+    </ScrollView>
 </RelativeLayout>
