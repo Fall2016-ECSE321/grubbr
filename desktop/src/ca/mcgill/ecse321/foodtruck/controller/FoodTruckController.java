@@ -262,7 +262,20 @@ public class FoodTruckController {
 	 * @param employee	the employee to be fired
 	 */
 	
-	public void removeEmployee(Employee employee) {
+	public void removeEmployee(Employee employee) throws InvalidInputException {
+		
+		String error = "";
+		
+		if (employee==null) {
+			error+="Please select an employee! ";
+		}
+		
+		error = error.trim();
+		
+		if (error.length()>0) {
+			throw new InvalidInputException(error);
+		}
+		
 		FoodTruckManager ftms = FoodTruckManager.getInstance();
 		ftms.removeEmployee(employee);
 		PersistenceXStream.saveToXMLwithXStream(ftms);
@@ -279,6 +292,11 @@ public class FoodTruckController {
 	public void createShift(Employee employee, String day, Time startTime, Time endTime) throws InvalidInputException {
 		
 		String error = "";
+		
+		if (employee == null || day == null || startTime == null || endTime == null) {
+			error += "Please fill out the entire form before adding a shift in! ";
+		}
+		
 		if (endTime != null && startTime != null && endTime.getTime() < startTime.getTime()) {
 			error = error + "Shift end time cannot be before shift start time! ";
 		}
@@ -307,13 +325,24 @@ public class FoodTruckController {
 	 * @param employee	the employee for whom we are removing the shift
 	 * @param shift		the shift to be removed
 	 */
-	public void removeShift(Employee employee, Shift shift) {
+	public void removeShift(Employee employee, Shift shift) throws InvalidInputException {
+		
+		String error="";
+		if (employee == null || shift == null) {
+			error+="Please fill out the form before removing shift! ";
+		}
+		
+		error=error.trim();
+		
+		if (error.length()>0) {
+			throw new InvalidInputException(error);
+		}
+		
 		FoodTruckManager ftms = FoodTruckManager.getInstance();
 		
 		employee.removeShift(shift);
 		PersistenceXStream.saveToXMLwithXStream(ftms);
 	}
-	
 	
 	/**
 	 * Determines whether or not the text in the label is a valid dollar value.
