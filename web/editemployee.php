@@ -26,12 +26,25 @@ $selectedEmployee = $ftm->getEmployee_index($selectedEmployeeIndex);
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/html">
     <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <!-- Import Bootstrap -->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"/>
+        <link rel="stylesheet" href="stylesheets/stylesheet.css"/>
+
+
+
+    </head>
+    <body>
+        <div class="container-fluid">
+            <div class="jumbotron text-center">
+                <h1>grubbr.</h1>
+            </div>
+        </div>
+
         <h1>Employee Edit Page</h1>
         <a href="index.php">back</a>
         <br>
 
-    </head>
-    <body>
         <div>
             <?php
             echo "<br>";
@@ -43,12 +56,13 @@ $selectedEmployee = $ftm->getEmployee_index($selectedEmployeeIndex);
             echo "<br>";
             ?>
         </div>
-        <form method="post">
+
+        <form action="saveEmployeeEdits.php" method="post">
             <fieldset>
                 <br>
                 <p>Employee Role: <input type="text" name="editEmployee_Role" placeholder="Enter New Role" value="<?php echo $selectedEmployee->getRole() ?>"/> </p>
                 <p>Employee Salary: <input type="text" name="editEmployee_Salary" placeholder="Enter New Salary" value="<?php echo $selectedEmployee->getSalaryPerHour() ?>"/> </p>
-
+                <p> <input type="hidden" name="editEmployee_Index" value="<?php echo $selectedEmployeeIndex ?>"> </p>
                 <p><input type="submit" value="Save edits"/></p>
             </fieldset>
 

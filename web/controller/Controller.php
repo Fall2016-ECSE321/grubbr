@@ -82,7 +82,24 @@ class Controller
 			$pft->writeDataToStore($ftm);
 		}
 	}
-	
+
+	public function editEmployee($employee_role, $employee_salary, $employee_index){
+        $role = InputValidator::validate_input($employee_role);
+        $salary = InputValidator::validate_input($employee_salary);
+        if($role==null || strlen($role)==0){
+            throw new Exception("Item name cannot be empty");
+        } else if(!is_numeric($salary)){
+            throw new Exception("Salary must be a number");
+        }else{
+            $pft = new PersistenceFoodTruck();
+            $ftm = $pft->loadDataFromStore();
+            $ftm->getEmployee_index($employee_index)->setRole($role);
+            $ftm->getEmployee_index($employee_index)->setSalaryPerHour($salary);
+            $pft->writeDataToStore($ftm);
+        }
+
+    }
+
 	public function createEmployee($employee_name,$employee_role, $employee_salary){
 		$name = InputValidator::validate_input($employee_name);
 		$role = InputValidator::validate_input($employee_role);
