@@ -424,13 +424,14 @@ public class MainActivity extends AppCompatActivity {
         FoodTruckController ftc = new FoodTruckController();
         Spinner selectedEmployee = (Spinner) findViewById(R.id.employeespinner);
         TextView shifts = (TextView) findViewById(R.id.employee_display);
+        Employee emp = this.employees.get(selectedEmployee.getSelectedItemPosition());
         //try {
-            ftc.removeEmployee(this.employees.get(selectedEmployee.getSelectedItemPosition()));
+            ftc.removeEmployee(emp);
         /*} catch (InvalidInputException e){
             errorRemoveStaff = e.getMessage();
         }*/
-        shifts.setText("You have fired "+this.employees.get(selectedEmployee.getSelectedItemPosition())+".");
         refreshData();
+        shifts.setText("You have fired "+emp.getName()+".");
 
     }
 
