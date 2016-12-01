@@ -158,7 +158,11 @@ public class MainActivity extends AppCompatActivity {
         TextView equipmentCountView = (TextView) findViewById(R.id.newequipment_count);
 
         TextView employeeName = (TextView) findViewById(R.id.employee_name);
-        TextView employeeShift = (TextView) findViewById(R.id.employeeShiftTitle);
+        TextView employeePay = (TextView) findViewById(R.id.employee_salary);
+        TextView employeeRole = (TextView) findViewById(R.id.employee_function);
+
+        TextView employeeShiftTitleView = (TextView) findViewById(R.id.employeeShiftTitle);
+
         TextView startTime = (TextView) findViewById(R.id.employee_starttime);
         TextView endTime = (TextView) findViewById(R.id.employee_endtime);
         Spinner selectedEmployee = (Spinner) findViewById(R.id.employeespinner);
@@ -171,7 +175,7 @@ public class MainActivity extends AppCompatActivity {
         equipmentNameView.setError(errorEquip);
         supplyCountView.setError(errorSCount);
         employeeName.setError(errorAddStaff);
-        employeeShift.setError(errorAddShift);
+        employeeShiftTitleView.setError(errorAddShift);
 
         if (errorItem == null)
         {
@@ -224,6 +228,8 @@ public class MainActivity extends AppCompatActivity {
 
         if(errorAddStaff == null){
             employeeName.setText("");
+            employeePay.setText("");
+            employeeRole.setText("");
 
             //Initialize spinner data
             Spinner employeeSpinner = (Spinner) findViewById(R.id.employeespinner);
@@ -255,7 +261,7 @@ public class MainActivity extends AppCompatActivity {
         displayItems();
         displayEquip();
         displaySupplies();
-        displayShifts(employees.get(selectedEmployee.getSelectedItemPosition()));
+        //displayShifts(employees.get(selectedEmployee.getSelectedItemPosition()));
     }
 
     @Override
@@ -442,11 +448,11 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    public void showShifts(View v){
+    /*public void showShifts(View v){
         Spinner selectedEmployee = (Spinner) findViewById(R.id.employeespinner);
         displayShifts(this.employees.get(selectedEmployee.getSelectedItemPosition()));
-    }
-    
+    }*/
+
     public void displayShifts(Employee emp){
         TextView shiftList = (TextView) findViewById(R.id.employee_display);
         shiftList.setText("");
