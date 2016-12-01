@@ -416,19 +416,22 @@ public class MainActivity extends AppCompatActivity {
         } catch (InvalidInputException e){
             errorAddShift=e.getMessage();
         }
+
         refreshData();
     }
 
     public void removeEmployee(View v){
         FoodTruckController ftc = new FoodTruckController();
         Spinner selectedEmployee = (Spinner) findViewById(R.id.employeespinner);
-
+        TextView shifts = (TextView) findViewById(R.id.employee_display);
         //try {
             ftc.removeEmployee(this.employees.get(selectedEmployee.getSelectedItemPosition()));
         /*} catch (InvalidInputException e){
             errorRemoveStaff = e.getMessage();
         }*/
+        shifts.setText("You have fired "+this.employees.get(selectedEmployee.getSelectedItemPosition())+".");
         refreshData();
+
     }
 
     //Helper Method -- Recycled from Event Registration
