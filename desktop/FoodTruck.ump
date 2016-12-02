@@ -5,13 +5,12 @@ class Employee {
 	name;
 	role;
 	double salaryPerHour;
-	1 -- * Shift;
+	1 -> * Shift;
 }
 
 class FoodTruckManager {
 	singleton;
 	1 -> * Employee employees;
-    1 -> * Shift shifts;
 	1 -> * Supply supplies;
 	1 -> * Equipment equipment;
 	1 -> * MenuItem menuItems;
@@ -42,34 +41,33 @@ class Equipment {
 
 class Employee
 {
-  position 50 30 109 45;
-  position.association Employee__Shift 9,109 30,0;
+  position 201 2 162 107;
+  position.association Employee__Shift 0,105 182,4;
 }
 
 class FoodTruckManager
 {
-  position 267 206 121 45;
-  position.association Employee:employees__FoodTruckManager 30,0 136,109;
-  position.association FoodTruckManager__Shift:shifts 0,42 182,15;
-  position.association Equipment:equipment__FoodTruckManager 102,0 47,75;
+  position 200 250 121 45;
+  position.association Employee:employees__FoodTruckManager 30,0 22,109;
+  position.association Equipment:equipment__FoodTruckManager 136,0 0,10;
 }
 
 class Shift
 {
-  position 19 208 174 107;
+  position 1 102 174 107;
 }
 
 class MenuItem
 {
-  position 352 337 122 90;
+  position 355 393 122 90;
 }
 
 class Supply
 {
-  position 166 439 109 73;
+  position 50 430 109 45;
 }
 
 class Equipment
 {
-  position 433 37 109 73;
+  position 474 56 109 73;
 }

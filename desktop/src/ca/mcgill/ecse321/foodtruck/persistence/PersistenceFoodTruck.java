@@ -62,10 +62,6 @@ public class PersistenceFoodTruck {
 			while (employeeIterator.hasNext()) {
 				ftms.addEmployee(employeeIterator.next());
 			}
-			Iterator<Shift> shiftIterator = ftms2.getShifts().iterator();
-			while (shiftIterator.hasNext()) {
-				ftms.addShift(shiftIterator.next());
-			}
 		}
 	}
 

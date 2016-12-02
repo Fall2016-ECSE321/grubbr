@@ -356,10 +356,10 @@ public class FoodTruckController {
 		long duration = endTime.getTime()-startTime.getTime();
 		int numHours = (int) (duration/1000/60/60);
 		
-		Shift shift = new Shift(day, startTime, endTime, numHours, employee);
+		Shift shift = new Shift(day, startTime, endTime, numHours);
 		FoodTruckManager ftms = FoodTruckManager.getInstance();
 		
-		ftms.addShift(shift);
+		employee.addShift(shift);
 		PersistenceXStream.saveToXMLwithXStream(ftms);
 	}
 	
@@ -367,7 +367,7 @@ public class FoodTruckController {
 	 * Removes a shift for an employee.
 	 * @param shift		the shift to be removed
 	 */
-	public void cancelShift(Shift shift) throws InvalidInputException {
+	public void cancelShift(Employee employee, Shift shift) throws InvalidInputException {
 		
 		String error="";
 		if (shift == null) {
@@ -382,7 +382,7 @@ public class FoodTruckController {
 		
 		FoodTruckManager ftms = FoodTruckManager.getInstance();
 		
-		ftms.removeShift(shift);
+		employee.removeShift(shift);
 		
 		PersistenceXStream.saveToXMLwithXStream(ftms);
 	}
