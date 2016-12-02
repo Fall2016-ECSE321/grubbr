@@ -19,7 +19,7 @@ import ca.mcgill.ecse321.foodtruck.controller.FoodTruckController;
 import ca.mcgill.ecse321.foodtruck.controller.InvalidInputException;
 import ca.mcgill.ecse321.foodtruck.model.Equipment;
 import ca.mcgill.ecse321.foodtruck.model.FoodTruckManager;
-import ca.mcgill.ecse321.foodtruck.model.MenuItem;
+import ca.mcgill.ecse321.foodtruck.model.FoodItem;
 import ca.mcgill.ecse321.foodtruck.model.Supply;
 
 import java.awt.event.ActionListener;
@@ -117,7 +117,7 @@ public class FoodTruckManagementPage {
 		JButton btnAddToMenu = new JButton("Add to menu");
 		btnAddToMenu.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				addMenuItemButtonActionPerformed(e);
+				addFoodItemButtonActionPerformed(e);
 			}
 		});
 		
@@ -586,10 +586,10 @@ public class FoodTruckManagementPage {
 			txtItemPrice.setText("");
 
 			String menuText = "<html>";
-			Iterator<MenuItem> menuIterator = ftms.getMenuItems().iterator();
+			Iterator<FoodItem> menuIterator = ftms.getFoodItems().iterator();
 			
 			while (menuIterator.hasNext()) {
-				MenuItem item = menuIterator.next();
+				FoodItem item = menuIterator.next();
 				menuText += item.getName()+" - "+item.getPrice()+"<br>";
 			}
 			
@@ -644,11 +644,11 @@ public class FoodTruckManagementPage {
 		equipmentList.setSelectedIndex(selectedEquipment);
 	}
 	
-	public void addMenuItemButtonActionPerformed(ActionEvent event) {
+	public void addFoodItemButtonActionPerformed(ActionEvent event) {
 		FoodTruckController ftc = new FoodTruckController();
 		
 		try {
-		ftc.createMenuItem(txtItemName.getText(),txtItemPrice.getText());
+		ftc.createFoodItem(txtItemName.getText(),txtItemPrice.getText());
 		} catch (InvalidInputException e) {
 			error = e.getMessage();
 		}
