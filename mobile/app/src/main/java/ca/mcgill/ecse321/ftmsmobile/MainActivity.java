@@ -496,7 +496,7 @@ public class MainActivity extends AppCompatActivity {
         FoodTruckManager ftm = FoodTruckManager.getInstance();
         supplyList.setText("");
         for(int i=0;i<ftm.getSupplies().size();i++){
-            supplyList.setText(supplyList.getText() + ftm.getSupply(i).getName() + "x" + ftm.getSupply(i).getCount() + "\n");
+            supplyList.setText(supplyList.getText() + ftm.getSupply(i).getName() + " : " + ftm.getSupply(i).getCount() + "\n");
         }
     }
 
@@ -505,7 +505,7 @@ public class MainActivity extends AppCompatActivity {
         FoodTruckManager ftm = FoodTruckManager.getInstance();
         equipList.setText("");
         for(int i=0;i<ftm.getEquipment().size();i++){
-            equipList.setText(equipList.getText() + ftm.getEquipment(i).getName() + "x" + ftm.getEquipment(i).getCount() + "\n");
+            equipList.setText(equipList.getText() + ftm.getEquipment(i).getName() + " : " + ftm.getEquipment(i).getCount() + "\n");
         }
     }
 
