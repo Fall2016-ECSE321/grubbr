@@ -19,4 +19,6 @@
     <string name="add_employee_title">Add A New Employee</string>
     <string name="supplyremove_button">Remove Supply</string>
     <string name="equipmentremove_button">Remove Equipment</string>
+    <string name="ordermenutitle">Orders</string>
+    <string name="orderbutton">Order</string>
 </resources>

@@ -40,6 +40,7 @@ public class MainActivity extends AppCompatActivity {
     private HashMap<Integer, Supply> supplies;
     private HashMap<Integer, Employee> employees;
     private HashMap<Integer, Shift> shifts;
+    private HashMap<Integer, MenuItem> menu;
     private String week[] = new String[7];
 
     //Refers to the last employee for whom the user chose to see the schedule.
@@ -455,7 +456,12 @@ public class MainActivity extends AppCompatActivity {
         }
         refreshData();
         shifts.setText("You have fired "+emp.getName()+".");
+    }
 
+    public void addOrder(View v){
+        FoodTruckController ftc = new FoodTruckController();
+
+        //ftc.orderFood();
     }
 
     //Helper Method -- Recycled from Event Registration
@@ -489,6 +495,16 @@ public class MainActivity extends AppCompatActivity {
         for (int i=0;i<ftm.getMenuItems().size();i++) {
             itemList.setText(itemList.getText() + ftm.getMenuItem(i).getName() +" : " + ftm.getMenuItem(i).getPrice() + "$" + "\n");
         }
+
+        Spinner menuItemSpinner = (Spinner) findViewById(R.id.selectMenuItem);
+        ArrayAdapter<CharSequence> menuAdapter = new ArrayAdapter<CharSequence>(this, android.R.layout.simple_spinner_item);
+        menuAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        this.menu = new HashMap<Integer, MenuItem>();
+        int i=0;
+
+        /*for(Iterator<MenuItem> menu = ftm.getMenuItems().iterator(); menu.hasNext();i++){
+
+        }*/
     }
 
     public void showShifts(View v) {
