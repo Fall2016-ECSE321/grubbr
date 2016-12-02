@@ -58,9 +58,9 @@ public class FoodTruckManagementPage {
 	private HashMap<Integer, Supply> supplies;
 	private Integer selectedEquipment = -1;
 	private HashMap<Integer, Equipment> equipment;
-	private JTextField textField;
-	private JTextField textField_1;
-	private JTextField textField_2;
+	private JTextField lblEmployeeName;
+	private JTextField lblEmployeeRole;
+	private JTextField lblEmployeeSalary;
 
 	/**
 	 * Launch the application.
@@ -121,21 +121,21 @@ public class FoodTruckManagementPage {
 			}
 		});
 		
-		JLabel lblNewLabel = new JLabel("<html>1 - Pho <br/> 2 - Bugs Bunny <br> 3 - Porky Pig <br> 4 - Dragon Poutine <br> 5 - Chicken Nuggets");
-		lblNewLabel.setVerticalAlignment(SwingConstants.TOP);
+		JLabel lblTopMenuList = new JLabel("<html>");
+		lblTopMenuList.setVerticalAlignment(SwingConstants.TOP);
 		
 		JLabel lblTopMenu = new JLabel("Top 5 Menu Items:");
 		
 		JLabel label = new JLabel("");
 		
-		JComboBox comboBox_3 = new JComboBox();
+		JComboBox menuList = new JComboBox();
 		
 		JButton btnOrder = new JButton("Order");
 		GroupLayout gl_panel = new GroupLayout(panel);
 		gl_panel.setHorizontalGroup(
 			gl_panel.createParallelGroup(Alignment.TRAILING)
 				.addGroup(gl_panel.createSequentialGroup()
-					.addComponent(lblNewLabel, GroupLayout.DEFAULT_SIZE, 210, Short.MAX_VALUE)
+					.addComponent(lblTopMenuList, GroupLayout.DEFAULT_SIZE, 210, Short.MAX_VALUE)
 					.addGap(3))
 				.addGroup(Alignment.LEADING, gl_panel.createSequentialGroup()
 					.addContainerGap()
@@ -149,7 +149,7 @@ public class FoodTruckManagementPage {
 					.addGroup(gl_panel.createParallelGroup(Alignment.TRAILING)
 						.addGroup(gl_panel.createSequentialGroup()
 							.addContainerGap()
-							.addComponent(comboBox_3, 0, 210, Short.MAX_VALUE))
+							.addComponent(menuList, 0, 210, Short.MAX_VALUE))
 						.addGroup(Alignment.LEADING, gl_panel.createSequentialGroup()
 							.addContainerGap()
 							.addGroup(gl_panel.createParallelGroup(Alignment.TRAILING)
@@ -183,13 +183,13 @@ public class FoodTruckManagementPage {
 					.addGap(7)
 					.addGroup(gl_panel.createParallelGroup(Alignment.LEADING)
 						.addComponent(label)
-						.addComponent(comboBox_3, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+						.addComponent(menuList, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
 					.addPreferredGap(ComponentPlacement.RELATED, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
 					.addComponent(btnOrder)
 					.addGap(18)
 					.addComponent(lblTopMenu)
 					.addPreferredGap(ComponentPlacement.UNRELATED)
-					.addComponent(lblNewLabel, GroupLayout.PREFERRED_SIZE, 145, GroupLayout.PREFERRED_SIZE)
+					.addComponent(lblTopMenuList, GroupLayout.PREFERRED_SIZE, 145, GroupLayout.PREFERRED_SIZE)
 					.addGap(46))
 		);
 		panel.setLayout(gl_panel);
@@ -307,6 +307,7 @@ public class FoodTruckManagementPage {
 		equipmentPane.setRightComponent(scrollPane_1);
 		
 		lblEquipment = new JLabel("<html>");
+		lblEquipment.setVerticalAlignment(SwingConstants.TOP);
 		scrollPane_1.setRowHeaderView(lblEquipment);
 		
 		JPanel panel_2 = new JPanel();
@@ -407,28 +408,28 @@ public class FoodTruckManagementPage {
 		
 		JLabel lblName = new JLabel("Name");
 		
-		textField = new JTextField();
-		textField.setColumns(10);
+		lblEmployeeName = new JTextField();
+		lblEmployeeName.setColumns(10);
 		
 		JLabel lblRole = new JLabel("Role");
 		
-		textField_1 = new JTextField();
-		textField_1.setColumns(10);
+		lblEmployeeRole = new JTextField();
+		lblEmployeeRole.setColumns(10);
 		
 		JScrollPane scrollPane_3 = new JScrollPane();
 		
 		JLabel lblSalary = new JLabel("Salary");
 		
-		textField_2 = new JTextField();
-		textField_2.setColumns(10);
+		lblEmployeeSalary = new JTextField();
+		lblEmployeeSalary.setColumns(10);
 		
-		JButton btnNewButton = new JButton("Add Employee");
-		btnNewButton.addActionListener(new ActionListener() {
+		JButton btnAddEmployee = new JButton("Add Employee");
+		btnAddEmployee.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 			}
 		});
 		
-		JComboBox comboBox = new JComboBox();
+		JComboBox employeeList = new JComboBox();
 		
 		JButton btnFireEmployee = new JButton("Fire Employee");
 		
@@ -448,15 +449,15 @@ public class FoodTruckManagementPage {
 		
 		JButton btnRemoveShift = new JButton("Remove Shift");
 		
-		JComboBox comboBox_2 = new JComboBox();
+		JComboBox shiftList = new JComboBox();
 		
-		JSpinner spinner = new JSpinner(new SpinnerDateModel());
-		JSpinner.DateEditor startTimeEditor = new JSpinner.DateEditor(spinner, "HH:mm");
-		spinner.setEditor(startTimeEditor); // will only show the current time
+		JSpinner startTimeSpinner = new JSpinner(new SpinnerDateModel());
+		JSpinner.DateEditor de_startTimeSpinner = new JSpinner.DateEditor(startTimeSpinner, "HH:mm");
+		startTimeSpinner.setEditor(de_startTimeSpinner); // will only show the current time
 		
-		JSpinner spinner_1 = new JSpinner(new SpinnerDateModel());
-		JSpinner.DateEditor endTimeEditor = new JSpinner.DateEditor(spinner_1, "HH:mm");
-		spinner_1.setEditor(endTimeEditor); // will only show the current time
+		JSpinner endTimePoster = new JSpinner(new SpinnerDateModel());
+		JSpinner.DateEditor de_endTimePoster = new JSpinner.DateEditor(endTimePoster, "HH:mm");
+		endTimePoster.setEditor(de_endTimePoster); // will only show the current time
 		GroupLayout gl_panel_3 = new GroupLayout(panel_3);
 		gl_panel_3.setHorizontalGroup(
 			gl_panel_3.createParallelGroup(Alignment.LEADING)
@@ -472,15 +473,15 @@ public class FoodTruckManagementPage {
 											.addComponent(scrollPane_3, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
 										.addComponent(lblName))
 									.addPreferredGap(ComponentPlacement.RELATED, 21, Short.MAX_VALUE)
-									.addComponent(textField, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+									.addComponent(lblEmployeeName, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
 								.addGroup(gl_panel_3.createSequentialGroup()
 									.addGroup(gl_panel_3.createParallelGroup(Alignment.LEADING)
 										.addComponent(lblRole)
 										.addComponent(lblSalary))
 									.addPreferredGap(ComponentPlacement.RELATED, 30, Short.MAX_VALUE)
 									.addGroup(gl_panel_3.createParallelGroup(Alignment.LEADING, false)
-										.addComponent(textField_2)
-										.addComponent(textField_1)))
+										.addComponent(lblEmployeeSalary)
+										.addComponent(lblEmployeeRole)))
 								.addGroup(gl_panel_3.createSequentialGroup()
 									.addComponent(lblDay)
 									.addPreferredGap(ComponentPlacement.RELATED, 42, Short.MAX_VALUE)
@@ -495,15 +496,15 @@ public class FoodTruckManagementPage {
 									.addGroup(gl_panel_3.createParallelGroup(Alignment.LEADING, false)
 										.addGroup(gl_panel_3.createSequentialGroup()
 											.addGap(6)
-											.addComponent(comboBox, 0, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-										.addComponent(btnNewButton, Alignment.TRAILING)))
+											.addComponent(employeeList, 0, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+										.addComponent(btnAddEmployee, Alignment.TRAILING)))
 								.addComponent(btnAddShift)
 								.addComponent(btnRemoveShift)))
 						.addGroup(gl_panel_3.createSequentialGroup()
 							.addContainerGap()
 							.addComponent(lblShift)
 							.addGap(43)
-							.addComponent(comboBox_2, 0, 125, Short.MAX_VALUE))
+							.addComponent(shiftList, 0, 125, Short.MAX_VALUE))
 						.addGroup(gl_panel_3.createSequentialGroup()
 							.addGroup(gl_panel_3.createParallelGroup(Alignment.LEADING)
 								.addGroup(gl_panel_3.createSequentialGroup()
@@ -514,8 +515,8 @@ public class FoodTruckManagementPage {
 									.addComponent(lblEndTime)))
 							.addGap(15)
 							.addGroup(gl_panel_3.createParallelGroup(Alignment.LEADING)
-								.addComponent(spinner_1, GroupLayout.DEFAULT_SIZE, 119, Short.MAX_VALUE)
-								.addComponent(spinner, GroupLayout.DEFAULT_SIZE, 119, Short.MAX_VALUE))))
+								.addComponent(endTimePoster, GroupLayout.DEFAULT_SIZE, 119, Short.MAX_VALUE)
+								.addComponent(startTimeSpinner, GroupLayout.DEFAULT_SIZE, 119, Short.MAX_VALUE))))
 					.addContainerGap())
 		);
 		gl_panel_3.setVerticalGroup(
@@ -526,20 +527,20 @@ public class FoodTruckManagementPage {
 					.addGap(1)
 					.addGroup(gl_panel_3.createParallelGroup(Alignment.BASELINE)
 						.addComponent(lblName)
-						.addComponent(textField, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+						.addComponent(lblEmployeeName, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
 					.addPreferredGap(ComponentPlacement.RELATED)
 					.addGroup(gl_panel_3.createParallelGroup(Alignment.BASELINE)
-						.addComponent(textField_1, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+						.addComponent(lblEmployeeRole, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
 						.addComponent(lblRole))
 					.addPreferredGap(ComponentPlacement.UNRELATED)
 					.addGroup(gl_panel_3.createParallelGroup(Alignment.BASELINE)
-						.addComponent(textField_2, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+						.addComponent(lblEmployeeSalary, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
 						.addComponent(lblSalary))
 					.addPreferredGap(ComponentPlacement.RELATED)
-					.addComponent(btnNewButton)
+					.addComponent(btnAddEmployee)
 					.addPreferredGap(ComponentPlacement.RELATED)
 					.addGroup(gl_panel_3.createParallelGroup(Alignment.BASELINE)
-						.addComponent(comboBox, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+						.addComponent(employeeList, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
 						.addComponent(lblName_1))
 					.addPreferredGap(ComponentPlacement.RELATED)
 					.addComponent(btnFireEmployee)
@@ -550,17 +551,17 @@ public class FoodTruckManagementPage {
 					.addPreferredGap(ComponentPlacement.RELATED)
 					.addGroup(gl_panel_3.createParallelGroup(Alignment.BASELINE)
 						.addComponent(lblStartTime)
-						.addComponent(spinner, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+						.addComponent(startTimeSpinner, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
 					.addGap(8)
 					.addGroup(gl_panel_3.createParallelGroup(Alignment.BASELINE)
 						.addComponent(lblEndTime)
-						.addComponent(spinner_1, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+						.addComponent(endTimePoster, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
 					.addPreferredGap(ComponentPlacement.RELATED, 10, Short.MAX_VALUE)
 					.addComponent(btnAddShift)
 					.addGap(5)
 					.addGroup(gl_panel_3.createParallelGroup(Alignment.BASELINE)
 						.addComponent(lblShift)
-						.addComponent(comboBox_2, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+						.addComponent(shiftList, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
 					.addGap(7)
 					.addComponent(btnRemoveShift)
 					.addGap(47))
@@ -569,6 +570,10 @@ public class FoodTruckManagementPage {
 		
 		JScrollPane scrollPane_4 = new JScrollPane();
 		employeePane.setRightComponent(scrollPane_4);
+		
+		JLabel lblShifts = new JLabel("<html>");
+		lblShifts.setVerticalAlignment(SwingConstants.TOP);
+		scrollPane_4.setViewportView(lblShifts);
 	}
 	
 	/**
@@ -713,7 +718,4 @@ public class FoodTruckManagementPage {
 	public void removeStaffButtonActionPerformed(ActionEvent event){
 		
 	}
-	
-	
-	
 }
