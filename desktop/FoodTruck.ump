@@ -5,7 +5,7 @@ class Employee {
 	name;
 	role;
 	double salaryPerHour;
-	1 -> * Shift;
+	1 -- * Shift;
 }
 
 class FoodTruckManager {

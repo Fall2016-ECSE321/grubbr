@@ -5,7 +5,7 @@ package ca.mcgill.ecse321.foodtruck.model;
 import java.util.*;
 import java.sql.Time;
 
-// line 11 "../../../../../FoodTruck.ump"
+// line 10 "../../../../../FoodTruck.ump"
 // line 49 "../../../../../FoodTruck.ump"
 public class FoodTruckManager
 {
