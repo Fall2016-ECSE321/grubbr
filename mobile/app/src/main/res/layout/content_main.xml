@@ -277,12 +277,23 @@
                 android:enabled="false"
                 android:hint="No Shifts !"
                 android:paddingBottom="10dp"/>
-            <Button
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="end"
-                android:text="Display Shifts"
-                android:onClick="showShifts"/>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="end">
+                <Button
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Fire Employee"
+                    android:textColor="#840000"
+                    android:onClick="removeEmployee"/>
+                <Button
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="end"
+                    android:text="Display Shifts"
+                    android:onClick="showShifts"/>
+            </LinearLayout>
             <View
                 android:layout_width="match_parent"
                 android:layout_height="2dp"
@@ -336,25 +347,34 @@
                 android:textColor="#550000"
                 android:hint="@string/shifttime"
                 android:onClick="showTimePickerDialog"/>
-            <LinearLayout
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Add Shift"
+                android:onClick="addShift"
+                android:layout_gravity="end"/>
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
+                android:background="@android:color/holo_blue_dark"/>
+            <TextView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_marginTop="5dp"
-                android:gravity="end">
-
-                <Button
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Fire Employee"
-                    android:textColor="#840000"
-                    android:onClick="removeEmployee"/>
-
-                <Button
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Add Shift"
-                    android:onClick="addShift"/>
-            </LinearLayout>
+                android:text="Remove unwanted shifts"
+                android:textColor="#000000"
+                android:textAlignment="center"
+                android:paddingTop="25dp"/>
+            <Spinner
+                android:layout_height="match_parent"
+                android:layout_width="match_parent"
+                android:id="@+id/shiftSpinner"/>
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="#840000"
+                android:text="Remove Shift"
+                android:onClick="removeShift"
+                android:layout_gravity="end"/>
         </LinearLayout>
     </ScrollView>
 </RelativeLayout>

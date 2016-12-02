@@ -20,6 +20,7 @@ import ca.mcgill.ecse321.foodtruck.controller.InvalidInputException;
 import ca.mcgill.ecse321.foodtruck.model.Employee;
 import ca.mcgill.ecse321.foodtruck.model.Equipment;
 import ca.mcgill.ecse321.foodtruck.model.FoodTruckManager;
+import ca.mcgill.ecse321.foodtruck.model.Shift;
 import ca.mcgill.ecse321.foodtruck.model.Supply;
 import ca.mcgill.ecse321.foodtruck.persistence.PersistenceFoodTruck;
 
@@ -37,7 +38,11 @@ public class MainActivity extends AppCompatActivity {
     private HashMap<Integer, Equipment> equipments;
     private HashMap<Integer, Supply> supplies;
     private HashMap<Integer, Employee> employees;
+    private HashMap<Integer, Shift> shifts;
     private String week[] = new String[7];
+
+    //Refers to the last employee for whom the user chose to see the schedule.
+    private Employee lastSelectedEmployee;
 
     private static boolean firstRun=true;
     @Override
@@ -419,6 +424,18 @@ public class MainActivity extends AppCompatActivity {
 
         refreshData();
     }
+    public void removeShift(View v){
+        FoodTruckController ftc = new FoodTruckController();
+
+        Spinner scheduleSpinner = (Spinner) findViewById(R.id.shiftSpinner);
+        Shift selectedShift = this.shifts.get(scheduleSpinner.getSelectedItemPosition());
+
+        //try{
+            ftc.removeShift(lastSelectedEmployee,selectedShift);
+        /*} catch (InvalidInputException e){
+            //error handling
+        }*/
+    }
 
     public void removeEmployee(View v){
         FoodTruckController ftc = new FoodTruckController();
@@ -481,5 +498,20 @@ public class MainActivity extends AppCompatActivity {
         for (int i=0;i<emp.getShifts().size();i++){
             shiftList.setText(shiftList.getText()+emp.getShift(i).getDayOfWeek()+" : "+emp.getShift(i).getStartTime()+" to "+emp.getShift(i).getEndTime()+"\n");
         }
+
+        //Also initialize dropdown menu to remove shifts
+        Spinner scheduleSpinner = (Spinner) findViewById(R.id.shiftSpinner);
+        ArrayAdapter<CharSequence> shiftAdapter = new ArrayAdapter<CharSequence>(this, android.R.layout.simple_spinner_item);
+        shiftAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        this.shifts = new HashMap<Integer, Shift>();
+        int i=0;
+        for(Iterator<Shift> shifts = emp.getShifts().iterator(); shifts.hasNext(); i++){
+            Shift currentShift = shifts.next();
+            shiftAdapter.add(currentShift.getDayOfWeek()+" : "+currentShift.getStartTime()+" to "+currentShift.getEndTime());
+            this.shifts.put(i,currentShift);
+        }
+        scheduleSpinner.setAdapter(shiftAdapter);
+
+        lastSelectedEmployee = emp;
     }
 }
