@@ -157,7 +157,7 @@ public class FoodTruckController {
 		//sort menu items by amount sold
 		Collections.sort(topList, new Comparator<FoodItem>() {
 			@Override public int compare(FoodItem item1, FoodItem item2) {
-				return item1.getAmountSold() - item2.getAmountSold();
+				return item2.getAmountSold() - item1.getAmountSold();
 			}
 		});
 		
