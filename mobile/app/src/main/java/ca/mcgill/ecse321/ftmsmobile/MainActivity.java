@@ -430,11 +430,11 @@ public class MainActivity extends AppCompatActivity {
         Spinner scheduleSpinner = (Spinner) findViewById(R.id.shiftSpinner);
         Shift selectedShift = this.shifts.get(scheduleSpinner.getSelectedItemPosition());
 
-        //try{
-            ftc.removeShift(lastSelectedEmployee,selectedShift);
-        /*} catch (InvalidInputException e){
+        try{
+            ftc.cancelShift(lastSelectedEmployee,selectedShift);
+        } catch (InvalidInputException e){
             //error handling
-        }*/
+        }
         refreshData();
     }
 
@@ -443,11 +443,11 @@ public class MainActivity extends AppCompatActivity {
         Spinner selectedEmployee = (Spinner) findViewById(R.id.employeespinner);
         TextView shifts = (TextView) findViewById(R.id.employee_display);
         Employee emp = this.employees.get(selectedEmployee.getSelectedItemPosition());
-        //try {
+        try {
             ftc.removeEmployee(emp);
-        /*} catch (InvalidInputException e){
+        } catch (InvalidInputException e){
             errorRemoveStaff = e.getMessage();
-        }*/
+        }
         refreshData();
         shifts.setText("You have fired "+emp.getName()+".");
 
