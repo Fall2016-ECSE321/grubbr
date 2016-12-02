@@ -17,8 +17,10 @@ import java.util.Iterator;
 
 import ca.mcgill.ecse321.foodtruck.controller.FoodTruckController;
 import ca.mcgill.ecse321.foodtruck.controller.InvalidInputException;
+import ca.mcgill.ecse321.foodtruck.model.Employee;
 import ca.mcgill.ecse321.foodtruck.model.Equipment;
 import ca.mcgill.ecse321.foodtruck.model.FoodTruckManager;
+import ca.mcgill.ecse321.foodtruck.model.Shift;
 import ca.mcgill.ecse321.foodtruck.model.Supply;
 import ca.mcgill.ecse321.foodtruck.persistence.PersistenceFoodTruck;
 
@@ -29,9 +31,18 @@ public class MainActivity extends AppCompatActivity {
     private String errorEquip;
     private String errorSCount;
     private String errorECount;
+    private String errorAddStaff;
+    private String errorAddShift;
+    private String errorRemoveStaff;
 
     private HashMap<Integer, Equipment> equipments;
     private HashMap<Integer, Supply> supplies;
+    private HashMap<Integer, Employee> employees;
+    private HashMap<Integer, Shift> shifts;
+    private String week[] = new String[7];
+
+    //Refers to the last employee for whom the user chose to see the schedule.
+    private Employee lastSelectedEmployee;
 
     private static boolean firstRun=true;
     @Override
@@ -50,7 +61,6 @@ public class MainActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
 
         //Initialize weekday spinner
-        String week[] = new String[7];
         week[0] = "Monday";
         week[1] = "Tuesday";
         week[2] = "Wednesday";
@@ -142,7 +152,7 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    private void refreshData(){
+    private void refreshData() {
         FoodTruckManager ftm = FoodTruckManager.getInstance();
         TextView itemNameView = (TextView) findViewById(R.id.newitem_name);
         TextView itemPriceView = (TextView) findViewById(R.id.newitem_price);
@@ -153,6 +163,16 @@ public class MainActivity extends AppCompatActivity {
         TextView equipmentNameView = (TextView) findViewById(R.id.newequipment_name);
         TextView equipmentCountView = (TextView) findViewById(R.id.newequipment_count);
 
+        TextView employeeName = (TextView) findViewById(R.id.employee_name);
+        TextView employeePay = (TextView) findViewById(R.id.employee_salary);
+        TextView employeeRole = (TextView) findViewById(R.id.employee_function);
+
+        TextView employeeShiftTitleView = (TextView) findViewById(R.id.employeeShiftTitle);
+
+        TextView startTime = (TextView) findViewById(R.id.employee_starttime);
+        TextView endTime = (TextView) findViewById(R.id.employee_endtime);
+        Spinner selectedEmployee = (Spinner) findViewById(R.id.employeespinner);
+
         //Sets the error message next to the "name" field regardless if the error
         //is in the name or in the price
         // I should change this to display the error message(s) somewhere like at the top
@@ -160,15 +180,15 @@ public class MainActivity extends AppCompatActivity {
         supplyNameView.setError(errorSupply);
         equipmentNameView.setError(errorEquip);
         supplyCountView.setError(errorSCount);
+        employeeName.setError(errorAddStaff);
+        employeeShiftTitleView.setError(errorAddShift);
 
-        if (errorItem == null)
-        {
+        if (errorItem == null) {
             itemNameView.setText("");
             itemPriceView.setText("");
         }
 
-        if (errorSupply == null)
-        {
+        if (errorSupply == null) {
             supplyNameView.setText("");
             supplyCountView.setText("");
 
@@ -176,19 +196,18 @@ public class MainActivity extends AppCompatActivity {
             Spinner supplySpinner = (Spinner) findViewById(R.id.supplyspinner);
             ArrayAdapter<CharSequence> supplyAdapter = new ArrayAdapter<CharSequence>(this, android.R.layout.simple_spinner_item);
             supplyAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-            this.supplies = new HashMap<Integer,Supply>();
-            int i=0;
-            for (Iterator<Supply> supplies = ftm.getSupplies().iterator(); supplies.hasNext(); i++){
+            this.supplies = new HashMap<Integer, Supply>();
+            int i = 0;
+            for (Iterator<Supply> supplies = ftm.getSupplies().iterator(); supplies.hasNext(); i++) {
                 Supply s = supplies.next();
                 supplyAdapter.add(s.getName());
-                this.supplies.put(i,s);
+                this.supplies.put(i, s);
             }
             supplySpinner.setAdapter(supplyAdapter);
 
         }
 
-        if (errorEquip == null)
-        {
+        if (errorEquip == null) {
             equipmentNameView.setText("");
             equipmentCountView.setText("");
 
@@ -196,12 +215,12 @@ public class MainActivity extends AppCompatActivity {
             Spinner equipmentSpinner = (Spinner) findViewById(R.id.equipmentspinner);
             ArrayAdapter<CharSequence> equipmentAdapter = new ArrayAdapter<CharSequence>(this, android.R.layout.simple_spinner_item);
             equipmentAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-            this.equipments = new HashMap<Integer,Equipment>();
-            int i=0;
-            for (Iterator<Equipment> equipments = ftm.getEquipment().iterator(); equipments.hasNext(); i++){
+            this.equipments = new HashMap<Integer, Equipment>();
+            int i = 0;
+            for (Iterator<Equipment> equipments = ftm.getEquipment().iterator(); equipments.hasNext(); i++) {
                 Equipment e = equipments.next();
                 equipmentAdapter.add(e.getName());
-                this.equipments.put(i,e);
+                this.equipments.put(i, e);
             }
             equipmentSpinner.setAdapter(equipmentAdapter);
         }
@@ -210,11 +229,43 @@ public class MainActivity extends AppCompatActivity {
             supplyCountView.setText("");
         }
 
-        errorItem=null;
-        errorEquip=null;
-        errorSupply=null;
-        errorSCount=null;
-        errorECount=null;
+        if (errorAddShift == null) {
+            startTime.setText("");
+            endTime.setText("");
+        }
+
+        if (selectedEmployee.getSelectedItemPosition() >= 0) {
+            displayShifts(employees.get(selectedEmployee.getSelectedItemPosition()));
+        }
+
+        if (errorAddStaff == null) {
+            employeeName.setText("");
+            employeePay.setText("");
+            employeeRole.setText("");
+
+            //Initialize spinner data
+            Spinner employeeSpinner = (Spinner) findViewById(R.id.employeespinner);
+            ArrayAdapter<CharSequence> employeeAdapter = new ArrayAdapter<CharSequence>(this, android.R.layout.simple_spinner_item);
+            employeeAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+            this.employees = new HashMap<Integer, Employee>();
+            int i = 0;
+            for (Iterator<Employee> employees = ftm.getEmployees().iterator(); employees.hasNext(); i++) {
+                Employee emp = employees.next();
+                employeeAdapter.add(emp.getName() + " - " + emp.getRole() + " - " + emp.getSalaryPerHour() + "$/hr");
+                this.employees.put(i, emp);
+            }
+            employeeSpinner.setAdapter(employeeAdapter);
+        }
+
+
+
+        errorItem = null;
+        errorEquip = null;
+        errorSupply = null;
+        errorSCount = null;
+        errorECount = null;
+        errorAddStaff = null;
+        errorRemoveStaff = null;
 
         //Display changes to user
         displayItems();
@@ -243,6 +294,7 @@ public class MainActivity extends AppCompatActivity {
 
         return super.onOptionsItemSelected(item);
     }
+    //  MENU USE CASE
     public void addItem(View v){
         TextView itemNameView = (TextView) findViewById(R.id.newitem_name);
         TextView itemPriceView = (TextView) findViewById(R.id.newitem_price);
@@ -257,6 +309,7 @@ public class MainActivity extends AppCompatActivity {
         refreshData();
     }
 
+    //  INVENTORY USE CASE
     public void addSupply(View v){
         TextView supplyNameView = (TextView) findViewById(R.id.newsupply_name);
         FoodTruckController ftc = new FoodTruckController();
@@ -331,7 +384,81 @@ public class MainActivity extends AppCompatActivity {
         }
         refreshData();
     }
+    //  EMPLOYEE USE CASE
+    public void addEmployee(View v){
+        TextView employeeName = (TextView) findViewById(R.id.employee_name);
+        TextView employeeFunction = (TextView) findViewById(R.id.employee_function);
+        TextView employeeSalary = (TextView) findViewById(R.id.employee_salary);
 
+        FoodTruckController ftc = new FoodTruckController();
+
+        try{
+            ftc.createEmployee(employeeName.getText().toString(),employeeFunction.getText().toString(),employeeSalary.getText().toString());
+        } catch (InvalidInputException e){
+            //Records the error
+            errorAddStaff = e.getMessage();
+        }
+        refreshData();
+    }
+
+    public void addShift(View v){
+        FoodTruckController ftc = new FoodTruckController();
+
+        //View elements
+        Spinner employeeView = (Spinner) findViewById(R.id.employeespinner);
+        Spinner weekDayView = (Spinner) findViewById(R.id.weekdays);
+        TextView startTimeView = (TextView) findViewById(R.id.employee_starttime);
+        TextView endTimeView = (TextView) findViewById(R.id.employee_endtime);
+
+        //Model elements
+        Employee selectedEmp = employees.get(employeeView.getSelectedItemPosition());
+        java.sql.Time startTime = getSqlTimeFromLabel(startTimeView.getText());
+        java.sql.Time endTime = getSqlTimeFromLabel(endTimeView.getText());
+        String weekDay = week[weekDayView.getSelectedItemPosition()];
+
+        try{
+            ftc.createShift(selectedEmp,weekDay,startTime,endTime);
+        } catch (InvalidInputException e){
+            errorAddShift=e.getMessage();
+        }
+
+        refreshData();
+    }
+    public void removeShift(View v){
+        FoodTruckController ftc = new FoodTruckController();
+
+        Spinner scheduleSpinner = (Spinner) findViewById(R.id.shiftSpinner);
+        Shift selectedShift = this.shifts.get(scheduleSpinner.getSelectedItemPosition());
+
+        //try{
+            ftc.removeShift(lastSelectedEmployee,selectedShift);
+        /*} catch (InvalidInputException e){
+            //error handling
+        }*/
+        refreshData();
+    }
+
+    public void removeEmployee(View v){
+        FoodTruckController ftc = new FoodTruckController();
+        Spinner selectedEmployee = (Spinner) findViewById(R.id.employeespinner);
+        TextView shifts = (TextView) findViewById(R.id.employee_display);
+        Employee emp = this.employees.get(selectedEmployee.getSelectedItemPosition());
+        //try {
+            ftc.removeEmployee(emp);
+        /*} catch (InvalidInputException e){
+            errorRemoveStaff = e.getMessage();
+        }*/
+        refreshData();
+        shifts.setText("You have fired "+emp.getName()+".");
+
+    }
+
+    //Helper Method -- Recycled from Event Registration
+    private java.sql.Time getSqlTimeFromLabel(CharSequence text) {
+        String timeString = text.toString()+":00";
+        return java.sql.Time.valueOf(timeString);
+    }
+    //  DISPLAY
     public void displaySupplies(){
         TextView supplyList = (TextView) findViewById(R.id.supply_display);
         FoodTruckManager ftm = FoodTruckManager.getInstance();
@@ -357,5 +484,35 @@ public class MainActivity extends AppCompatActivity {
         for (int i=0;i<ftm.getMenuItems().size();i++) {
             itemList.setText(itemList.getText() + ftm.getMenuItem(i).getName() +" : " + ftm.getMenuItem(i).getPrice() + "$" + "\n");
         }
+    }
+
+    public void showShifts(View v) {
+        Spinner selectedEmployee = (Spinner) findViewById(R.id.employeespinner);
+        if (selectedEmployee.getSelectedItemPosition() >= 0) {
+            displayShifts(this.employees.get(selectedEmployee.getSelectedItemPosition()));
+        }
+    }
+
+    public void displayShifts(Employee emp){
+        TextView shiftList = (TextView) findViewById(R.id.employee_display);
+        shiftList.setText("Employee: "+emp.getName()+" - "+emp.getRole()+"\nSalary: "+emp.getSalaryPerHour()+"$/hr\n");
+        for (int i=0;i<emp.getShifts().size();i++){
+            shiftList.setText(shiftList.getText()+emp.getShift(i).getDayOfWeek()+" : "+emp.getShift(i).getStartTime()+" to "+emp.getShift(i).getEndTime()+"\n");
+        }
+
+        //Also initialize dropdown menu to remove shifts
+        Spinner scheduleSpinner = (Spinner) findViewById(R.id.shiftSpinner);
+        ArrayAdapter<CharSequence> shiftAdapter = new ArrayAdapter<CharSequence>(this, android.R.layout.simple_spinner_item);
+        shiftAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        this.shifts = new HashMap<Integer, Shift>();
+        int i=0;
+        for(Iterator<Shift> shifts = emp.getShifts().iterator(); shifts.hasNext(); i++){
+            Shift currentShift = shifts.next();
+            shiftAdapter.add(currentShift.getDayOfWeek()+" : "+currentShift.getStartTime()+" to "+currentShift.getEndTime());
+            this.shifts.put(i,currentShift);
+        }
+        scheduleSpinner.setAdapter(shiftAdapter);
+
+        lastSelectedEmployee = emp;
     }
 }
