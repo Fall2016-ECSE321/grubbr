@@ -1,6 +1,7 @@
 package ca.mcgill.ecse321.foodtruck.controller;
 
 import java.sql.Time;
+import java.util.Iterator;
 
 import org.apache.commons.lang3.text.WordUtils;
 
@@ -17,7 +18,7 @@ import ca.mcgill.ecse321.foodtruck.persistence.PersistenceXStream;
  * Controller for the Food Truck Management System.
  * 
  * @author erick
- * @version 0.3
+ * @version 1.0
  *
  */
 
@@ -40,13 +41,16 @@ public class FoodTruckController {
 	public void createMenuItem(String itemName,String itemPrice) throws InvalidInputException {
 		
 		String error = "";
+		FoodTruckManager ftms = FoodTruckManager.getInstance();
 		
 		if (isEmpty(itemName)) {
 			error += "Menu item name cannot be empty! ";
 		}
 		
+		double price=0;
+		
 		try {
-			double price = Double.parseDouble(itemPrice);
+			 price = Double.parseDouble(itemPrice);
 			
 			if (!hasCorrectAmountOfDecimalPlaces(itemPrice)) {
 				error += "Menu item price cannot contain fractions of cents! ";
@@ -59,6 +63,15 @@ public class FoodTruckController {
 			error += "Menu item price must be a number! ";
 		}
 		
+		Iterator<MenuItem> menuIterator = ftms.getMenuItems().iterator();
+		while (menuIterator.hasNext()) {
+			MenuItem currentItem = menuIterator.next();
+			if (currentItem.getName().compareToIgnoreCase(itemName)==0 && currentItem.getPrice()==price){
+				error += "This item is already on the menu! Please enter a new one. ";
+				break;
+			}
+		}
+		
 		error = error.trim();
 		
 		if (error.length()>0) {
@@ -66,8 +79,7 @@ public class FoodTruckController {
 		}
 		
 		itemName = WordUtils.capitalizeFully(itemName);
-		MenuItem item = new MenuItem(itemName, Double.parseDouble(itemPrice), 0);
-		FoodTruckManager ftms = FoodTruckManager.getInstance();
+		MenuItem item = new MenuItem(itemName, price, 0);
 		ftms.addMenuItem(item);
 		PersistenceXStream.saveToXMLwithXStream(ftms);
 	}
@@ -128,9 +140,19 @@ public class FoodTruckController {
 	public void createSupply(String supplyName) throws InvalidInputException {
 		
 		String error = "";
+		FoodTruckManager ftms = FoodTruckManager.getInstance();
 		
 		if (isEmpty(supplyName)) {
 			error += "Supply name cannot be empty! ";
+		}
+		
+		Iterator<Supply> supplyIterator = ftms.getSupplies().iterator();
+		while (supplyIterator.hasNext()) {
+			Supply currentSupply = supplyIterator.next();
+			if (currentSupply.getName().compareToIgnoreCase(supplyName)==0){
+				error += "This supply is already in stock! Please enter a new one.";
+				break;
+			}
 		}
 		
 		error = error.trim();
@@ -141,7 +163,6 @@ public class FoodTruckController {
 		
 		supplyName = WordUtils.capitalizeFully(supplyName);
 		Supply supply = new Supply(supplyName,0);
-		FoodTruckManager ftms = FoodTruckManager.getInstance();
 		ftms.addSupply(supply);
 		
 		PersistenceXStream.saveToXMLwithXStream(ftms);
@@ -197,9 +218,19 @@ public class FoodTruckController {
 	public void createEquipment(String equipmentName) throws InvalidInputException {
 		
 		String error = "";
+		FoodTruckManager ftms = FoodTruckManager.getInstance();
 		
 		if (isEmpty(equipmentName)) {
 			error += "Equipment name cannot be empty! ";
+		}
+		
+		Iterator<Equipment> EquipmentIterator = ftms.getEquipment().iterator();
+		while (EquipmentIterator.hasNext()) {
+			Equipment currentEquipment = EquipmentIterator.next();
+			if (currentEquipment.getName().compareToIgnoreCase(equipmentName)==0){
+				error += "This piece of equipment already exists! Please enter a new one.";
+				break;
+			}
 		}
 		
 		error = error.trim();
@@ -210,7 +241,6 @@ public class FoodTruckController {
 		
 		equipmentName = WordUtils.capitalizeFully(equipmentName);
 		Equipment equipment = new Equipment(equipmentName,0);
-		FoodTruckManager ftms = FoodTruckManager.getInstance();
 		ftms.addEquipment(equipment);
 		PersistenceXStream.saveToXMLwithXStream(ftms);
 	}
