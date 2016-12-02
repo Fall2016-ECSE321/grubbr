@@ -180,6 +180,7 @@
                 <EditText
                     android:layout_width="wrap_content"
                     android:layout_height="fill_parent"
+                    android:inputType="number"
                     android:id="@+id/newsupply_count"
                     android:hint="@string/newsupplycount_hint"/>
                 <LinearLayout
@@ -246,6 +247,7 @@
                 <EditText
                     android:layout_width="wrap_content"
                     android:layout_height="fill_parent"
+                    android:inputType="number"
                     android:id="@+id/newequipment_count"
                     android:hint="@string/newequipmentcount_hint"/>
                 <LinearLayout
