@@ -455,7 +455,18 @@ public class TestFoodTruckFoodItems {
 		assertEquals(list.get(2),item3);
 		assertEquals(list.get(3),item4);
 		assertEquals(list.get(4),item5);
+	}
+	
+	@Test
+	public void testGetPopularItemsNoItems() {
+		FoodTruckManager ftms = FoodTruckManager.getInstance();
 		
+		FoodTruckController ftc = new FoodTruckController();
+		
+		List<FoodItem> list = ftc.getPopularItems();
+		
+		//check top 5 items
+		assertEquals(list.size(),0);
 	}
 	
 	private void checkResultFoodItem(String itemName, double itemPrice, FoodTruckManager ftms) {
