@@ -1,6 +1,7 @@
 package ca.mcgill.ecse321.foodtruck.controller;
 
 import java.sql.Time;
+import java.util.Iterator;
 
 import org.apache.commons.lang3.text.WordUtils;
 
@@ -17,7 +18,7 @@ import ca.mcgill.ecse321.foodtruck.persistence.PersistenceXStream;
  * Controller for the Food Truck Management System.
  * 
  * @author erick
- * @version 0.3
+ * @version 1.0
  *
  */
 
@@ -40,13 +41,18 @@ public class FoodTruckController {
 	public void createMenuItem(String itemName,String itemPrice) throws InvalidInputException {
 		
 		String error = "";
+		FoodTruckManager ftms = FoodTruckManager.getInstance();
 		
+		//check if name string is empty
 		if (isEmpty(itemName)) {
 			error += "Menu item name cannot be empty! ";
 		}
 		
+		double price=0;
+		
+		//check if price is a valid monetary amount
 		try {
-			double price = Double.parseDouble(itemPrice);
+			 price = Double.parseDouble(itemPrice);
 			
 			if (!hasCorrectAmountOfDecimalPlaces(itemPrice)) {
 				error += "Menu item price cannot contain fractions of cents! ";
@@ -59,15 +65,25 @@ public class FoodTruckController {
 			error += "Menu item price must be a number! ";
 		}
 		
+		//check for duplicates
+		Iterator<MenuItem> menuIterator = ftms.getMenuItems().iterator();
+		while (menuIterator.hasNext()) {
+			MenuItem currentItem = menuIterator.next();
+			if (currentItem.getName().compareToIgnoreCase(itemName)==0 && currentItem.getPrice()==price){
+				error += "This item is already on the menu! Please enter a new one. ";
+				break;
+			}
+		}
+		
 		error = error.trim();
 		
 		if (error.length()>0) {
 			throw new InvalidInputException(error);
 		}
 		
+		//add item to system
 		itemName = WordUtils.capitalizeFully(itemName);
-		MenuItem item = new MenuItem(itemName, Double.parseDouble(itemPrice), 0);
-		FoodTruckManager ftms = FoodTruckManager.getInstance();
+		MenuItem item = new MenuItem(itemName, price, 0);
 		ftms.addMenuItem(item);
 		PersistenceXStream.saveToXMLwithXStream(ftms);
 	}
@@ -83,10 +99,12 @@ public class FoodTruckController {
 		String error="";
 		int amountNumber = 0;
 		
+		//check if item has been selected
 		if (item == null) {
 			error+="Please choose an item to order! ";
 		}
 		
+		//check if amount is valid positive integer
 		if (isEmpty(amount)) {
 			error+="Please enter an order quantity! ";
 		} else {
@@ -108,6 +126,7 @@ public class FoodTruckController {
 			throw new InvalidInputException(error);
 		}
 		
+		//increment amount sold by current order quantity
 		int previousAmountSold = item.getAmountSold();
 		item.setAmountSold(previousAmountSold+amountNumber);
 		
@@ -122,15 +141,27 @@ public class FoodTruckController {
 	 * By default, the count of a supply is 0, and it is up to the
 	 * user to instantiate its initial quantity.
 	 * @param supplyName			name of the food supply to be added
-	 * @param InvalidInputException if string is empty
+	 * @param InvalidInputException if string is empty or if it is a duplicate
 	 */
 	
 	public void createSupply(String supplyName) throws InvalidInputException {
 		
 		String error = "";
+		FoodTruckManager ftms = FoodTruckManager.getInstance();
 		
+		//check if name string is empty
 		if (isEmpty(supplyName)) {
 			error += "Supply name cannot be empty! ";
+		}
+		
+		//check for duplicates
+		Iterator<Supply> supplyIterator = ftms.getSupplies().iterator();
+		while (supplyIterator.hasNext()) {
+			Supply currentSupply = supplyIterator.next();
+			if (currentSupply.getName().compareToIgnoreCase(supplyName)==0){
+				error += "This supply is already in stock! Please enter a new one.";
+				break;
+			}
 		}
 		
 		error = error.trim();
@@ -141,7 +172,6 @@ public class FoodTruckController {
 		
 		supplyName = WordUtils.capitalizeFully(supplyName);
 		Supply supply = new Supply(supplyName,0);
-		FoodTruckManager ftms = FoodTruckManager.getInstance();
 		ftms.addSupply(supply);
 		
 		PersistenceXStream.saveToXMLwithXStream(ftms);
@@ -149,7 +179,7 @@ public class FoodTruckController {
 	
 	/**
 	 * Sets the quantity of an existing food supply in the inventory.
-	 * 
+	 * <p>
 	 * A value under 0 will give the command to delete the item entirely.
 	 * @param supply				food supply whose quantity is to be edited
 	 * @param count					quantity to be set
@@ -161,6 +191,7 @@ public class FoodTruckController {
 		FoodTruckManager ftms = FoodTruckManager.getInstance();
 		String error = "";
 		
+		//check if supply count is an integer
 		int quantity = 0;
 		try {
 			quantity = Integer.parseInt(count);
@@ -176,6 +207,7 @@ public class FoodTruckController {
 			throw new InvalidInputException(error);
 		}
 		
+		//removes item if qty < 0
 		if (quantity < 0) {
 			ftms.removeSupply(supply);
 		} else {
@@ -197,9 +229,21 @@ public class FoodTruckController {
 	public void createEquipment(String equipmentName) throws InvalidInputException {
 		
 		String error = "";
+		FoodTruckManager ftms = FoodTruckManager.getInstance();
 		
+		//check for empty name
 		if (isEmpty(equipmentName)) {
 			error += "Equipment name cannot be empty! ";
+		}
+		
+		//check for duplicates
+		Iterator<Equipment> EquipmentIterator = ftms.getEquipment().iterator();
+		while (EquipmentIterator.hasNext()) {
+			Equipment currentEquipment = EquipmentIterator.next();
+			if (currentEquipment.getName().compareToIgnoreCase(equipmentName)==0){
+				error += "This piece of equipment already exists! Please enter a new one.";
+				break;
+			}
 		}
 		
 		error = error.trim();
@@ -208,16 +252,16 @@ public class FoodTruckController {
 			throw new InvalidInputException(error);
 		}
 		
+		//add to system
 		equipmentName = WordUtils.capitalizeFully(equipmentName);
 		Equipment equipment = new Equipment(equipmentName,0);
-		FoodTruckManager ftms = FoodTruckManager.getInstance();
 		ftms.addEquipment(equipment);
 		PersistenceXStream.saveToXMLwithXStream(ftms);
 	}
 	
 	/**
 	 * Sets the quantity of an existing equipment in the inventory.
-	 * 
+	 * <p>
 	 * A value under 0 will give the command to delete the item entirely.
 	 * @param equipment				equipment whose quantity is to be edited
 	 * @param count					quantity to be set
@@ -228,6 +272,8 @@ public class FoodTruckController {
 
 		FoodTruckManager ftms = FoodTruckManager.getInstance();
 		String error="";
+		
+		//check if quantity is an integer
 		int quantity = 0;
 		try {
 			quantity = Integer.parseInt(count);
@@ -243,6 +289,7 @@ public class FoodTruckController {
 			throw new InvalidInputException(error);
 		}
 		
+		//remove equipment if qty < 0
 		if (quantity < 0) {
 			ftms.removeEquipment(equipment);
 		} else {
@@ -263,6 +310,7 @@ public class FoodTruckController {
 		
 		String error = "";
 		
+		//check for empty strings
 		if (isEmpty(employeeName)) {
 			error += "Employee name cannot be empty! ";
 		}
@@ -270,6 +318,7 @@ public class FoodTruckController {
 			error += "Role cannot be empty! ";
 		}
 		
+		//check if salary is above minimum wage and a correct monetary value
 		double salaryNumber=0;
 		try {
 			salaryNumber = Double.parseDouble(salary);
@@ -292,6 +341,7 @@ public class FoodTruckController {
 			throw new InvalidInputException(error);
 		}
 		
+		//add to database
 		employeeName = WordUtils.capitalizeFully(employeeName);
 		Employee employee = new Employee(employeeName,role,salaryNumber);
 		FoodTruckManager ftms = FoodTruckManager.getInstance();
@@ -309,6 +359,7 @@ public class FoodTruckController {
 		
 		String error = "";
 		
+		//check if employee is selected
 		if (employee==null) {
 			error+="Please select an employee! ";
 		}
@@ -319,6 +370,7 @@ public class FoodTruckController {
 			throw new InvalidInputException(error);
 		}
 		
+		//remove from system
 		FoodTruckManager ftms = FoodTruckManager.getInstance();
 		ftms.removeEmployee(employee);
 		PersistenceXStream.saveToXMLwithXStream(ftms);
@@ -336,14 +388,17 @@ public class FoodTruckController {
 		
 		String error = "";
 		
+		//check if all fields are filled in
 		if (employee == null || day == null || startTime == null || endTime == null) {
 			error += "Please fill out the entire form before adding a shift in! ";
 		}
 		
+		//check if times make sense
 		if (endTime != null && startTime != null && endTime.getTime() < startTime.getTime()) {
 			error = error + "Shift end time cannot be before shift start time! ";
 		}
 		
+		//checks if day is filled in
 		if (isEmpty(day)) {
 			error += "Please select a day of the week! ";
 		}
@@ -353,6 +408,7 @@ public class FoodTruckController {
 			throw new InvalidInputException(error);
 		}
 		
+		//calculate number of hours for the shift (truncated down)
 		long duration = endTime.getTime()-startTime.getTime();
 		int numHours = (int) (duration/1000/60/60);
 		
@@ -369,6 +425,7 @@ public class FoodTruckController {
 	 */
 	public void cancelShift(Employee employee, Shift shift) throws InvalidInputException {
 		
+		//see if shift has been selected
 		String error="";
 		if (shift == null) {
 			error+="Please select a shift to be removed! ";

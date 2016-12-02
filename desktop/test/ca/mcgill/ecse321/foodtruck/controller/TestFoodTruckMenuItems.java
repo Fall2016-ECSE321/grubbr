@@ -46,6 +46,43 @@ public class TestFoodTruckMenuItems {
 	}
 	
 	@Test
+	public void testCreateMenuItemDuplicate() {
+		
+		String errorMessage="";
+		FoodTruckManager ftms = FoodTruckManager.getInstance();
+		assertEquals(0, ftms.getMenuItems().size());
+		
+		String itemName = "Burger";
+		String itemPrice = "10.20";
+		
+		String itemName2 = "burger";
+		
+		FoodTruckController ftc = new FoodTruckController();
+		
+		try {
+			ftc.createMenuItem(itemName, itemPrice);
+		} catch (InvalidInputException e) {
+			fail();
+		}
+		
+		try {
+			ftc.createMenuItem(itemName2, itemPrice);
+		} catch (InvalidInputException e) {
+			errorMessage+=e.getMessage();
+		}
+		
+		assertEquals("This item is already on the menu! Please enter a new one.",errorMessage);
+		
+		//check that there is only still one item on menu
+		checkResultMenuItem(itemName, Double.parseDouble(itemPrice), ftms);
+		
+		FoodTruckManager ftms2 = (FoodTruckManager)PersistenceXStream.loadFromXMLwithXStream();
+		
+		checkResultMenuItem(itemName, Double.parseDouble(itemPrice), ftms2);
+		
+	}
+	
+	@Test
 	public void testCreateMenuItemNullName() {
 		FoodTruckManager ftms = FoodTruckManager.getInstance();
 		assertEquals(0, ftms.getMenuItems().size());
