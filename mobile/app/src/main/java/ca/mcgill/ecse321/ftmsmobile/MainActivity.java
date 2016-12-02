@@ -34,6 +34,7 @@ public class MainActivity extends AppCompatActivity {
     private String errorAddStaff;
     private String errorAddShift;
     private String errorRemoveStaff;
+    private String errorRemoveShift;
 
     private HashMap<Integer, Equipment> equipments;
     private HashMap<Integer, Supply> supplies;
@@ -168,6 +169,7 @@ public class MainActivity extends AppCompatActivity {
         TextView employeeRole = (TextView) findViewById(R.id.employee_function);
 
         TextView employeeShiftTitleView = (TextView) findViewById(R.id.employeeShiftTitle);
+        TextView removeShiftTitleView = (TextView) findViewById(R.id.removeShiftTitle);
 
         TextView startTime = (TextView) findViewById(R.id.employee_starttime);
         TextView endTime = (TextView) findViewById(R.id.employee_endtime);
@@ -182,6 +184,7 @@ public class MainActivity extends AppCompatActivity {
         supplyCountView.setError(errorSCount);
         employeeName.setError(errorAddStaff);
         employeeShiftTitleView.setError(errorAddShift);
+        removeShiftTitleView.setError(errorRemoveShift);
 
         if (errorItem == null) {
             itemNameView.setText("");
@@ -233,6 +236,7 @@ public class MainActivity extends AppCompatActivity {
             startTime.setText("");
             endTime.setText("");
         }
+
 
         if (selectedEmployee.getSelectedItemPosition() >= 0) {
             displayShifts(employees.get(selectedEmployee.getSelectedItemPosition()));
@@ -434,6 +438,7 @@ public class MainActivity extends AppCompatActivity {
             ftc.cancelShift(lastSelectedEmployee,selectedShift);
         } catch (InvalidInputException e){
             //error handling
+            errorRemoveShift = e.getMessage();
         }
         refreshData();
     }
