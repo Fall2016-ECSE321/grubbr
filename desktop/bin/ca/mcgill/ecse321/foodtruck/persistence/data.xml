@@ -1,6 +1,6 @@
 <manager id="1">
   <employees id="2"/>
-  <order id="3"/>
+  <shifts id="3"/>
   <supplies id="4">
     <ca.mcgill.ecse321.foodtruck.model.Supply id="5">
       <name>Patty</name>
