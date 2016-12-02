@@ -6,6 +6,7 @@
 		<!-- Import Bootstrap -->
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"/>
 		<link rel="stylesheet" href="stylesheets/stylesheet.css"/>
+		<link rel="stylesheet" href="stylesheets/sticky-footer-navbar.css"/>
 		<title>grubbr.</title>
 	</head>
 	<body>
@@ -21,6 +22,7 @@
 		<div class="container-fluid">
 			<div class="jumbotron text-center">
 				<h1>grubbr.</h1>
+				<h4>simple food truck management.</h4>
 			</div>
 		</div>
 		<div class="container-fluid text-center">
@@ -97,39 +99,11 @@
 			} else {
 				$ftm = FoodTruckManager::getInstance();
 			}
-// 			echo "number of menu items: ";
-// 			echo sizeof($ftm->getMenuItems());
-// 			echo "<b>Menu:</b>";
-// 			for($i=0;$i<sizeof($ftm->getMenuItems());$i++){
-// 				echo " </br>";
-// 				echo $ftm->getMenuItem_index($i)->getName()." : ";
-// 				echo $ftm->getMenuItem_index($i)->getPrice()."$ ";
-// 			}
-			//echo sizeof($ftm->getEquipment());
+
 			
 			//MENU LISTBOX
 			$y = null;
-//			echo "<form action='removeitem.php' method ='post'>";
-//				echo "<p>Menu Items<br>";
-//				echo "<select name='selectedMenuItem' size="; echo sizeof($ftm->getMenuItems()); ">";
-//				for($i=0;$i<sizeof($ftm->getMenuItems());$i++){
-//					echo " </br>";
-//					$x = $ftm->getMenuItem_index($i)->getName();
-//					echo "<option value = '$x'>";
-//							echo $ftm->getMenuItem_index($i)->getName()." : ";
-//							echo $ftm->getMenuItem_index($i)->getPrice()."$ ";
-//							"</option>";
-//
-//				}
-//				echo "</select>";
-//				//REMOVE MENU ITEM
-//				echo "<br>";
-//			echo "<input type='submit' value='Remove selected Item'/>";
-//			echo "</p>";
-//			echo "</form>";
-// 			if(isset($_POST['selectedMenuItem'])){
-// 				$selected = $_POST['selectedMenuItem'];
-// 			}
+
 
 			echo "<h4>Edit Items: Enter a value less than 0 to remove</h4>";
 
@@ -247,7 +221,11 @@
 		</span>
 		</div>
 		</div>
-
+		<footer class="footer">
+			<div class="container">
+				<p class="text-muted">Copyright &copy; 2016 Grubbr. All rights reserved (not really)</p>
+			</div>
+		</footer>
 		<!--Scripts-->
 		<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
 		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>

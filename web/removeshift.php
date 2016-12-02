@@ -2,14 +2,23 @@
 require_once 'controller/Controller.php';
 session_start();
 $c = new Controller();
+
+
+
+$shiftIndex = $_POST['selectedShiftIndex'];
+$employeeIndex = $_POST['selectedEmployeeIndex'];
+$removeShiftEmployeeName = $_POST['selectedEmployeeName'];
+
 try {
-    $c->editEmployee($_POST['editEmployee_Role'],$_POST['editEmployee_Salary'],$_POST['editEmployee_Index']);
+
+    $c->removeShift($employeeIndex, $shiftIndex);
 
     //We will only display one error at a time if multiple errors exist
     $_SESSION["errorItem"] = "";
 } catch (Exception $e) {
     $_SESSION["errorItem"] = $e->getMessage();
 }
+
 ?>
 <!DOCTYPE html>
 <html>

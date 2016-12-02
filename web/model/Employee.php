@@ -168,6 +168,10 @@ class Employee
     return $wasAdded;
   }
 
+  public function setShiftAt($aShift, $index){
+    $this->shifts[$index] = $aShift;
+  }
+
   public function addOrMoveShiftAt($aShift, $index)
   {
     $wasAdded = false;

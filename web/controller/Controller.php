@@ -5,6 +5,7 @@ require_once __DIR__.'/../model/MenuItem.php';
 require_once __DIR__.'/../model/Equipment.php';
 require_once __DIR__.'/../model/Supply.php';
 require_once __DIR__.'/../model/Employee.php';
+require_once __DIR__.'/../model/Shift.php';
 require_once __DIR__.'/../persistence/PersistenceFoodTruck.php';
 
 class Controller
@@ -97,7 +98,29 @@ class Controller
             $ftm->getEmployee_index($employee_index)->setSalaryPerHour($salary);
             $pft->writeDataToStore($ftm);
         }
+    }
 
+    public function assignShift($start_time, $end_time, $dayOfWeek, $employee_index, $day_index){
+        if(!InputValidator::validate_time($start_time) || !InputValidator::validate_time($end_time)){
+            throw new Exception("Time format invalid.");
+        } else{
+            $numberOfHours = (strtotime($end_time)-strtotime($end_time));
+            if($numberOfHours < 0){
+                throw new Exception("End time must be later than start time");
+            }
+            $pft = new PersistenceFoodTruck();
+            $ftm = $pft->loadDataFromStore();
+            $shift = new Shift($dayOfWeek, $start_time, $end_time, $numberOfHours);
+            $ftm->getEmployee_index($employee_index)->setShiftAt($shift, $day_index);
+            $pft->writeDataToStore($ftm);
+        }
+    }
+
+    public function removeShift($employee_index, $shift_index){
+        $pft = new PersistenceFoodTruck();
+        $ftm = $pft->loadDataFromStore();
+        $ftm->getEmployee_index($employee_index)->setShiftAt(null, $shift_index);
+        $pft->writeDataToStore($ftm);
     }
 
 	public function createEmployee($employee_name,$employee_role, $employee_salary){
@@ -190,6 +213,7 @@ class Controller
 			$pft->writeDataToStore($ftm);
 		}
 	}
-	
+
+
 	
 }
