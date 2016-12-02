@@ -26,8 +26,8 @@ class Controller
 			throw new Exception("Menu item price cannot be empty!");
 		} else if ($price<0){
 			throw new Exception("Menu item price cannot be negative!");
-		} else if(!is_numeric($price)){
-			throw new Exception("Menu item price has to be a number!");
+		} else if(!is_numeric($price) || intval($price) < 0){
+			throw new Exception("Menu item price has to be a positive number!");
 		} else {
 			//Load Data
 			$pft = new PersistenceFoodTruck();
@@ -51,7 +51,7 @@ class Controller
 // 		else if(!is_numeric($count)){
 // 			throw new Exception("Item count must be a number");
 // 		} 
-		else if(!is_numeric($count)){
+		else if(!$this->checkIfInt($count)){
 			throw new Exception("Item count must be an integer");
 		}else{
 			$pft = new PersistenceFoodTruck();
@@ -131,11 +131,7 @@ class Controller
 			throw new Exception("Employee name cannot be empty");
 		} else if ($role == null || strlen($role)==0){
 			throw new Exception("Employee role cannot be empty");
-		} 
-		// 		else if(!is_numeric($count)){
-		// 			throw new Exception("Item count must be a number");
-		// 		}
-		else if(!is_numeric($salary)){
+		} else if(!is_numeric($salary)){
 			throw new Exception("Salary must be a number");
 		}else{
 			$pft = new PersistenceFoodTruck();
@@ -187,12 +183,24 @@ class Controller
 			$pft->writeDataToStore($ftm);
 		}
 	}
+
+	public function updateMenuItemSold($aMenuItem, $aAmount){
+        $amount = InputValidator::validate_input($aAmount);
+        if(!$this->checkIfInt($amount)){
+            throw new Exception("the amount sold must be an integer");
+        } else {
+            $pft = new PersistenceFoodTruck();
+            $ftm = $pft->loadDataFromStore();
+            $ftm->editMenuItemSold($aMenuItem, $amount);
+            $pft->writeDataToStore($ftm);
+        }
+    }
 	
 	public function editSupplyCount($aSupplyItem, $aCount){
 		$count = InputValidator::validate_input($aCount);
 		$supplyitem = InputValidator::validate_input($aSupplyItem);
-		if(!is_numeric($count)){
-			throw new Exception("Item count must be a number");
+		if(!$this->checkIfInt($count)){
+			throw new Exception("Item count must be an integer");
 		} else  {
 			$pft = new PersistenceFoodTruck();
 			$ftm = $pft->loadDataFromStore();
@@ -204,8 +212,8 @@ class Controller
 	public function editEquipmentCount($aEquipmentItem, $aCount){
 		$count = InputValidator::validate_input($aCount);
 		$equipmentItem = InputValidator::validate_input($aEquipmentItem);
-		if(!is_numeric($count)){
-			throw new Exception("Item count must be a number");
+		if(!$this->checkIfInt($count)){
+			throw new Exception("Item count must be an integer");
 		} else  {
 			$pft = new PersistenceFoodTruck();
 			$ftm = $pft->loadDataFromStore();
@@ -214,6 +222,12 @@ class Controller
 		}
 	}
 
+    public function checkIfInt($input) {
+        if ($input[0] == '-') {
+            return ctype_digit(substr($input, 1));
+        }
+        return ctype_digit($input);
+    }
 
 	
 }

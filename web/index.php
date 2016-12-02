@@ -10,7 +10,7 @@
 		<title>grubbr.</title>
 	</head>
 	<body>
-		<?php 
+		<?php
 			require_once "model/MenuItem.php";
 			require_once "model/Equipment.php";
 			require_once "model/Supply.php";
@@ -213,6 +213,7 @@
 				
 			echo "<input type='submit' value='Edit Selected Employee'/>";
 			echo "</form>";
+
 			echo "</div>";
 			echo "</div>";
 			?>
@@ -220,7 +221,41 @@
 			</p>
 		</span>
 		</div>
+		<h3>Order Food</h3>
+		<form action="updateitemquantity.php" method="post">
+			<?php
+			echo "<select name='selectedMenuItem' size='1'>";
+			for($i=0;$i<sizeof($ftm->getMenuItems());$i++){
+				echo " </br>";
+				$x = $ftm->getMenuItem_index($i)->getName();
+				echo "<option value = '$x'>";
+				echo $ftm->getMenuItem_index($i)->getName()." : ";
+				echo $ftm->getMenuItem_index($i)->getPrice()."$ ";
+				"</option>";
+			}
+			echo "</select>";
+			?>
+			<p>Quantity: <input type ="text" name="amountSold"/></p>
+			<p><input type="submit" content="order food"/> </p>
+		</form>
+			<h3>Most popular items:</h3>
+			<?php
+			function sortByPrice($a, $b){
+				return strcmp($a->getAmountSold(), $b->getAmountSold());
+			}
+			$popRanking = $ftm->getMenuItems();
+			usort($popRanking, function($a, $b) { return $a->getAmountSold() < $b->getAmountSold() ? 1 : -1; });
+			//echo $popRanking[0]->getName();
+
+			for($i=0;$i<5;$i++){
+				if(isset($popRanking[$i])){
+					echo  $popRanking[$i]->getName() . " - " . $popRanking[$i]->getAmountSold() . " sold";
+					echo "<br>";
+				}
+			}
+			?>
 		</div>
+		<br>
 		<footer class="footer">
 			<div class="container">
 				<p class="text-muted">Copyright &copy; 2016 Grubbr. All rights reserved (not really)</p>

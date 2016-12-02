@@ -633,6 +633,10 @@ class FoodTruckManager
         return $wasRemoved;
     }
 
+  public function sortByPrice($a, $b){
+      return $a->getAmountSold() > $b->getAmountSold();
+  }
+
   public function editMenuItemPrice($aMenuItem, $aPrice)
   {
   	$priceEdited = false;
@@ -644,6 +648,20 @@ class FoodTruckManager
   		$priceEdited = true;
   	}
   	return $priceEdited;
+  }
+
+  public function editMenuItemSold($aMenuItem, $aAmount){
+      $amountEdited = false;
+      echo $this->indexOfMenuItemByName($aMenuItem);
+      if ($this->indexOfMenuItemByName($aMenuItem) != -1)
+      {
+          echo $this->indexOfMenuItemByName($aMenuItem);
+          $currentAmount = $this->menuItems[$this->indexOfMenuItemByName($aMenuItem)]->getAmountSold();
+          $this->menuItems[$this->indexOfMenuItemByName($aMenuItem)]->setAmountSold($aAmount + $currentAmount);
+          $this->menuItems = array_values($this->menuItems);
+          $amountEdited = true;
+      }
+      return $amountEdited;
   }
   
   public function editSupplyCount($aSupplyItem, $aCount){
