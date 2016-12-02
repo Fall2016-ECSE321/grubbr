@@ -81,25 +81,25 @@ public class FoodTruckController {
 	public void orderFood(MenuItem item, String amount) throws InvalidInputException {
 		
 		String error="";
+		int amountNumber = 0;
+		
 		if (item == null) {
 			error+="Please choose an item to order! ";
 		}
 		
-		if (amount == null) {
+		if (isEmpty(amount)) {
 			error+="Please enter an order quantity! ";
-		}
-		
-		int amountNumber = 0;
-		try {
-			amountNumber = Integer.parseInt(amount);
-		} catch (NumberFormatException e) {
-			error += "Menu item price must be a positive integer! ";
-		} catch (NullPointerException e) {
-			error += "Menu item price must be a positive integer! ";
-		}
-		
-		if (amountNumber <= 0) {
-			error += "Amount of orders must be greater than 0!";
+		} else {
+			try {
+				amountNumber = Integer.parseInt(amount);
+				if (amountNumber <= 0) {
+					error += "Amount of orders must be greater than 0!";
+				}
+			} catch (NumberFormatException e) {
+				error += "Menu item price must be a positive integer! ";
+			} catch (NullPointerException e) {
+				error += "Menu item price must be a positive integer! ";
+			}
 		}
 		
 		error = error.trim();

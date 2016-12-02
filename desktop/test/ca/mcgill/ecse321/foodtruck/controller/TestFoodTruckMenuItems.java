@@ -7,6 +7,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import ca.mcgill.ecse321.foodtruck.model.FoodTruckManager;
+import ca.mcgill.ecse321.foodtruck.model.MenuItem;
 import ca.mcgill.ecse321.foodtruck.persistence.PersistenceXStream;
 
 public class TestFoodTruckMenuItems {
@@ -263,10 +264,136 @@ public class TestFoodTruckMenuItems {
 		assertEquals(0, ftms.getMenuItems().size());
 	}
 	
+	@Test
+	public void testOrderFood() {
+		FoodTruckManager ftms = FoodTruckManager.getInstance();
+		
+		MenuItem item = new MenuItem("Burger", 5.00, 0);
+		
+		ftms.addMenuItem(item);
+		
+		String amount = "3";
+		
+		FoodTruckController ftc = new FoodTruckController();
+		
+		try {
+			ftc.orderFood(ftms.getMenuItem(0),amount);
+		} catch (InvalidInputException e) {
+			fail();
+		}
+		//check result in memory
+		checkResultOrder(ftms,amount);
+		FoodTruckManager ftms2 = (FoodTruckManager)PersistenceXStream.loadFromXMLwithXStream();
+		checkResultOrder(ftms2, amount);
+	}
+	
+	@Test
+	public void testOrderFoodNullFoodAndQuantity() {
+		FoodTruckManager ftms = FoodTruckManager.getInstance();
+		
+		MenuItem item = new MenuItem("Burger", 5.00, 0);
+		ftms.addMenuItem(item);
+		
+		FoodTruckController ftc = new FoodTruckController();
+		String errorMessage="";
+		try {
+			ftc.orderFood(null,null);
+		} catch (InvalidInputException e) {
+			errorMessage = e.getMessage();
+		}
+		
+		assertEquals(errorMessage,"Please choose an item to order! Please enter an order quantity!");
+		checkResultOrderNoChange(ftms);
+	}
+	
+	@Test
+	public void testOrderFoodNonIntegerQuantity() {
+		FoodTruckManager ftms = FoodTruckManager.getInstance();
+		
+		MenuItem item = new MenuItem("Burger", 5.00, 0);
+		ftms.addMenuItem(item);
+		
+		FoodTruckController ftc = new FoodTruckController();
+		String errorMessage="";
+		try {
+			ftc.orderFood(ftms.getMenuItem(0),"3.12312");
+		} catch (InvalidInputException e) {
+			errorMessage = e.getMessage();
+		}
+		
+		assertEquals(errorMessage,"Menu item price must be a positive integer!");
+		checkResultOrderNoChange(ftms);
+	}
+	
+	@Test
+	public void testOrderFoodNegativeQuantity() {
+		FoodTruckManager ftms = FoodTruckManager.getInstance();
+		
+		MenuItem item = new MenuItem("Burger", 5.00, 0);
+		ftms.addMenuItem(item);
+		
+		FoodTruckController ftc = new FoodTruckController();
+		String errorMessage="";
+		try {
+			ftc.orderFood(ftms.getMenuItem(0),"-5");
+		} catch (InvalidInputException e) {
+			errorMessage = e.getMessage();
+		}
+		
+		assertEquals(errorMessage,"Amount of orders must be greater than 0!");
+		checkResultOrderNoChange(ftms);
+	}
+	
+	@Test
+	public void testOrderFoodEmptyQuantity() {
+		FoodTruckManager ftms = FoodTruckManager.getInstance();
+		
+		MenuItem item = new MenuItem("Burger", 5.00, 0);
+		ftms.addMenuItem(item);
+		
+		FoodTruckController ftc = new FoodTruckController();
+		String errorMessage="";
+		try {
+			ftc.orderFood(ftms.getMenuItem(0),"");
+		} catch (InvalidInputException e) {
+			errorMessage = e.getMessage();
+		}
+		
+		assertEquals(errorMessage,"Please enter an order quantity!");
+		checkResultOrderNoChange(ftms);
+	}
+	
+	@Test
+	public void testOrderFoodSpacesQuantity() {
+		FoodTruckManager ftms = FoodTruckManager.getInstance();
+		
+		MenuItem item = new MenuItem("Burger", 5.00, 0);
+		ftms.addMenuItem(item);
+		
+		FoodTruckController ftc = new FoodTruckController();
+		String errorMessage="";
+		try {
+			ftc.orderFood(ftms.getMenuItem(0),"  ");
+		} catch (InvalidInputException e) {
+			errorMessage = e.getMessage();
+		}
+		
+		assertEquals(errorMessage,"Please enter an order quantity!");
+		checkResultOrderNoChange(ftms);
+	}
+	
 	private void checkResultMenuItem(String itemName, double itemPrice, FoodTruckManager ftms) {
 		assertEquals(1,ftms.getMenuItems().size());
 		assertEquals(itemName,ftms.getMenuItem(0).getName());
 		assertEquals(itemPrice,ftms.getMenuItem(0).getPrice(),0.004);
+		assertEquals(0,ftms.getMenuItem(0).getAmountSold());
+	}
+	
+	private void checkResultOrder(FoodTruckManager ftms, String amount) {
+		assertEquals(1,ftms.numberOfMenuItems());
+		assertEquals(Integer.parseInt(amount),ftms.getMenuItem(0).getAmountSold());
+	}
+	private void checkResultOrderNoChange(FoodTruckManager ftms) {
 		assertEquals(0,ftms.getMenuItem(0).getAmountSold());
 	}
 
