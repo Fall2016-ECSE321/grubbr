@@ -707,7 +707,13 @@ public class FoodTruckManagementPage {
 			}
 		}
 		
-		refreshData();
+		refreshData();	
+	}
+	
+	public void removeStaffButtonActionPerformed(ActionEvent event){
 		
 	}
+	
+	
+	
 }
