@@ -16,7 +16,7 @@
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
-            android:background="?attr/colorPrimary"
+            android:background="#00BEF2"
             app:popupTheme="@style/AppTheme.PopupOverlay">
             <HorizontalScrollView
                 android:layout_width="fill_parent"
@@ -26,14 +26,18 @@
                     android:layout_height="wrap_content">
                     <Button
                         android:id="@+id/menutab"
+                        android:background="#00BEF2"
+                        android:textColor="#000000"
                         android:layout_height="wrap_content"
                         android:layout_width="wrap_content"
                         android:text="Menu Items"
                         android:layout_marginLeft="10px"
                         android:layout_marginRight="10px"
-                        android:onClick="changeTab"/>
+                        android:onClick="changeTab" />
                     <Button
                         android:id="@+id/supplytab"
+                        android:background="#00BEF2"
+                        android:textColor="#000000"
                         android:layout_height="wrap_content"
                         android:layout_width="wrap_content"
                         android:text="Supplies"
@@ -41,12 +45,17 @@
                         android:onClick="changeTab"/>
                     <Button
                         android:id="@+id/equipmenttab"
+                        android:background="#00BEF2"
+                        android:textColor="#000000"
                         android:layout_height="wrap_content"
                         android:layout_width="wrap_content"
                         android:text="Equipment"
+                        android:layout_marginRight="10px"
                         android:onClick="changeTab"/>
                     <Button
                         android:id="@+id/employeetab"
+                        android:background="#00BEF2"
+                        android:textColor="#000000"
                         android:layout_height="wrap_content"
                         android:layout_width="wrap_content"
                         android:text="Employees"
