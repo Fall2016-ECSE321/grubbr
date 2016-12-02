@@ -13,7 +13,7 @@ class FoodTruckManager {
 	1 -> * Employee employees;
 	1 -> * Supply supplies;
 	1 -> * Equipment equipment;
-	1 -> * MenuItem menuItems;
+	1 -> * FoodItem foodItems;
 }
 
 class Shift {
@@ -23,7 +23,7 @@ class Shift {
 	double numberOfHours;
 }
 
-class MenuItem {
+class FoodItem {
 	name;
 	double price;
 	int amountSold;
@@ -37,7 +37,7 @@ class Supply {
 class Equipment {
 	name;
 	int count;
-}//$?[End_of_model]$?
+}
 
 class Employee
 {
@@ -57,7 +57,7 @@ class Shift
   position 1 102 174 107;
 }
 
-class MenuItem
+class FoodItem
 {
   position 355 393 122 90;
 }
@@ -70,4 +70,4 @@ class Supply
 class Equipment
 {
   position 474 56 109 73;
-}
+}//$?[End_of_model]$?

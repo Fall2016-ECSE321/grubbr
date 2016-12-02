@@ -2,6 +2,8 @@ package ca.mcgill.ecse321.foodtruck.controller;
 
 import static org.junit.Assert.*;
 
+import java.util.List;
+
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -417,6 +419,54 @@ public class TestFoodTruckFoodItems {
 		
 		assertEquals(errorMessage,"Please enter an order quantity!");
 		checkResultOrderNoChange(ftms);
+	}
+	
+	@Test
+	public void testGetPopularItems() {
+		FoodTruckManager ftms = FoodTruckManager.getInstance();
+		
+		//add 6 items to menu
+		FoodItem item1 = new FoodItem("Burger", 5.00, 10);
+		ftms.addFoodItem(item1);
+		
+		FoodItem item2 = new FoodItem("Fries", 5.00, 9);
+		ftms.addFoodItem(item2);
+		
+		FoodItem item3 = new FoodItem("Shake", 5.00, 7);
+		ftms.addFoodItem(item3);
+		
+		FoodItem item4 = new FoodItem("Hot Dog", 5.00, 5);
+		ftms.addFoodItem(item4);
+		
+		FoodItem item5 = new FoodItem("Onion Ring", 5.00, 3);
+		ftms.addFoodItem(item5);
+		
+		FoodItem item6 = new FoodItem("Chips", 5.00, 0);
+		ftms.addFoodItem(item6);
+		
+		FoodTruckController ftc = new FoodTruckController();
+		
+		List<FoodItem> list = ftc.getPopularItems();
+		
+		//check top 5 items
+		assertEquals(list.size(),5);
+		assertEquals(list.get(0),item1);
+		assertEquals(list.get(1),item2);
+		assertEquals(list.get(2),item3);
+		assertEquals(list.get(3),item4);
+		assertEquals(list.get(4),item5);
+	}
+	
+	@Test
+	public void testGetPopularItemsNoItems() {
+		FoodTruckManager ftms = FoodTruckManager.getInstance();
+		
+		FoodTruckController ftc = new FoodTruckController();
+		
+		List<FoodItem> list = ftc.getPopularItems();
+		
+		//check top 5 items
+		assertEquals(list.size(),0);
 	}
 	
 	private void checkResultFoodItem(String itemName, double itemPrice, FoodTruckManager ftms) {
