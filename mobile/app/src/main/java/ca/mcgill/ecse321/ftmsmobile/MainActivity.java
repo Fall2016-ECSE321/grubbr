@@ -435,6 +435,7 @@ public class MainActivity extends AppCompatActivity {
         /*} catch (InvalidInputException e){
             //error handling
         }*/
+        refreshData();
     }
 
     public void removeEmployee(View v){
