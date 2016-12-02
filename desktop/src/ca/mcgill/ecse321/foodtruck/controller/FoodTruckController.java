@@ -322,14 +322,13 @@ public class FoodTruckController {
 	
 	/**
 	 * Removes a shift for an employee.
-	 * @param employee	the employee for whom we are removing the shift
 	 * @param shift		the shift to be removed
 	 */
-	public void removeShift(Employee employee, Shift shift) throws InvalidInputException {
+	public void removeShift(Shift shift) throws InvalidInputException {
 		
 		String error="";
-		if (employee == null || shift == null) {
-			error+="Please fill out the form before removing shift! ";
+		if (shift == null) {
+			error+="Please select a shift to be removed! ";
 		}
 		
 		error=error.trim();
@@ -340,7 +339,7 @@ public class FoodTruckController {
 		
 		FoodTruckManager ftms = FoodTruckManager.getInstance();
 		
-		employee.removeShift(shift);
+		ftms.removeShift(shift);
 		PersistenceXStream.saveToXMLwithXStream(ftms);
 	}
 	
