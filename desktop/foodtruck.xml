@@ -1,110 +1,12 @@
 <manager id="1">
   <employees id="2"/>
-  <order id="3"/>
-  <supplies id="4">
-    <supply id="5">
-      <name>Cheese</name>
-      <count>80</count>
-    </supply>
-    <supply id="6">
-      <name>Buns</name>
-      <count>60</count>
-    </supply>
-    <supply id="7">
-      <name>Beef Patties</name>
-      <count>70</count>
-    </supply>
-    <supply id="8">
-      <name>Lettuce</name>
-      <count>50</count>
-    </supply>
-    <supply id="9">
-      <name>Tomatoes</name>
-      <count>30</count>
-    </supply>
-    <supply id="10">
-      <name>Onions</name>
-      <count>0</count>
-    </supply>
-    <supply id="11">
-      <name>Peppers</name>
-      <count>90</count>
-    </supply>
-  </supplies>
-  <equipment id="12">
-    <equipment id="13">
-      <name>Spatula</name>
-      <count>0</count>
-    </equipment>
-    <equipment id="14">
-      <name>Deep Fryer</name>
-      <count>4</count>
-    </equipment>
-  </equipment>
-  <menuItems id="15">
-    <item id="16">
-      <name>Poutine</name>
-      <price>6.25</price>
-      <amountSold>0</amountSold>
-    </item>
-    <item id="17">
-      <name>Soda</name>
-      <price>1.5</price>
-      <amountSold>0</amountSold>
-    </item>
-    <item id="18">
-      <name>Chicken Nuggets</name>
-      <price>1.99</price>
-      <amountSold>0</amountSold>
-    </item>
-    <item id="19">
-      <name>Burger</name>
-      <price>4.5</price>
-      <amountSold>0</amountSold>
-    </item>
-    <item id="20">
-      <name>Super Poutine</name>
-      <price>10.3</price>
-      <amountSold>0</amountSold>
-    </item>
-    <item id="21">
-      <name>Dragon Poutine</name>
-      <price>7.2</price>
-      <amountSold>0</amountSold>
-    </item>
-    <item id="22">
-      <name>Dragon Poutine</name>
-      <price>6.2</price>
-      <amountSold>0</amountSold>
-    </item>
-    <item id="23">
-      <name>Dragon Poutine</name>
-      <price>5.2</price>
-      <amountSold>0</amountSold>
-    </item>
-    <item id="24">
-      <name>Premium bugs</name>
-      <price>10.2</price>
-      <amountSold>0</amountSold>
-    </item>
-    <item id="25">
-      <name>Good enough bugs</name>
-      <price>5.2</price>
-      <amountSold>0</amountSold>
-    </item>
-    <item id="26">
-      <name>Bugs Bunny</name>
-      <price>10.2</price>
-      <amountSold>0</amountSold>
-    </item>
-    <item id="27">
-      <name>Daffy Duck</name>
-      <price>10.2</price>
-      <amountSold>0</amountSold>
-    </item>
-    <item id="28">
+  <shifts id="3"/>
+  <supplies id="4"/>
+  <equipment id="5"/>
+  <menuItems id="6">
+    <item id="7">
       <name>Pho</name>
-      <price>10.5</price>
+      <price>9.99</price>
       <amountSold>0</amountSold>
     </item>
   </menuItems>
