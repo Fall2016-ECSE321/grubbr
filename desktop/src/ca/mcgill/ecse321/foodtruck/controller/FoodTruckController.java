@@ -13,7 +13,7 @@ import ca.mcgill.ecse321.foodtruck.controller.InvalidInputException;
 import ca.mcgill.ecse321.foodtruck.model.Employee;
 import ca.mcgill.ecse321.foodtruck.model.Equipment;
 import ca.mcgill.ecse321.foodtruck.model.FoodTruckManager;
-import ca.mcgill.ecse321.foodtruck.model.MenuItem;
+import ca.mcgill.ecse321.foodtruck.model.FoodItem;
 import ca.mcgill.ecse321.foodtruck.model.Shift;
 import ca.mcgill.ecse321.foodtruck.model.Supply;
 import ca.mcgill.ecse321.foodtruck.persistence.PersistenceXStream;
@@ -42,7 +42,7 @@ public class FoodTruckController {
 	 * @param InvalidInputException if strings are empty
 	 */
 	
-	public void createMenuItem(String itemName,String itemPrice) throws InvalidInputException {
+	public void createFoodItem(String itemName,String itemPrice) throws InvalidInputException {
 		
 		String error = "";
 		FoodTruckManager ftms = FoodTruckManager.getInstance();
@@ -70,9 +70,9 @@ public class FoodTruckController {
 		}
 		
 		//check for duplicates
-		Iterator<MenuItem> menuIterator = ftms.getMenuItems().iterator();
+		Iterator<FoodItem> menuIterator = ftms.getFoodItems().iterator();
 		while (menuIterator.hasNext()) {
-			MenuItem currentItem = menuIterator.next();
+			FoodItem currentItem = menuIterator.next();
 			if (currentItem.getName().compareToIgnoreCase(itemName)==0 && currentItem.getPrice()==price){
 				error += "This item is already on the menu! Please enter a new one. ";
 				break;
@@ -87,8 +87,8 @@ public class FoodTruckController {
 		
 		//add item to system
 		itemName = WordUtils.capitalizeFully(itemName);
-		MenuItem item = new MenuItem(itemName, price, 0);
-		ftms.addMenuItem(item);
+		FoodItem item = new FoodItem(itemName, price, 0);
+		ftms.addFoodItem(item);
 		PersistenceXStream.saveToXMLwithXStream(ftms);
 	}
 	
@@ -98,7 +98,7 @@ public class FoodTruckController {
 	 * @param amount					the amount of units to be ordered
 	 * @throws InvalidInputException	if the menu item or amount is not selected or if amount is not positive integer
 	 */
-	public void orderFood(MenuItem item, String amount) throws InvalidInputException {
+	public void orderFood(FoodItem item, String amount) throws InvalidInputException {
 		
 		String error="";
 		int amountNumber = 0;
@@ -142,21 +142,21 @@ public class FoodTruckController {
 	 * Gets the 5 most popular items on the menu. Sorts them by amount sold.
 	 * @return	an List that contains the 5 most popular items
 	 */
-	public List<MenuItem> getPopularItems() {
+	public List<FoodItem> getPopularItems() {
 		
 		FoodTruckManager ftms = FoodTruckManager.getInstance();
-		List<MenuItem> topList = new ArrayList<MenuItem>();
-		Iterator<MenuItem> menuIterator = ftms.getMenuItems().iterator();
+		List<FoodItem> topList = new ArrayList<FoodItem>();
+		Iterator<FoodItem> menuIterator = ftms.getFoodItems().iterator();
 		
 		//fetch all menu items
 		while (menuIterator.hasNext()) {
-			MenuItem currentItem = menuIterator.next();
+			FoodItem currentItem = menuIterator.next();
 			topList.add(currentItem);
 		}
 		
 		//sort menu items by amount sold
-		Collections.sort(topList, new Comparator<MenuItem>() {
-			@Override public int compare(MenuItem item1, MenuItem item2) {
+		Collections.sort(topList, new Comparator<FoodItem>() {
+			@Override public int compare(FoodItem item1, FoodItem item2) {
 				return item1.getAmountSold() - item2.getAmountSold();
 			}
 		});

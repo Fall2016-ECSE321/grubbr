@@ -23,7 +23,7 @@ public class FoodTruckManager
   private List<Employee> employees;
   private List<Supply> supplies;
   private List<Equipment> equipment;
-  private List<MenuItem> menuItems;
+  private List<FoodItem> foodItems;
 
   //------------------------
   // CONSTRUCTOR
@@ -34,7 +34,7 @@ public class FoodTruckManager
     employees = new ArrayList<Employee>();
     supplies = new ArrayList<Supply>();
     equipment = new ArrayList<Equipment>();
-    menuItems = new ArrayList<MenuItem>();
+    foodItems = new ArrayList<FoodItem>();
   }
 
   public static FoodTruckManager getInstance()
@@ -140,33 +140,33 @@ public class FoodTruckManager
     return index;
   }
 
-  public MenuItem getMenuItem(int index)
+  public FoodItem getFoodItem(int index)
   {
-    MenuItem aMenuItem = menuItems.get(index);
-    return aMenuItem;
+    FoodItem aFoodItem = foodItems.get(index);
+    return aFoodItem;
   }
 
-  public List<MenuItem> getMenuItems()
+  public List<FoodItem> getFoodItems()
   {
-    List<MenuItem> newMenuItems = Collections.unmodifiableList(menuItems);
-    return newMenuItems;
+    List<FoodItem> newFoodItems = Collections.unmodifiableList(foodItems);
+    return newFoodItems;
   }
 
-  public int numberOfMenuItems()
+  public int numberOfFoodItems()
   {
-    int number = menuItems.size();
+    int number = foodItems.size();
     return number;
   }
 
-  public boolean hasMenuItems()
+  public boolean hasFoodItems()
   {
-    boolean has = menuItems.size() > 0;
+    boolean has = foodItems.size() > 0;
     return has;
   }
 
-  public int indexOfMenuItem(MenuItem aMenuItem)
+  public int indexOfFoodItem(FoodItem aFoodItem)
   {
-    int index = menuItems.indexOf(aMenuItem);
+    int index = foodItems.indexOf(aFoodItem);
     return index;
   }
 
@@ -341,59 +341,59 @@ public class FoodTruckManager
     return wasAdded;
   }
 
-  public static int minimumNumberOfMenuItems()
+  public static int minimumNumberOfFoodItems()
   {
     return 0;
   }
 
-  public boolean addMenuItem(MenuItem aMenuItem)
+  public boolean addFoodItem(FoodItem aFoodItem)
   {
     boolean wasAdded = false;
-    if (menuItems.contains(aMenuItem)) { return false; }
-    menuItems.add(aMenuItem);
+    if (foodItems.contains(aFoodItem)) { return false; }
+    foodItems.add(aFoodItem);
     wasAdded = true;
     return wasAdded;
   }
 
-  public boolean removeMenuItem(MenuItem aMenuItem)
+  public boolean removeFoodItem(FoodItem aFoodItem)
   {
     boolean wasRemoved = false;
-    if (menuItems.contains(aMenuItem))
+    if (foodItems.contains(aFoodItem))
     {
-      menuItems.remove(aMenuItem);
+      foodItems.remove(aFoodItem);
       wasRemoved = true;
     }
     return wasRemoved;
   }
 
-  public boolean addMenuItemAt(MenuItem aMenuItem, int index)
+  public boolean addFoodItemAt(FoodItem aFoodItem, int index)
   {  
     boolean wasAdded = false;
-    if(addMenuItem(aMenuItem))
+    if(addFoodItem(aFoodItem))
     {
       if(index < 0 ) { index = 0; }
-      if(index > numberOfMenuItems()) { index = numberOfMenuItems() - 1; }
-      menuItems.remove(aMenuItem);
-      menuItems.add(index, aMenuItem);
+      if(index > numberOfFoodItems()) { index = numberOfFoodItems() - 1; }
+      foodItems.remove(aFoodItem);
+      foodItems.add(index, aFoodItem);
       wasAdded = true;
     }
     return wasAdded;
   }
 
-  public boolean addOrMoveMenuItemAt(MenuItem aMenuItem, int index)
+  public boolean addOrMoveFoodItemAt(FoodItem aFoodItem, int index)
   {
     boolean wasAdded = false;
-    if(menuItems.contains(aMenuItem))
+    if(foodItems.contains(aFoodItem))
     {
       if(index < 0 ) { index = 0; }
-      if(index > numberOfMenuItems()) { index = numberOfMenuItems() - 1; }
-      menuItems.remove(aMenuItem);
-      menuItems.add(index, aMenuItem);
+      if(index > numberOfFoodItems()) { index = numberOfFoodItems() - 1; }
+      foodItems.remove(aFoodItem);
+      foodItems.add(index, aFoodItem);
       wasAdded = true;
     } 
     else 
     {
-      wasAdded = addMenuItemAt(aMenuItem, index);
+      wasAdded = addFoodItemAt(aFoodItem, index);
     }
     return wasAdded;
   }
@@ -403,7 +403,7 @@ public class FoodTruckManager
     employees.clear();
     supplies.clear();
     equipment.clear();
-    menuItems.clear();
+    foodItems.clear();
   }
 
 }

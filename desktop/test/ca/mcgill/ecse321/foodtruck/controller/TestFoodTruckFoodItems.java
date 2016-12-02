@@ -7,10 +7,10 @@ import org.junit.Before;
 import org.junit.Test;
 
 import ca.mcgill.ecse321.foodtruck.model.FoodTruckManager;
-import ca.mcgill.ecse321.foodtruck.model.MenuItem;
+import ca.mcgill.ecse321.foodtruck.model.FoodItem;
 import ca.mcgill.ecse321.foodtruck.persistence.PersistenceXStream;
 
-public class TestFoodTruckMenuItems {
+public class TestFoodTruckFoodItems {
 
 	@Before
 	public void setUp() throws Exception {
@@ -23,9 +23,9 @@ public class TestFoodTruckMenuItems {
 	}
 
 	@Test
-	public void testCreateMenuItem() {
+	public void testCreateFoodItem() {
 		FoodTruckManager ftms = FoodTruckManager.getInstance();
-		assertEquals(0, ftms.getMenuItems().size());
+		assertEquals(0, ftms.getFoodItems().size());
 		
 		String itemName = "Burger";
 		String itemPrice = "10.20";
@@ -33,24 +33,24 @@ public class TestFoodTruckMenuItems {
 		FoodTruckController ftc = new FoodTruckController();
 		
 		try {
-			ftc.createMenuItem(itemName, itemPrice);
+			ftc.createFoodItem(itemName, itemPrice);
 		} catch(InvalidInputException e) {
 			fail();
 		}
-		checkResultMenuItem(itemName, Double.parseDouble(itemPrice), ftms);
+		checkResultFoodItem(itemName, Double.parseDouble(itemPrice), ftms);
 		
 		FoodTruckManager ftms2 = (FoodTruckManager)PersistenceXStream.loadFromXMLwithXStream();
 		
-		checkResultMenuItem(itemName, Double.parseDouble(itemPrice), ftms2);
+		checkResultFoodItem(itemName, Double.parseDouble(itemPrice), ftms2);
 		
 	}
 	
 	@Test
-	public void testCreateMenuItemDuplicate() {
+	public void testCreateFoodItemDuplicate() {
 		
 		String errorMessage="";
 		FoodTruckManager ftms = FoodTruckManager.getInstance();
-		assertEquals(0, ftms.getMenuItems().size());
+		assertEquals(0, ftms.getFoodItems().size());
 		
 		String itemName = "Burger";
 		String itemPrice = "10.20";
@@ -60,13 +60,13 @@ public class TestFoodTruckMenuItems {
 		FoodTruckController ftc = new FoodTruckController();
 		
 		try {
-			ftc.createMenuItem(itemName, itemPrice);
+			ftc.createFoodItem(itemName, itemPrice);
 		} catch (InvalidInputException e) {
 			fail();
 		}
 		
 		try {
-			ftc.createMenuItem(itemName2, itemPrice);
+			ftc.createFoodItem(itemName2, itemPrice);
 		} catch (InvalidInputException e) {
 			errorMessage+=e.getMessage();
 		}
@@ -74,18 +74,18 @@ public class TestFoodTruckMenuItems {
 		assertEquals("This item is already on the menu! Please enter a new one.",errorMessage);
 		
 		//check that there is only still one item on menu
-		checkResultMenuItem(itemName, Double.parseDouble(itemPrice), ftms);
+		checkResultFoodItem(itemName, Double.parseDouble(itemPrice), ftms);
 		
 		FoodTruckManager ftms2 = (FoodTruckManager)PersistenceXStream.loadFromXMLwithXStream();
 		
-		checkResultMenuItem(itemName, Double.parseDouble(itemPrice), ftms2);
+		checkResultFoodItem(itemName, Double.parseDouble(itemPrice), ftms2);
 		
 	}
 	
 	@Test
-	public void testCreateMenuItemNullName() {
+	public void testCreateFoodItemNullName() {
 		FoodTruckManager ftms = FoodTruckManager.getInstance();
-		assertEquals(0, ftms.getMenuItems().size());
+		assertEquals(0, ftms.getFoodItems().size());
 		
 		String itemName = null;
 		String itemPrice = "4.50";
@@ -95,7 +95,7 @@ public class TestFoodTruckMenuItems {
 		FoodTruckController ftc = new FoodTruckController();
 		
 		try {
-			ftc.createMenuItem(itemName, itemPrice);
+			ftc.createFoodItem(itemName, itemPrice);
 		} catch (InvalidInputException e) {
 			errorMessage = e.getMessage();
 		}
@@ -104,13 +104,13 @@ public class TestFoodTruckMenuItems {
 		assertEquals("Menu item name cannot be empty!", errorMessage);
 		
 		//no change in memory
-		assertEquals(0, ftms.getMenuItems().size());
+		assertEquals(0, ftms.getFoodItems().size());
 	}
 	
 	@Test
-	public void testCreateMenuItemEmptyName() {
+	public void testCreateFoodItemEmptyName() {
 		FoodTruckManager ftms = FoodTruckManager.getInstance();
-		assertEquals(0, ftms.getMenuItems().size());
+		assertEquals(0, ftms.getFoodItems().size());
 		
 		String itemName = "";
 		String itemPrice = "4.50";
@@ -120,7 +120,7 @@ public class TestFoodTruckMenuItems {
 		FoodTruckController ftc = new FoodTruckController();
 		
 		try {
-			ftc.createMenuItem(itemName, itemPrice);
+			ftc.createFoodItem(itemName, itemPrice);
 		} catch (InvalidInputException e) {
 			errorMessage = e.getMessage();
 		}
@@ -129,13 +129,13 @@ public class TestFoodTruckMenuItems {
 		assertEquals("Menu item name cannot be empty!", errorMessage);
 		
 		//no change in memory
-		assertEquals(0, ftms.getMenuItems().size());
+		assertEquals(0, ftms.getFoodItems().size());
 	}
 	
 	@Test
-	public void testCreateMenuItemSpacesName() {
+	public void testCreateFoodItemSpacesName() {
 		FoodTruckManager ftms = FoodTruckManager.getInstance();
-		assertEquals(0, ftms.getMenuItems().size());
+		assertEquals(0, ftms.getFoodItems().size());
 		
 		String itemName = " ";
 		String itemPrice = "4.50";
@@ -145,7 +145,7 @@ public class TestFoodTruckMenuItems {
 		FoodTruckController ftc = new FoodTruckController();
 		
 		try {
-			ftc.createMenuItem(itemName, itemPrice);
+			ftc.createFoodItem(itemName, itemPrice);
 		} catch (InvalidInputException e) {
 			errorMessage = e.getMessage();
 		}
@@ -154,13 +154,13 @@ public class TestFoodTruckMenuItems {
 		assertEquals("Menu item name cannot be empty!", errorMessage);
 		
 		//no change in memory
-		assertEquals(0, ftms.getMenuItems().size());
+		assertEquals(0, ftms.getFoodItems().size());
 	}
 	
 	@Test
-	public void testCreateMenuItemAlphanumericPrice() {
+	public void testCreateFoodItemAlphanumericPrice() {
 		FoodTruckManager ftms = FoodTruckManager.getInstance();
-		assertEquals(0, ftms.getMenuItems().size());
+		assertEquals(0, ftms.getFoodItems().size());
 		
 		String itemName = "Burger";
 		String itemPrice = "asasd23 123";
@@ -169,7 +169,7 @@ public class TestFoodTruckMenuItems {
 		FoodTruckController ftc = new FoodTruckController();
 		
 		try {
-			ftc.createMenuItem(itemName, itemPrice);
+			ftc.createFoodItem(itemName, itemPrice);
 		} catch (InvalidInputException e) {
 			errorMessage = e.getMessage();
 		}
@@ -178,13 +178,13 @@ public class TestFoodTruckMenuItems {
 		assertEquals("Menu item price must be a number!", errorMessage);
 		
 		//no change in error
-		assertEquals(0, ftms.getMenuItems().size());
+		assertEquals(0, ftms.getFoodItems().size());
 	}
 	
 	@Test
-	public void testCreateMenuItemNullPrice() {
+	public void testCreateFoodItemNullPrice() {
 		FoodTruckManager ftms = FoodTruckManager.getInstance();
-		assertEquals(0, ftms.getMenuItems().size());
+		assertEquals(0, ftms.getFoodItems().size());
 		
 		String itemName = "Burger";
 		String itemPrice = null;
@@ -193,7 +193,7 @@ public class TestFoodTruckMenuItems {
 		FoodTruckController ftc = new FoodTruckController();
 		
 		try {
-			ftc.createMenuItem(itemName, itemPrice);
+			ftc.createFoodItem(itemName, itemPrice);
 		} catch (InvalidInputException e) {
 			errorMessage = e.getMessage();
 		}
@@ -202,13 +202,13 @@ public class TestFoodTruckMenuItems {
 		assertEquals("Menu item price must be a number!", errorMessage);
 		
 		//no change in error
-		assertEquals(0, ftms.getMenuItems().size());
+		assertEquals(0, ftms.getFoodItems().size());
 	}
 	
 	@Test
-	public void testCreateMenuItemEmptyPrice() {
+	public void testCreateFoodItemEmptyPrice() {
 		FoodTruckManager ftms = FoodTruckManager.getInstance();
-		assertEquals(0, ftms.getMenuItems().size());
+		assertEquals(0, ftms.getFoodItems().size());
 		
 		String itemName = "Burger";
 		String itemPrice = "";
@@ -217,7 +217,7 @@ public class TestFoodTruckMenuItems {
 		FoodTruckController ftc = new FoodTruckController();
 		
 		try {
-			ftc.createMenuItem(itemName, itemPrice);
+			ftc.createFoodItem(itemName, itemPrice);
 		} catch (InvalidInputException e) {
 			errorMessage = e.getMessage();
 		}
@@ -226,13 +226,13 @@ public class TestFoodTruckMenuItems {
 		assertEquals("Menu item price must be a number!", errorMessage);
 		
 		//no change in error
-		assertEquals(0, ftms.getMenuItems().size());
+		assertEquals(0, ftms.getFoodItems().size());
 	}
 	
 	@Test
-	public void testCreateMenuItemNegativePrice() {
+	public void testCreateFoodItemNegativePrice() {
 		FoodTruckManager ftms = FoodTruckManager.getInstance();
-		assertEquals(0, ftms.getMenuItems().size());
+		assertEquals(0, ftms.getFoodItems().size());
 		
 		String itemName = "Burger";
 		String itemPrice = "-5";
@@ -241,7 +241,7 @@ public class TestFoodTruckMenuItems {
 		FoodTruckController ftc = new FoodTruckController();
 		
 		try {
-			ftc.createMenuItem(itemName, itemPrice);
+			ftc.createFoodItem(itemName, itemPrice);
 		} catch (InvalidInputException e) {
 			errorMessage = e.getMessage();
 		}
@@ -250,13 +250,13 @@ public class TestFoodTruckMenuItems {
 		assertEquals("Menu item price must be greater than 0!", errorMessage);
 		
 		//no change in error
-		assertEquals(0, ftms.getMenuItems().size());
+		assertEquals(0, ftms.getFoodItems().size());
 	}
 	
 	@Test
-	public void testCreateMenuItemZeroPrice() {
+	public void testCreateFoodItemZeroPrice() {
 		FoodTruckManager ftms = FoodTruckManager.getInstance();
-		assertEquals(0, ftms.getMenuItems().size());
+		assertEquals(0, ftms.getFoodItems().size());
 		
 		String itemName = "Burger";
 		String itemPrice = "0";
@@ -265,7 +265,7 @@ public class TestFoodTruckMenuItems {
 		FoodTruckController ftc = new FoodTruckController();
 		
 		try {
-			ftc.createMenuItem(itemName, itemPrice);
+			ftc.createFoodItem(itemName, itemPrice);
 		} catch (InvalidInputException e) {
 			errorMessage = e.getMessage();
 		}
@@ -274,13 +274,13 @@ public class TestFoodTruckMenuItems {
 		assertEquals("Menu item price must be greater than 0!", errorMessage);
 		
 		//no change in error
-		assertEquals(0, ftms.getMenuItems().size());
+		assertEquals(0, ftms.getFoodItems().size());
 	}
 	
 	@Test
-	public void testCreateMenuItemTooManyDecimalsPrice() {
+	public void testCreateFoodItemTooManyDecimalsPrice() {
 		FoodTruckManager ftms = FoodTruckManager.getInstance();
-		assertEquals(0, ftms.getMenuItems().size());
+		assertEquals(0, ftms.getFoodItems().size());
 		
 		String itemName = "Burger";
 		String itemPrice = "4.124";
@@ -289,7 +289,7 @@ public class TestFoodTruckMenuItems {
 		FoodTruckController ftc = new FoodTruckController();
 		
 		try {
-			ftc.createMenuItem(itemName, itemPrice);
+			ftc.createFoodItem(itemName, itemPrice);
 		} catch (InvalidInputException e) {
 			errorMessage = e.getMessage();
 		}
@@ -298,23 +298,23 @@ public class TestFoodTruckMenuItems {
 		assertEquals("Menu item price cannot contain fractions of cents!", errorMessage);
 		
 		//no change in error
-		assertEquals(0, ftms.getMenuItems().size());
+		assertEquals(0, ftms.getFoodItems().size());
 	}
 	
 	@Test
 	public void testOrderFood() {
 		FoodTruckManager ftms = FoodTruckManager.getInstance();
 		
-		MenuItem item = new MenuItem("Burger", 5.00, 0);
+		FoodItem item = new FoodItem("Burger", 5.00, 0);
 		
-		ftms.addMenuItem(item);
+		ftms.addFoodItem(item);
 		
 		String amount = "3";
 		
 		FoodTruckController ftc = new FoodTruckController();
 		
 		try {
-			ftc.orderFood(ftms.getMenuItem(0),amount);
+			ftc.orderFood(ftms.getFoodItem(0),amount);
 		} catch (InvalidInputException e) {
 			fail();
 		}
@@ -328,8 +328,8 @@ public class TestFoodTruckMenuItems {
 	public void testOrderFoodNullFoodAndQuantity() {
 		FoodTruckManager ftms = FoodTruckManager.getInstance();
 		
-		MenuItem item = new MenuItem("Burger", 5.00, 0);
-		ftms.addMenuItem(item);
+		FoodItem item = new FoodItem("Burger", 5.00, 0);
+		ftms.addFoodItem(item);
 		
 		FoodTruckController ftc = new FoodTruckController();
 		String errorMessage="";
@@ -347,13 +347,13 @@ public class TestFoodTruckMenuItems {
 	public void testOrderFoodNonIntegerQuantity() {
 		FoodTruckManager ftms = FoodTruckManager.getInstance();
 		
-		MenuItem item = new MenuItem("Burger", 5.00, 0);
-		ftms.addMenuItem(item);
+		FoodItem item = new FoodItem("Burger", 5.00, 0);
+		ftms.addFoodItem(item);
 		
 		FoodTruckController ftc = new FoodTruckController();
 		String errorMessage="";
 		try {
-			ftc.orderFood(ftms.getMenuItem(0),"3.12312");
+			ftc.orderFood(ftms.getFoodItem(0),"3.12312");
 		} catch (InvalidInputException e) {
 			errorMessage = e.getMessage();
 		}
@@ -366,13 +366,13 @@ public class TestFoodTruckMenuItems {
 	public void testOrderFoodNegativeQuantity() {
 		FoodTruckManager ftms = FoodTruckManager.getInstance();
 		
-		MenuItem item = new MenuItem("Burger", 5.00, 0);
-		ftms.addMenuItem(item);
+		FoodItem item = new FoodItem("Burger", 5.00, 0);
+		ftms.addFoodItem(item);
 		
 		FoodTruckController ftc = new FoodTruckController();
 		String errorMessage="";
 		try {
-			ftc.orderFood(ftms.getMenuItem(0),"-5");
+			ftc.orderFood(ftms.getFoodItem(0),"-5");
 		} catch (InvalidInputException e) {
 			errorMessage = e.getMessage();
 		}
@@ -385,13 +385,13 @@ public class TestFoodTruckMenuItems {
 	public void testOrderFoodEmptyQuantity() {
 		FoodTruckManager ftms = FoodTruckManager.getInstance();
 		
-		MenuItem item = new MenuItem("Burger", 5.00, 0);
-		ftms.addMenuItem(item);
+		FoodItem item = new FoodItem("Burger", 5.00, 0);
+		ftms.addFoodItem(item);
 		
 		FoodTruckController ftc = new FoodTruckController();
 		String errorMessage="";
 		try {
-			ftc.orderFood(ftms.getMenuItem(0),"");
+			ftc.orderFood(ftms.getFoodItem(0),"");
 		} catch (InvalidInputException e) {
 			errorMessage = e.getMessage();
 		}
@@ -404,13 +404,13 @@ public class TestFoodTruckMenuItems {
 	public void testOrderFoodSpacesQuantity() {
 		FoodTruckManager ftms = FoodTruckManager.getInstance();
 		
-		MenuItem item = new MenuItem("Burger", 5.00, 0);
-		ftms.addMenuItem(item);
+		FoodItem item = new FoodItem("Burger", 5.00, 0);
+		ftms.addFoodItem(item);
 		
 		FoodTruckController ftc = new FoodTruckController();
 		String errorMessage="";
 		try {
-			ftc.orderFood(ftms.getMenuItem(0),"  ");
+			ftc.orderFood(ftms.getFoodItem(0),"  ");
 		} catch (InvalidInputException e) {
 			errorMessage = e.getMessage();
 		}
@@ -419,19 +419,19 @@ public class TestFoodTruckMenuItems {
 		checkResultOrderNoChange(ftms);
 	}
 	
-	private void checkResultMenuItem(String itemName, double itemPrice, FoodTruckManager ftms) {
-		assertEquals(1,ftms.getMenuItems().size());
-		assertEquals(itemName,ftms.getMenuItem(0).getName());
-		assertEquals(itemPrice,ftms.getMenuItem(0).getPrice(),0.004);
-		assertEquals(0,ftms.getMenuItem(0).getAmountSold());
+	private void checkResultFoodItem(String itemName, double itemPrice, FoodTruckManager ftms) {
+		assertEquals(1,ftms.getFoodItems().size());
+		assertEquals(itemName,ftms.getFoodItem(0).getName());
+		assertEquals(itemPrice,ftms.getFoodItem(0).getPrice(),0.004);
+		assertEquals(0,ftms.getFoodItem(0).getAmountSold());
 	}
 	
 	private void checkResultOrder(FoodTruckManager ftms, String amount) {
-		assertEquals(1,ftms.numberOfMenuItems());
-		assertEquals(Integer.parseInt(amount),ftms.getMenuItem(0).getAmountSold());
+		assertEquals(1,ftms.numberOfFoodItems());
+		assertEquals(Integer.parseInt(amount),ftms.getFoodItem(0).getAmountSold());
 	}
 	private void checkResultOrderNoChange(FoodTruckManager ftms) {
-		assertEquals(0,ftms.getMenuItem(0).getAmountSold());
+		assertEquals(0,ftms.getFoodItem(0).getAmountSold());
 	}
 
 }
