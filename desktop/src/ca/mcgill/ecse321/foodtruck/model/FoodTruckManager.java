@@ -3,9 +3,10 @@
 
 package ca.mcgill.ecse321.foodtruck.model;
 import java.util.*;
+import java.sql.Time;
 
-// line 11 "../../../../../FoodTruck.ump"
-// line 54 "../../../../../FoodTruck.ump"
+// line 10 "../../../../../FoodTruck.ump"
+// line 49 "../../../../../FoodTruck.ump"
 public class FoodTruckManager
 {
 
@@ -21,7 +22,7 @@ public class FoodTruckManager
 
   //FoodTruckManager Associations
   private List<Employee> employees;
-  private List<Order> order;
+  private List<Shift> shifts;
   private List<Supply> supplies;
   private List<Equipment> equipment;
   private List<MenuItem> menuItems;
@@ -33,7 +34,7 @@ public class FoodTruckManager
   private FoodTruckManager()
   {
     employees = new ArrayList<Employee>();
-    order = new ArrayList<Order>();
+    shifts = new ArrayList<Shift>();
     supplies = new ArrayList<Supply>();
     equipment = new ArrayList<Equipment>();
     menuItems = new ArrayList<MenuItem>();
@@ -82,33 +83,33 @@ public class FoodTruckManager
     return index;
   }
 
-  public Order getOrder(int index)
+  public Shift getShift(int index)
   {
-    Order aOrder = order.get(index);
-    return aOrder;
+    Shift aShift = shifts.get(index);
+    return aShift;
   }
 
-  public List<Order> getOrder()
+  public List<Shift> getShifts()
   {
-    List<Order> newOrder = Collections.unmodifiableList(order);
-    return newOrder;
+    List<Shift> newShifts = Collections.unmodifiableList(shifts);
+    return newShifts;
   }
 
-  public int numberOfOrder()
+  public int numberOfShifts()
   {
-    int number = order.size();
+    int number = shifts.size();
     return number;
   }
 
-  public boolean hasOrder()
+  public boolean hasShifts()
   {
-    boolean has = order.size() > 0;
+    boolean has = shifts.size() > 0;
     return has;
   }
 
-  public int indexOfOrder(Order aOrder)
+  public int indexOfShift(Shift aShift)
   {
-    int index = order.indexOf(aOrder);
+    int index = shifts.indexOf(aShift);
     return index;
   }
 
@@ -259,59 +260,59 @@ public class FoodTruckManager
     return wasAdded;
   }
 
-  public static int minimumNumberOfOrder()
+  public static int minimumNumberOfShifts()
   {
     return 0;
   }
 
-  public boolean addOrder(Order aOrder)
+  public boolean addShift(Shift aShift)
   {
     boolean wasAdded = false;
-    if (order.contains(aOrder)) { return false; }
-    order.add(aOrder);
+    if (shifts.contains(aShift)) { return false; }
+    shifts.add(aShift);
     wasAdded = true;
     return wasAdded;
   }
 
-  public boolean removeOrder(Order aOrder)
+  public boolean removeShift(Shift aShift)
   {
     boolean wasRemoved = false;
-    if (order.contains(aOrder))
+    if (shifts.contains(aShift))
     {
-      order.remove(aOrder);
+      shifts.remove(aShift);
       wasRemoved = true;
     }
     return wasRemoved;
   }
 
-  public boolean addOrderAt(Order aOrder, int index)
+  public boolean addShiftAt(Shift aShift, int index)
   {  
     boolean wasAdded = false;
-    if(addOrder(aOrder))
+    if(addShift(aShift))
     {
       if(index < 0 ) { index = 0; }
-      if(index > numberOfOrder()) { index = numberOfOrder() - 1; }
-      order.remove(aOrder);
-      order.add(index, aOrder);
+      if(index > numberOfShifts()) { index = numberOfShifts() - 1; }
+      shifts.remove(aShift);
+      shifts.add(index, aShift);
       wasAdded = true;
     }
     return wasAdded;
   }
 
-  public boolean addOrMoveOrderAt(Order aOrder, int index)
+  public boolean addOrMoveShiftAt(Shift aShift, int index)
   {
     boolean wasAdded = false;
-    if(order.contains(aOrder))
+    if(shifts.contains(aShift))
     {
       if(index < 0 ) { index = 0; }
-      if(index > numberOfOrder()) { index = numberOfOrder() - 1; }
-      order.remove(aOrder);
-      order.add(index, aOrder);
+      if(index > numberOfShifts()) { index = numberOfShifts() - 1; }
+      shifts.remove(aShift);
+      shifts.add(index, aShift);
       wasAdded = true;
     } 
     else 
     {
-      wasAdded = addOrderAt(aOrder, index);
+      wasAdded = addShiftAt(aShift, index);
     }
     return wasAdded;
   }
@@ -490,7 +491,7 @@ public class FoodTruckManager
   public void delete()
   {
     employees.clear();
-    order.clear();
+    shifts.clear();
     supplies.clear();
     equipment.clear();
     menuItems.clear();

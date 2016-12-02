@@ -37,7 +37,7 @@ public class FoodTruckController {
 	 * @param InvalidInputException if strings are empty
 	 */
 	
-	public void createMenuItem(String itemName,String itemPrice) throws InvalidInputException{
+	public void createMenuItem(String itemName,String itemPrice) throws InvalidInputException {
 		
 		String error = "";
 		
@@ -69,6 +69,49 @@ public class FoodTruckController {
 		MenuItem item = new MenuItem(itemName, Double.parseDouble(itemPrice), 0);
 		FoodTruckManager ftms = FoodTruckManager.getInstance();
 		ftms.addMenuItem(item);
+		PersistenceXStream.saveToXMLwithXStream(ftms);
+	}
+	
+	/**
+	 * Places an order for a certain menu item.
+	 * @param item						the menu item to be ordered
+	 * @param amount					the amount of units to be ordered
+	 * @throws InvalidInputException	if the menu item or amount is not selected or if amount is not positive integer
+	 */
+	public void orderFood(MenuItem item, String amount) throws InvalidInputException {
+		
+		String error="";
+		int amountNumber = 0;
+		
+		if (item == null) {
+			error+="Please choose an item to order! ";
+		}
+		
+		if (isEmpty(amount)) {
+			error+="Please enter an order quantity! ";
+		} else {
+			try {
+				amountNumber = Integer.parseInt(amount);
+				if (amountNumber <= 0) {
+					error += "Amount of orders must be greater than 0!";
+				}
+			} catch (NumberFormatException e) {
+				error += "Menu item price must be a positive integer! ";
+			} catch (NullPointerException e) {
+				error += "Menu item price must be a positive integer! ";
+			}
+		}
+		
+		error = error.trim();
+		
+		if (error.length()>0) {
+			throw new InvalidInputException(error);
+		}
+		
+		int previousAmountSold = item.getAmountSold();
+		item.setAmountSold(previousAmountSold+amountNumber);
+		
+		FoodTruckManager ftms = FoodTruckManager.getInstance();
 		PersistenceXStream.saveToXMLwithXStream(ftms);
 	}
 	
@@ -262,7 +305,20 @@ public class FoodTruckController {
 	 * @param employee	the employee to be fired
 	 */
 	
-	public void removeEmployee(Employee employee) {
+	public void removeEmployee(Employee employee) throws InvalidInputException {
+		
+		String error = "";
+		
+		if (employee==null) {
+			error+="Please select an employee! ";
+		}
+		
+		error = error.trim();
+		
+		if (error.length()>0) {
+			throw new InvalidInputException(error);
+		}
+		
 		FoodTruckManager ftms = FoodTruckManager.getInstance();
 		ftms.removeEmployee(employee);
 		PersistenceXStream.saveToXMLwithXStream(ftms);
@@ -279,6 +335,11 @@ public class FoodTruckController {
 	public void createShift(Employee employee, String day, Time startTime, Time endTime) throws InvalidInputException {
 		
 		String error = "";
+		
+		if (employee == null || day == null || startTime == null || endTime == null) {
+			error += "Please fill out the entire form before adding a shift in! ";
+		}
+		
 		if (endTime != null && startTime != null && endTime.getTime() < startTime.getTime()) {
 			error = error + "Shift end time cannot be before shift start time! ";
 		}
@@ -295,25 +356,36 @@ public class FoodTruckController {
 		long duration = endTime.getTime()-startTime.getTime();
 		int numHours = (int) (duration/1000/60/60);
 		
-		Shift shift = new Shift(day, startTime, endTime, numHours);
+		Shift shift = new Shift(day, startTime, endTime, numHours, employee);
 		FoodTruckManager ftms = FoodTruckManager.getInstance();
 		
-		employee.addShift(shift);
+		ftms.addShift(shift);
 		PersistenceXStream.saveToXMLwithXStream(ftms);
 	}
 	
 	/**
 	 * Removes a shift for an employee.
-	 * @param employee	the employee for whom we are removing the shift
 	 * @param shift		the shift to be removed
 	 */
-	public void removeShift(Employee employee, Shift shift) {
+	public void cancelShift(Shift shift) throws InvalidInputException {
+		
+		String error="";
+		if (shift == null) {
+			error+="Please select a shift to be removed! ";
+		}
+		
+		error=error.trim();
+		
+		if (error.length()>0) {
+			throw new InvalidInputException(error);
+		}
+		
 		FoodTruckManager ftms = FoodTruckManager.getInstance();
 		
-		employee.removeShift(shift);
+		ftms.removeShift(shift);
+		
 		PersistenceXStream.saveToXMLwithXStream(ftms);
 	}
-	
 	
 	/**
 	 * Determines whether or not the text in the label is a valid dollar value.

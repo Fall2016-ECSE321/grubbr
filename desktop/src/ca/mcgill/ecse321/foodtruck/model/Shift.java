@@ -4,8 +4,8 @@
 package ca.mcgill.ecse321.foodtruck.model;
 import java.sql.Time;
 
-// line 20 "../../../../../FoodTruck.ump"
-// line 64 "../../../../../FoodTruck.ump"
+// line 19 "../../../../../FoodTruck.ump"
+// line 57 "../../../../../FoodTruck.ump"
 public class Shift
 {
 
@@ -19,16 +19,23 @@ public class Shift
   private Time endTime;
   private double numberOfHours;
 
+  //Shift Associations
+  private Employee employee;
+
   //------------------------
   // CONSTRUCTOR
   //------------------------
 
-  public Shift(String aDayOfWeek, Time aStartTime, Time aEndTime, double aNumberOfHours)
+  public Shift(String aDayOfWeek, Time aStartTime, Time aEndTime, double aNumberOfHours, Employee aEmployee)
   {
     dayOfWeek = aDayOfWeek;
     startTime = aStartTime;
     endTime = aEndTime;
     numberOfHours = aNumberOfHours;
+    if (!setEmployee(aEmployee))
+    {
+      throw new RuntimeException("Unable to create Shift due to aEmployee");
+    }
   }
 
   //------------------------
@@ -87,8 +94,26 @@ public class Shift
     return numberOfHours;
   }
 
+  public Employee getEmployee()
+  {
+    return employee;
+  }
+
+  public boolean setEmployee(Employee aNewEmployee)
+  {
+    boolean wasSet = false;
+    if (aNewEmployee != null)
+    {
+      employee = aNewEmployee;
+      wasSet = true;
+    }
+    return wasSet;
+  }
+
   public void delete()
-  {}
+  {
+    employee = null;
+  }
 
 
   public String toString()
@@ -98,7 +123,8 @@ public class Shift
             "dayOfWeek" + ":" + getDayOfWeek()+ "," +
             "numberOfHours" + ":" + getNumberOfHours()+ "]" + System.getProperties().getProperty("line.separator") +
             "  " + "startTime" + "=" + (getStartTime() != null ? !getStartTime().equals(this)  ? getStartTime().toString().replaceAll("  ","    ") : "this" : "null") + System.getProperties().getProperty("line.separator") +
-            "  " + "endTime" + "=" + (getEndTime() != null ? !getEndTime().equals(this)  ? getEndTime().toString().replaceAll("  ","    ") : "this" : "null")
+            "  " + "endTime" + "=" + (getEndTime() != null ? !getEndTime().equals(this)  ? getEndTime().toString().replaceAll("  ","    ") : "this" : "null") + System.getProperties().getProperty("line.separator") +
+            "  " + "employee = "+(getEmployee()!=null?Integer.toHexString(System.identityHashCode(getEmployee())):"null")
      + outputString;
   }
 }

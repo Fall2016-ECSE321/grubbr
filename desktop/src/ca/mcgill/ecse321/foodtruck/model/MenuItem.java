@@ -4,7 +4,7 @@
 package ca.mcgill.ecse321.foodtruck.model;
 
 // line 27 "../../../../../FoodTruck.ump"
-// line 69 "../../../../../FoodTruck.ump"
+// line 62 "../../../../../FoodTruck.ump"
 public class MenuItem
 {
 

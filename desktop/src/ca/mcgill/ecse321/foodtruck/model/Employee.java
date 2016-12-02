@@ -2,11 +2,9 @@
 /*This code was generated using the UMPLE 1.20.1.4071 modeling language!*/
 
 package ca.mcgill.ecse321.foodtruck.model;
-import java.util.*;
-import java.sql.Time;
 
 // line 3 "../../../../../FoodTruck.ump"
-// line 48 "../../../../../FoodTruck.ump"
+// line 43 "../../../../../FoodTruck.ump"
 public class Employee
 {
 
@@ -28,9 +26,6 @@ public class Employee
   //Autounique Attributes
   private int id;
 
-  //Employee Associations
-  private List<Shift> shifts;
-
   //------------------------
   // CONSTRUCTOR
   //------------------------
@@ -41,7 +36,6 @@ public class Employee
     role = aRole;
     salaryPerHour = aSalaryPerHour;
     id = nextId++;
-    shifts = new ArrayList<Shift>();
   }
 
   //------------------------
@@ -92,97 +86,8 @@ public class Employee
     return id;
   }
 
-  public Shift getShift(int index)
-  {
-    Shift aShift = shifts.get(index);
-    return aShift;
-  }
-
-  public List<Shift> getShifts()
-  {
-    List<Shift> newShifts = Collections.unmodifiableList(shifts);
-    return newShifts;
-  }
-
-  public int numberOfShifts()
-  {
-    int number = shifts.size();
-    return number;
-  }
-
-  public boolean hasShifts()
-  {
-    boolean has = shifts.size() > 0;
-    return has;
-  }
-
-  public int indexOfShift(Shift aShift)
-  {
-    int index = shifts.indexOf(aShift);
-    return index;
-  }
-
-  public static int minimumNumberOfShifts()
-  {
-    return 0;
-  }
-
-  public boolean addShift(Shift aShift)
-  {
-    boolean wasAdded = false;
-    if (shifts.contains(aShift)) { return false; }
-    shifts.add(aShift);
-    wasAdded = true;
-    return wasAdded;
-  }
-
-  public boolean removeShift(Shift aShift)
-  {
-    boolean wasRemoved = false;
-    if (shifts.contains(aShift))
-    {
-      shifts.remove(aShift);
-      wasRemoved = true;
-    }
-    return wasRemoved;
-  }
-
-  public boolean addShiftAt(Shift aShift, int index)
-  {  
-    boolean wasAdded = false;
-    if(addShift(aShift))
-    {
-      if(index < 0 ) { index = 0; }
-      if(index > numberOfShifts()) { index = numberOfShifts() - 1; }
-      shifts.remove(aShift);
-      shifts.add(index, aShift);
-      wasAdded = true;
-    }
-    return wasAdded;
-  }
-
-  public boolean addOrMoveShiftAt(Shift aShift, int index)
-  {
-    boolean wasAdded = false;
-    if(shifts.contains(aShift))
-    {
-      if(index < 0 ) { index = 0; }
-      if(index > numberOfShifts()) { index = numberOfShifts() - 1; }
-      shifts.remove(aShift);
-      shifts.add(index, aShift);
-      wasAdded = true;
-    } 
-    else 
-    {
-      wasAdded = addShiftAt(aShift, index);
-    }
-    return wasAdded;
-  }
-
   public void delete()
-  {
-    shifts.clear();
-  }
+  {}
 
 
   public String toString()
