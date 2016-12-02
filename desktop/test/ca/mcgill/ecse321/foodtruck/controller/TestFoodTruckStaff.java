@@ -43,11 +43,11 @@ public class TestFoodTruckStaff {
 		} catch(InvalidInputException e) {
 			fail();
 		}
-		checkResultAddStaff(staffName, ftms);
+		checkResultAddStaff(ftms,staffName,staffRole,staffSalary);
 		
 		FoodTruckManager ftms2 = (FoodTruckManager)PersistenceXStream.loadFromXMLwithXStream();
 		
-		checkResultAddStaff(staffName, ftms2);		
+		checkResultAddStaff(ftms2,staffName,staffRole,staffSalary);		
 	}
 	
 
@@ -69,7 +69,6 @@ public class TestFoodTruckStaff {
 			ftc.createEmployee(staffName, staffRole, staffSalary);
 		} catch (InvalidInputException e) {
 			errorMessage = e.getMessage();
-			System.out.println(errorMessage);
 		}
 		
 		//check error
@@ -365,7 +364,7 @@ public class TestFoodTruckStaff {
 		assertEquals(false, ftms.hasEmployees());
 		assertEquals(0, ftms.numberOfEmployees());
 		
-		Employee Biceps=null;
+		Employee employee=null;
 		String staffName = "Bruh";
 		String staffRole = "chef";
 		String staffSalary = "12.75";
@@ -378,16 +377,16 @@ public class TestFoodTruckStaff {
 		
 		try {
 			ftc.createEmployee(staffName, staffRole, staffSalary);
-			Biceps=ftms.getEmployee(0);
-			ftc.createShift(Biceps, day, startTime, endTime);
+			employee=ftms.getEmployee(0);
+			ftc.createShift(employee, day, startTime, endTime);
 		} catch(InvalidInputException e) {
 			fail();
 		}
-		checkResultAddShift(Biceps, ftms);
+		checkResultAddShift(ftms,employee,day,startTime,endTime);
 		
 		FoodTruckManager ftms2 = (FoodTruckManager)PersistenceXStream.loadFromXMLwithXStream();
 		
-		checkResultAddShift(Biceps, ftms2);		
+		checkResultAddShift(ftms2,employee,day,startTime,endTime);		
 	}
 	
 
@@ -453,8 +452,7 @@ public class TestFoodTruckStaff {
 				+ "Please select a day of the week!", errorMessage);
 		
 		//check no change in memory
-		assertEquals(false, ftms.getEmployee(0).hasShifts());
-		assertEquals(false, Biceps.hasShifts());		
+		checkResultRemoveShift(ftms);		
 	}
 
 	@Test
@@ -488,8 +486,7 @@ public class TestFoodTruckStaff {
 		assertEquals("Please select a day of the week!", errorMessage);
 		
 		//check no change in memory
-		assertEquals(false, ftms.getEmployee(0).hasShifts());
-		assertEquals(false, Biceps.hasShifts());		
+		checkResultRemoveShift(ftms);		
 	}
 
 	@Test
@@ -523,8 +520,7 @@ public class TestFoodTruckStaff {
 		assertEquals("Please select a day of the week!", errorMessage);
 		
 		//check no change in memory
-		assertEquals(false, ftms.getEmployee(0).hasShifts());
-		assertEquals(false, Biceps.hasShifts());		
+		checkResultRemoveShift(ftms);		
 	}
 
 	@Test
@@ -557,9 +553,7 @@ public class TestFoodTruckStaff {
 		//check error
 		assertEquals("Please fill out the entire form before adding a shift in!", errorMessage);
 		
-		//check no change in memory
-		assertEquals(false, ftms.getEmployee(0).hasShifts());
-		assertEquals(false, Biceps.hasShifts());		
+		checkResultRemoveShift(ftms);		
 	}
 
 	@Test
@@ -592,9 +586,7 @@ public class TestFoodTruckStaff {
 		//check error
 		assertEquals("Please fill out the entire form before adding a shift in!", errorMessage);
 		
-		//check no change in memory
-		assertEquals(false, ftms.getEmployee(0).hasShifts());
-		assertEquals(false, Biceps.hasShifts());		
+		checkResultRemoveShift(ftms);		
 	}
 
 	@Test
@@ -603,7 +595,6 @@ public class TestFoodTruckStaff {
 		assertEquals(false, ftms.hasEmployees());
 		assertEquals(0, ftms.numberOfEmployees());
 
-		Employee Biceps=null;
 		String staffName = "Bruh";
 		String staffRole = "chef";
 		String staffSalary = "12.75";
@@ -618,8 +609,8 @@ public class TestFoodTruckStaff {
 
 		try {
 			ftc.createEmployee(staffName, staffRole, staffSalary);
-			Biceps=ftms.getEmployee(0);
-			ftc.createShift(Biceps, day, startTime, endTime);
+			Employee biceps = ftms.getEmployee(0);
+			ftc.createShift(biceps, day, startTime, endTime);
 		} catch (InvalidInputException e) {
 			errorMessage = e.getMessage();
 		}
@@ -627,9 +618,7 @@ public class TestFoodTruckStaff {
 		//check error
 		assertEquals("Shift end time cannot be before shift start time!", errorMessage);
 		
-		//check no change in memory
-		assertEquals(false, ftms.getEmployee(0).hasShifts());
-		assertEquals(false, Biceps.hasShifts());		
+		checkResultRemoveShift(ftms);	
 	}
 
 	
@@ -639,7 +628,7 @@ public class TestFoodTruckStaff {
 		assertEquals(false, ftms.hasEmployees());
 		assertEquals(0, ftms.numberOfEmployees());
 		
-		Employee Biceps=null;
+		Employee biceps=null;
 		String staffName = "Bruh";
 		String staffRole = "chef";
 		String staffSalary = "12.75";
@@ -652,54 +641,17 @@ public class TestFoodTruckStaff {
 		
 		try {
 			ftc.createEmployee(staffName, staffRole, staffSalary);
-			Biceps=ftms.getEmployee(0);
-			ftc.createShift(Biceps, day, startTime, endTime);
-			ftc.removeShift(Biceps, Biceps.getShift(0));
+			biceps = ftms.getEmployee(0);
+			ftc.createShift(biceps, day, startTime, endTime);
+			ftc.cancelShift(ftms.getShift(0));
 		} catch(InvalidInputException e) {
 			fail();
 		}
-		checkResultRemoveShift(Biceps, ftms);
+		checkResultRemoveShift(ftms);
 		
 		FoodTruckManager ftms2 = (FoodTruckManager)PersistenceXStream.loadFromXMLwithXStream();
 		
-		checkResultRemoveShift(Biceps, ftms2);		
-	}
-	
-	@Test
-	public void testRemoveShiftNullEmployee() {
-		FoodTruckManager ftms = FoodTruckManager.getInstance();
-		assertEquals(false, ftms.hasEmployees());
-		assertEquals(0, ftms.numberOfEmployees());
-		
-		Employee Biceps=null;
-		Employee noName=null;
-		String staffName = "Bruh";
-		String staffRole = "chef";
-		String staffSalary = "12.75";
-		
-		String day = "Monday";
-		Time startTime = new Time(9000);
-		Time endTime = new Time(10000);
-		
-		FoodTruckController ftc = new FoodTruckController();
-		
-		String errorMessage=null;
-		
-		try {
-			ftc.createEmployee(staffName, staffRole, staffSalary);
-			Biceps=ftms.getEmployee(0);
-			ftc.createShift(Biceps, day, startTime, endTime);
-			ftc.removeShift(noName, Biceps.getShift(0));
-		} catch(InvalidInputException e) {
-			errorMessage = e.getMessage();
-		}
-			
-		//check error
-		assertEquals("Please fill out the form before removing shift!", errorMessage);
-		
-		//check no change in memory
-		assertEquals(true, ftms.getEmployee(0).hasShifts());
-		assertEquals(true, Biceps.hasShifts());		
+		checkResultRemoveShift(ftms2);		
 	}
 	
 	@Test
@@ -726,23 +678,24 @@ public class TestFoodTruckStaff {
 			ftc.createEmployee(staffName, staffRole, staffSalary);
 			Biceps=ftms.getEmployee(0);
 			ftc.createShift(Biceps, day, startTime, endTime);
-			ftc.removeShift(Biceps, noShift);
+			ftc.cancelShift(noShift);
 		} catch(InvalidInputException e) {
 			errorMessage = e.getMessage();
 		}
 			
 		//check error
-		assertEquals("Please fill out the form before removing shift!", errorMessage);
+		assertEquals("Please select a shift to be removed!", errorMessage);
 		
 		//check no change in memory
-		assertEquals(true, ftms.getEmployee(0).hasShifts());
-		assertEquals(true, Biceps.hasShifts());		
+		assertEquals(1, ftms.numberOfShifts());
 	}
 	
 	
 	//Checking methods for Staff
-	private void checkResultAddStaff(String staffName, FoodTruckManager ftms) {
-		assertEquals(staffName,ftms.getEmployee(0).getName());
+	private void checkResultAddStaff(FoodTruckManager ftms, String employeeName, String role, String salary) {
+		assertEquals(employeeName,ftms.getEmployee(0).getName());
+		assertEquals(role,ftms.getEmployee(0).getRole());
+		assertEquals(Double.parseDouble(salary),ftms.getEmployee(0).getSalaryPerHour(),0.005);
 		assertEquals(1,ftms.getEmployees().size());
 		assertEquals(true,ftms.hasEmployees());		
 	}
@@ -753,16 +706,12 @@ public class TestFoodTruckStaff {
 	}	
 	
 	//Checking methods for Shift
-	private void checkResultAddShift(Employee biceps, FoodTruckManager ftms) {
-		assertEquals(1,biceps.numberOfShifts(),ftms.getEmployee(0).numberOfShifts());
-		assertEquals(true,biceps.hasShifts());
-		assertEquals(true,ftms.getEmployee(0).hasShifts());
+	private void checkResultAddShift(FoodTruckManager ftms, Employee employee, String day, Time startTime, Time endTime) {
+		assertEquals(1,ftms.numberOfShifts());
 	}
 	
-	private void checkResultRemoveShift(Employee biceps, FoodTruckManager ftms) {
-		assertEquals(0,biceps.numberOfShifts(),ftms.getEmployee(0).numberOfShifts());
-		assertEquals(false,biceps.hasShifts());
-		assertEquals(false,ftms.getEmployee(0).hasShifts());
+	private void checkResultRemoveShift(FoodTruckManager ftms) {
+		assertEquals(false, ftms.hasShifts());
 	}
 	
 	
