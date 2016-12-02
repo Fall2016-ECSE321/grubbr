@@ -37,7 +37,7 @@ public class FoodTruckController {
 	 * @param InvalidInputException if strings are empty
 	 */
 	
-	public void createMenuItem(String itemName,String itemPrice) throws InvalidInputException{
+	public void createMenuItem(String itemName,String itemPrice) throws InvalidInputException {
 		
 		String error = "";
 		
@@ -69,6 +69,49 @@ public class FoodTruckController {
 		MenuItem item = new MenuItem(itemName, Double.parseDouble(itemPrice), 0);
 		FoodTruckManager ftms = FoodTruckManager.getInstance();
 		ftms.addMenuItem(item);
+		PersistenceXStream.saveToXMLwithXStream(ftms);
+	}
+	
+	/**
+	 * Places an order for a certain menu item.
+	 * @param item						the menu item to be ordered
+	 * @param amount					the amount of units to be ordered
+	 * @throws InvalidInputException	if the menu item or amount is not selected or if amount is not positive integer
+	 */
+	public void orderFood(MenuItem item, String amount) throws InvalidInputException {
+		
+		String error="";
+		if (item == null) {
+			error+="Please choose an item to order! ";
+		}
+		
+		if (amount == null) {
+			error+="Please enter an order quantity! ";
+		}
+		
+		int amountNumber = 0;
+		try {
+			amountNumber = Integer.parseInt(amount);
+		} catch (NumberFormatException e) {
+			error += "Menu item price must be a positive integer! ";
+		} catch (NullPointerException e) {
+			error += "Menu item price must be a positive integer! ";
+		}
+		
+		if (amountNumber <= 0) {
+			error += "Amount of orders must be greater than 0!";
+		}
+		
+		error = error.trim();
+		
+		if (error.length()>0) {
+			throw new InvalidInputException(error);
+		}
+		
+		int previousAmountSold = item.getAmountSold();
+		item.setAmountSold(previousAmountSold+amountNumber);
+		
+		FoodTruckManager ftms = FoodTruckManager.getInstance();
 		PersistenceXStream.saveToXMLwithXStream(ftms);
 	}
 	
