@@ -1,6 +1,10 @@
 package ca.mcgill.ecse321.foodtruck.controller;
 
+import java.util.List;
 import java.sql.Time;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.Iterator;
 
 import org.apache.commons.lang3.text.WordUtils;
@@ -132,6 +136,37 @@ public class FoodTruckController {
 		
 		FoodTruckManager ftms = FoodTruckManager.getInstance();
 		PersistenceXStream.saveToXMLwithXStream(ftms);
+	}
+	
+	/**
+	 * Gets the 5 most popular items on the menu. Sorts them by amount sold.
+	 * @return	an List that contains the 5 most popular items
+	 */
+	public List<MenuItem> getPopularItems() {
+		
+		FoodTruckManager ftms = FoodTruckManager.getInstance();
+		List<MenuItem> topList = new ArrayList<MenuItem>();
+		Iterator<MenuItem> menuIterator = ftms.getMenuItems().iterator();
+		
+		//fetch all menu items
+		while (menuIterator.hasNext()) {
+			MenuItem currentItem = menuIterator.next();
+			topList.add(currentItem);
+		}
+		
+		//sort menu items by amount sold
+		Collections.sort(topList, new Comparator<MenuItem>() {
+			@Override public int compare(MenuItem item1, MenuItem item2) {
+				return item1.getAmountSold() - item2.getAmountSold();
+			}
+		});
+		
+		//trim length of array list down to 5
+		while (topList.size()>5) {
+			topList.remove(topList.size()-1);
+		}
+		
+		return topList;
 	}
 	
 	/**
