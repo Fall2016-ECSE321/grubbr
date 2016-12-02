@@ -3,10 +3,9 @@
 
 package ca.mcgill.ecse321.foodtruck.model;
 import java.util.*;
-import java.sql.Time;
 
-// line 10 "../../../../../FoodTruck.ump"
-// line 49 "../../../../../FoodTruck.ump"
+// line 11 "../../../../../FoodTruck.ump"
+// line 48 "../../../../../FoodTruck.ump"
 public class FoodTruckManager
 {
 
@@ -22,7 +21,6 @@ public class FoodTruckManager
 
   //FoodTruckManager Associations
   private List<Employee> employees;
-  private List<Shift> shifts;
   private List<Supply> supplies;
   private List<Equipment> equipment;
   private List<MenuItem> menuItems;
@@ -34,7 +32,6 @@ public class FoodTruckManager
   private FoodTruckManager()
   {
     employees = new ArrayList<Employee>();
-    shifts = new ArrayList<Shift>();
     supplies = new ArrayList<Supply>();
     equipment = new ArrayList<Equipment>();
     menuItems = new ArrayList<MenuItem>();
@@ -80,36 +77,6 @@ public class FoodTruckManager
   public int indexOfEmployee(Employee aEmployee)
   {
     int index = employees.indexOf(aEmployee);
-    return index;
-  }
-
-  public Shift getShift(int index)
-  {
-    Shift aShift = shifts.get(index);
-    return aShift;
-  }
-
-  public List<Shift> getShifts()
-  {
-    List<Shift> newShifts = Collections.unmodifiableList(shifts);
-    return newShifts;
-  }
-
-  public int numberOfShifts()
-  {
-    int number = shifts.size();
-    return number;
-  }
-
-  public boolean hasShifts()
-  {
-    boolean has = shifts.size() > 0;
-    return has;
-  }
-
-  public int indexOfShift(Shift aShift)
-  {
-    int index = shifts.indexOf(aShift);
     return index;
   }
 
@@ -256,63 +223,6 @@ public class FoodTruckManager
     else 
     {
       wasAdded = addEmployeeAt(aEmployee, index);
-    }
-    return wasAdded;
-  }
-
-  public static int minimumNumberOfShifts()
-  {
-    return 0;
-  }
-
-  public boolean addShift(Shift aShift)
-  {
-    boolean wasAdded = false;
-    if (shifts.contains(aShift)) { return false; }
-    shifts.add(aShift);
-    wasAdded = true;
-    return wasAdded;
-  }
-
-  public boolean removeShift(Shift aShift)
-  {
-    boolean wasRemoved = false;
-    if (shifts.contains(aShift))
-    {
-      shifts.remove(aShift);
-      wasRemoved = true;
-    }
-    return wasRemoved;
-  }
-
-  public boolean addShiftAt(Shift aShift, int index)
-  {  
-    boolean wasAdded = false;
-    if(addShift(aShift))
-    {
-      if(index < 0 ) { index = 0; }
-      if(index > numberOfShifts()) { index = numberOfShifts() - 1; }
-      shifts.remove(aShift);
-      shifts.add(index, aShift);
-      wasAdded = true;
-    }
-    return wasAdded;
-  }
-
-  public boolean addOrMoveShiftAt(Shift aShift, int index)
-  {
-    boolean wasAdded = false;
-    if(shifts.contains(aShift))
-    {
-      if(index < 0 ) { index = 0; }
-      if(index > numberOfShifts()) { index = numberOfShifts() - 1; }
-      shifts.remove(aShift);
-      shifts.add(index, aShift);
-      wasAdded = true;
-    } 
-    else 
-    {
-      wasAdded = addShiftAt(aShift, index);
     }
     return wasAdded;
   }
@@ -491,7 +401,6 @@ public class FoodTruckManager
   public void delete()
   {
     employees.clear();
-    shifts.clear();
     supplies.clear();
     equipment.clear();
     menuItems.clear();
