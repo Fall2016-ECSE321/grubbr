@@ -12,6 +12,7 @@ import android.widget.Spinner;
 import android.widget.TextView;
 
 import java.io.File;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 
@@ -19,6 +20,7 @@ import ca.mcgill.ecse321.foodtruck.controller.FoodTruckController;
 import ca.mcgill.ecse321.foodtruck.controller.InvalidInputException;
 import ca.mcgill.ecse321.foodtruck.model.Employee;
 import ca.mcgill.ecse321.foodtruck.model.Equipment;
+import ca.mcgill.ecse321.foodtruck.model.FoodItem;
 import ca.mcgill.ecse321.foodtruck.model.FoodTruckManager;
 import ca.mcgill.ecse321.foodtruck.model.Shift;
 import ca.mcgill.ecse321.foodtruck.model.Supply;
@@ -35,12 +37,13 @@ public class MainActivity extends AppCompatActivity {
     private String errorAddShift;
     private String errorRemoveStaff;
     private String errorRemoveShift;
+    private String errorOrder;
 
     private HashMap<Integer, Equipment> equipments;
     private HashMap<Integer, Supply> supplies;
     private HashMap<Integer, Employee> employees;
     private HashMap<Integer, Shift> shifts;
-    private HashMap<Integer, MenuItem> menu;
+    private HashMap<Integer, FoodItem> foodMenu;
     private String week[] = new String[7];
 
     //Refers to the last employee for whom the user chose to see the schedule.
@@ -172,6 +175,9 @@ public class MainActivity extends AppCompatActivity {
         TextView employeeShiftTitleView = (TextView) findViewById(R.id.employeeShiftTitle);
         TextView removeShiftTitleView = (TextView) findViewById(R.id.removeShiftTitle);
 
+        TextView orderTitleView = (TextView) findViewById(R.id.orderTitle);
+        TextView amountSoldView = (TextView) findViewById(R.id.amountOrdered);
+
         TextView startTime = (TextView) findViewById(R.id.employee_starttime);
         TextView endTime = (TextView) findViewById(R.id.employee_endtime);
         Spinner selectedEmployee = (Spinner) findViewById(R.id.employeespinner);
@@ -186,6 +192,8 @@ public class MainActivity extends AppCompatActivity {
         employeeName.setError(errorAddStaff);
         employeeShiftTitleView.setError(errorAddShift);
         removeShiftTitleView.setError(errorRemoveShift);
+        orderTitleView.setError(errorOrder);
+
 
         if (errorItem == null) {
             itemNameView.setText("");
@@ -262,6 +270,9 @@ public class MainActivity extends AppCompatActivity {
             employeeSpinner.setAdapter(employeeAdapter);
         }
 
+        if(errorOrder==null){
+            amountSoldView.setText("");
+        }
 
 
         errorItem = null;
@@ -271,11 +282,13 @@ public class MainActivity extends AppCompatActivity {
         errorECount = null;
         errorAddStaff = null;
         errorRemoveStaff = null;
+        errorOrder = null;
 
         //Display changes to user
         displayItems();
         displayEquip();
         displaySupplies();
+        displayOrders();
     }
 
     @Override
@@ -307,7 +320,7 @@ public class MainActivity extends AppCompatActivity {
 
         errorItem=null;
         try{
-            ftc.createMenuItem(itemNameView.getText().toString(),itemPriceView.getText().toString());
+            ftc.createFoodItem(itemNameView.getText().toString(),itemPriceView.getText().toString());
         } catch (InvalidInputException e){
             errorItem=e.getMessage();
         }
@@ -460,8 +473,16 @@ public class MainActivity extends AppCompatActivity {
 
     public void addOrder(View v){
         FoodTruckController ftc = new FoodTruckController();
+        Spinner orderSpinner = (Spinner) findViewById(R.id.selectMenuItem);
+        TextView amountOrderedView = (TextView) findViewById(R.id.amountOrdered);
 
-        //ftc.orderFood();
+        try{
+            ftc.orderFood(foodMenu.get(orderSpinner.getSelectedItemPosition()),amountOrderedView.getText().toString());
+        } catch (InvalidInputException e){
+            //Error handling
+            errorOrder = e.getMessage();
+        }
+        refreshData();
     }
 
     //Helper Method -- Recycled from Event Registration
@@ -492,19 +513,22 @@ public class MainActivity extends AppCompatActivity {
         TextView itemList = (TextView) findViewById(R.id.menu_display);
         FoodTruckManager ftm = FoodTruckManager.getInstance();
         itemList.setText("");
-        for (int i=0;i<ftm.getMenuItems().size();i++) {
-            itemList.setText(itemList.getText() + ftm.getMenuItem(i).getName() +" : " + ftm.getMenuItem(i).getPrice() + "$" + "\n");
+        for (int i=0;i<ftm.getFoodItems().size();i++) {
+            itemList.setText(itemList.getText() + ftm.getFoodItem(i).getName() +" : " + ftm.getFoodItem(i).getPrice() + "$" + "\n");
         }
 
-        Spinner menuItemSpinner = (Spinner) findViewById(R.id.selectMenuItem);
-        ArrayAdapter<CharSequence> menuAdapter = new ArrayAdapter<CharSequence>(this, android.R.layout.simple_spinner_item);
-        menuAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        this.menu = new HashMap<Integer, MenuItem>();
+        Spinner foodItemSpinner = (Spinner) findViewById(R.id.selectMenuItem);
+        ArrayAdapter<CharSequence> foodAdapter = new ArrayAdapter<CharSequence>(this, android.R.layout.simple_spinner_item);
+        foodAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        this.foodMenu = new HashMap<Integer, FoodItem>();
         int i=0;
 
-        /*for(Iterator<MenuItem> menu = ftm.getMenuItems().iterator(); menu.hasNext();i++){
-
-        }*/
+        for(Iterator<FoodItem> foodMenu = ftm.getFoodItems().iterator(); foodMenu.hasNext();i++){
+            FoodItem currentFood = foodMenu.next();
+            foodAdapter.add(currentFood.getName()+" : "+currentFood.getPrice()+"$");
+            this.foodMenu.put(i,currentFood);
+        }
+        foodItemSpinner.setAdapter(foodAdapter);
     }
 
     public void showShifts(View v) {
@@ -535,5 +559,14 @@ public class MainActivity extends AppCompatActivity {
         scheduleSpinner.setAdapter(shiftAdapter);
 
         lastSelectedEmployee = emp;
+    }
+    public void displayOrders(){
+        FoodTruckController ftc = new FoodTruckController();
+        TextView displayOrders = (TextView) findViewById(R.id.topFiveView);
+        ArrayList<FoodItem> food = (ArrayList) ftc.getPopularItems();
+        displayOrders.setText("");
+        for(int i=0;i<food.size();i++){
+            displayOrders.setText(displayOrders.getText()+"\n"+(i+1)+". "+food.get(i).getName()+" | Amount Sold:"+food.get(i).getAmountSold());
+        }
     }
 }
