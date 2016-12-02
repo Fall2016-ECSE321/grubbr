@@ -65,6 +65,7 @@
                 <EditText
                     android:layout_width="wrap_content"
                     android:layout_height="fill_parent"
+                    android:inputType="numberDecimal"
                     android:id="@+id/newitem_price"
                     android:hint="@string/newitemprice_hint"/>
                 <Button
@@ -129,6 +130,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:layout_gravity="end"
+                    android:onClick="addOrder"
                     android:id="@+id/orderButton"
                     android:text="@string/orderbutton"/>
                 <EditText
