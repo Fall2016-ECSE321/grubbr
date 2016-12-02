@@ -1,10 +1,9 @@
 <manager id="1">
   <employees id="2"/>
-  <shifts id="3"/>
-  <supplies id="4"/>
-  <equipment id="5"/>
-  <menuItems id="6">
-    <item id="7">
+  <supplies id="3"/>
+  <equipment id="4"/>
+  <menuItems id="5">
+    <item id="6">
       <name>Pho</name>
       <price>9.99</price>
       <amountSold>0</amountSold>
