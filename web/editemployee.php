@@ -53,10 +53,15 @@ $daysOfWeek = array("Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Sat
             </div>
         </div>
         <div class="container-fluid">
+            <span class="error">
+                <?php
+                if (isset($_SESSION['employeeError']) && !empty($_SESSION['employeeError'])){
+                    echo " * " . $_SESSION["employeeError"];
+                }
+                ?>
+            </span>
         <h1>Employee Edit Page</h1>
-        <a href="index.php">back</a>
-        <br>
-
+        <a href="index.php"><h4>back</h4></a>
         <div>
             <form action="removeshift.php" method="post">
                 <?php

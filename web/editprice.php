@@ -3,15 +3,22 @@ require_once 'controller/Controller.php';
 session_start();
 $c = new Controller();
 
-$name = $_POST['selectedMenuItem'];
-$price = $_POST['editMenuPrice'];
+
 
 $c = new Controller();
-if($price < 0){
-	$c->removeMenuItem($name);
-} else {
-	$c->editMenuItemPrice($name, $price);
+try{
+	if($_POST['editMenuPrice'] < 0){
+		$c->removeMenuItem($_POST['selectedMenuItem']);
+	} else {
+		$c->editMenuItemPrice($_POST['selectedMenuItem'], $_POST['editMenuPrice']);
+	}
+	$_SESSION["errorItem"] = "";
+} catch(Exception $e){
+	$_SESSION["errorItem"] = $e->getMessage();
 }
+
+
+
 
 
 ?>

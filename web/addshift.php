@@ -14,9 +14,9 @@ try {
     $c->assignShift($_POST['shift_start'], $_POST['shift_end'], $daysOfWeek[$index] ,$_POST['shiftEmployee_Index'], $index);
 
     //We will only display one error at a time if multiple errors exist
-    $_SESSION["errorItem"] = "";
+    $_SESSION["employeeError"] = "";
 } catch (Exception $e) {
-    $_SESSION["errorItem"] = $e->getMessage();
+    $_SESSION["employeeError"] = $e->getMessage();
 }
 //try {
 //    $c->editEmployee($_POST['editEmployee_Role'],$_POST['editEmployee_Salary'],$_POST['editEmployee_Index']);

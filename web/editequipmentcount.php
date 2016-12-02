@@ -6,11 +6,17 @@ $name = $_POST['selectedEquipment'];
 $count = $_POST['editEquipmentCount'];
 
 $c = new Controller();
-if($count < 0){
-	$c->removeEquipment($name);
-} else {
-	$c->editEquipmentCount($name, $count);
+try{
+	if($count < 0){
+		$c->removeEquipment($name);
+	} else {
+		$c->editEquipmentCount($name, $count);
+	}
+	$_SESSION["errorItem"] = "";
+} catch(Exception $e){
+	$_SESSION["errorItem"] = $e->getMessage();
 }
+
 
 
 

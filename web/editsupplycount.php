@@ -1,14 +1,21 @@
 <?php
 require_once 'controller/Controller.php';
 session_start();
-$count = $_POST['editSupplyCount'];
-$name = $_POST['selectedSupply'];
+
 $c = new Controller();
-if($count < 0){
-	$c->removeSupply($name);
-} else {
-	$c->editSupplyCount($name, $count);
+try{
+	$count = $_POST['editSupplyCount'];
+	$name = $_POST['selectedSupply'];
+	if($count < 0){
+		$c->removeSupply($name);
+	} else {
+		$c->editSupplyCount($name, $count);
+	}
+	$_SESSION["errorItem"] = "";
+} catch(Exception $e){
+	$_SESSION["errorItem"] = $e->getMessage();
 }
+
 
 ?>
 <!DOCTYPE html>

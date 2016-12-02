@@ -104,8 +104,8 @@ class Controller
         if(!InputValidator::validate_time($start_time) || !InputValidator::validate_time($end_time)){
             throw new Exception("Time format invalid.");
         } else{
-            $numberOfHours = (strtotime($end_time)-strtotime($end_time));
-            if($numberOfHours < 0){
+            $numberOfHours = (strtotime($end_time)-strtotime($start_time));
+            if($numberOfHours < 0) {
                 throw new Exception("End time must be later than start time");
             }
             $pft = new PersistenceFoodTruck();
@@ -171,10 +171,14 @@ class Controller
     }
 
 	public function editMenuItemPrice($aMenuItem, $aPrice){
+        $item = InputValidator::validate_input($aMenuItem);
 		$price = InputValidator::validate_input($aPrice);
 		if(!is_numeric($price)){
 			throw new Exception("Item price must be a number");
-		} else  {
+		} else if(strlen($item) == 0){
+            throw new Exception("Item cannot be empty");
+        }
+        else  {
 			echo $price;
 			echo $aMenuItem;
 			$pft = new PersistenceFoodTruck();
@@ -223,6 +227,9 @@ class Controller
 	}
 
     public function checkIfInt($input) {
+        if(strlen($input) == 0){
+            return false;
+        }
         if ($input[0] == '-') {
             return ctype_digit(substr($input, 1));
         }

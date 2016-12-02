@@ -14,9 +14,9 @@ try {
     $c->removeShift($employeeIndex, $shiftIndex);
 
     //We will only display one error at a time if multiple errors exist
-    $_SESSION["errorItem"] = "";
+    $_SESSION["employeeError"] = "";
 } catch (Exception $e) {
-    $_SESSION["errorItem"] = $e->getMessage();
+    $_SESSION["employeeError"] = $e->getMessage();
 }
 
 ?>
