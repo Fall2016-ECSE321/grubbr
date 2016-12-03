@@ -792,6 +792,10 @@ public class FoodTruckManagementPage {
 					index++;
 				}
 				lblShifts.setText(shiftText);
+			} else {
+				//remove all shifts from view if employee isn't selected
+				shiftList.removeAllItems();
+				lblShifts.setText("");
 			}
 
 		} else {
