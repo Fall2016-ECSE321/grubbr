@@ -1,8 +1,25 @@
 <?php
 require_once 'controller/Controller.php';
 session_start();
+
+$name = $_POST['selectedEquipment'];
+$count = $_POST['editEquipmentCount'];
+
 $c = new Controller();
-$c->editEquipmentCount($_POST['selectedEquipment'], $_POST['editEquipmentCount']);
+try{
+	if($count < 0){
+		$c->removeEquipment($name);
+	} else {
+		$c->editEquipmentCount($name, $count);
+	}
+	$_SESSION["errorItem"] = "";
+} catch(Exception $e){
+	$_SESSION["errorItem"] = $e->getMessage();
+}
+
+
+
+
 ?>
 <!DOCTYPE html>
 <html>

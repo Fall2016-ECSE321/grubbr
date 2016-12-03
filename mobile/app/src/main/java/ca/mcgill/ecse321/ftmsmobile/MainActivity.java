@@ -172,6 +172,7 @@ public class MainActivity extends AppCompatActivity {
         TextView employeePay = (TextView) findViewById(R.id.employee_salary);
         TextView employeeRole = (TextView) findViewById(R.id.employee_function);
 
+        TextView employeeDisplayView = (TextView) findViewById(R.id.employee_display);
         TextView employeeShiftTitleView = (TextView) findViewById(R.id.employeeShiftTitle);
         TextView removeShiftTitleView = (TextView) findViewById(R.id.removeShiftTitle);
 
@@ -182,16 +183,23 @@ public class MainActivity extends AppCompatActivity {
         TextView endTime = (TextView) findViewById(R.id.employee_endtime);
         Spinner selectedEmployee = (Spinner) findViewById(R.id.employeespinner);
 
-        //Sets the error message next to the "name" field regardless if the error
-        //is in the name or in the price
-        // I should change this to display the error message(s) somewhere like at the top
+        //Set error messages in various fields near where the error occured
+        //Menu items
         itemNameView.setError(errorItem);
+
+        //Inventory items
         supplyNameView.setError(errorSupply);
         equipmentNameView.setError(errorEquip);
         supplyCountView.setError(errorSCount);
+        equipmentCountView.setError(errorECount);
+
+        //Employees
         employeeName.setError(errorAddStaff);
+        employeeDisplayView.setError(errorRemoveStaff);
         employeeShiftTitleView.setError(errorAddShift);
         removeShiftTitleView.setError(errorRemoveShift);
+
+        //Transaction
         orderTitleView.setError(errorOrder);
 
 
@@ -446,7 +454,10 @@ public class MainActivity extends AppCompatActivity {
         FoodTruckController ftc = new FoodTruckController();
 
         Spinner scheduleSpinner = (Spinner) findViewById(R.id.shiftSpinner);
-        Shift selectedShift = this.shifts.get(scheduleSpinner.getSelectedItemPosition());
+        Shift selectedShift = null;
+        if(scheduleSpinner.getSelectedItemPosition()>=0){
+            selectedShift = this.shifts.get(scheduleSpinner.getSelectedItemPosition());
+        }
 
         try{
             ftc.cancelShift(lastSelectedEmployee,selectedShift);
@@ -457,18 +468,25 @@ public class MainActivity extends AppCompatActivity {
         refreshData();
     }
 
-    public void removeEmployee(View v){
+    public void removeEmployee(View v) {
         FoodTruckController ftc = new FoodTruckController();
         Spinner selectedEmployee = (Spinner) findViewById(R.id.employeespinner);
         TextView shifts = (TextView) findViewById(R.id.employee_display);
-        Employee emp = this.employees.get(selectedEmployee.getSelectedItemPosition());
+        Employee emp = null;
+
+        if (selectedEmployee.getSelectedItemPosition() >= 0) {
+            emp = this.employees.get(selectedEmployee.getSelectedItemPosition());
+        }
+
         try {
             ftc.removeEmployee(emp);
-        } catch (InvalidInputException e){
+        } catch (InvalidInputException e) {
             errorRemoveStaff = e.getMessage();
         }
         refreshData();
-        shifts.setText("You have fired "+emp.getName()+".");
+        if (selectedEmployee.getSelectedItemPosition()>=0) {
+            shifts.setText("You have fired " + emp.getName() + ".");
+        }
     }
 
     public void addOrder(View v){
