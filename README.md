@@ -18,7 +18,7 @@ The different applications are stored in a separate folder of the repository. `d
 
 * The Desktop app is stored as an Eclipse project. As such, users need to place the folder in their existing Eclipse workspace. Users need to have the Java Swing plug-in installed in order to use the Swing interface. To open the application, extract the repository into your workspace, and select `Import -> General -> Existing Projects into Workspace`. **Note that `ca.mcgill.ecse321.foodtruck.application.FoodTruckManagement.java` is the main Java class that should be run. `ca.mcgill.ecse321.foodtruck.view.FoodTruckManagementPage.java` also has a main function, but PERSISTENCE WILL NOT WORK IF YOU RUN IT. IT IS NOT INTENDED TO BE RUN.**
 * The Mobile app is stored as an Android Studio project. It should be able to be opened from Android Studio as a project.
-* The web app runs on an XAMPP Apache Server. **Make sure to place the contents of the `web` folder into XAMPP's htdocs folder (such that `index.php` is directly in `htdocs`.** The application should be run from `http://localhost/`.
+* The web app runs on an XAMPP Apache Server. **Make sure to place the contents of the `web` folder into XAMPP's htdocs folder (such that `index.php` is directly in `htdocs`.** The application should be run from `http://localhost/`. Note that the Bootstrap framework will not load unless you are connected to the internet (because we're importing the css and js files from a CDN).
 
 ## Changelog
 
