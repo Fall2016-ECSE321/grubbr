@@ -787,14 +787,7 @@ public class FoodTruckManagementPage {
 			}
 			
 			//handle shifts for an employee
-			if (selectedEmployee>-1) {
-				refreshShifts(ftms);
-			} else {
-				//remove all shifts from view if employee isn't selected
-				shiftList.removeAllItems();
-				lblShifts.setText("");
-			}
-
+			refreshShifts(ftms);
 		} else {
 			JOptionPane.showMessageDialog(null,"ERROR: "+error);
 			error = "";
@@ -804,23 +797,29 @@ public class FoodTruckManagementPage {
 
 	//refreshes shifts (has to be used separately from rest of refreshData because it activates on combobox selection)
 	private void refreshShifts(FoodTruckManager ftms) {
-		Integer index;
-		Employee e = ftms.getEmployee(selectedEmployee);
-		shifts = new HashMap<Integer, Shift>();
-		shiftList.removeAllItems();
-		Iterator<Shift> shIt = e.getShifts().iterator();
-		index = 0;
 		
-		String shiftText = "<html>";
-		
-		while (shIt.hasNext()){
-			Shift sh = shIt.next();
-			shiftText += e.getName()+" - "+sh.getDayOfWeek()+" - "+sh.getStartTime().toString()+" to "+sh.getEndTime().toString()+"<br>";
-			shifts.put(index, sh);
-			shiftList.addItem(sh.getDayOfWeek()+"-"+sh.getStartTime().toString());
-			index++;
+		if (selectedEmployee>=0) {
+			Integer index;
+			Employee e = ftms.getEmployee(selectedEmployee);
+			shifts = new HashMap<Integer, Shift>();
+			shiftList.removeAllItems();
+			Iterator<Shift> shIt = e.getShifts().iterator();
+			index = 0;
+			
+			String shiftText = "<html>";
+			
+			while (shIt.hasNext()){
+				Shift sh = shIt.next();
+				shiftText += e.getName()+" - "+sh.getDayOfWeek()+" - "+sh.getStartTime().toString()+" to "+sh.getEndTime().toString()+"<br>";
+				shifts.put(index, sh);
+				shiftList.addItem(sh.getDayOfWeek()+"-"+sh.getStartTime().toString());
+				index++;
+			}
+			lblShifts.setText(shiftText);
+		} else { //clear all data if there are no more employees left
+			shiftList.removeAllItems();
+			lblShifts.setText("");
 		}
-		lblShifts.setText(shiftText);
 	}
 	
 	public void addFoodItemButtonActionPerformed(ActionEvent event) {
