@@ -171,7 +171,7 @@ public class MainActivity extends AppCompatActivity {
         TextView employeeName = (TextView) findViewById(R.id.employee_name);
         TextView employeePay = (TextView) findViewById(R.id.employee_salary);
         TextView employeeRole = (TextView) findViewById(R.id.employee_function);
-        
+
         TextView amountSoldView = (TextView) findViewById(R.id.amountOrdered);
 
         TextView startTime = (TextView) findViewById(R.id.employee_starttime);
@@ -277,14 +277,15 @@ public class MainActivity extends AppCompatActivity {
             amountSoldView.setText("");
         }
 
-
-        errorItem = null;
-        errorEquip = null;
+        errorItem=null;
         errorSupply = null;
+        errorEquip = null;
         errorSCount = null;
         errorECount = null;
         errorAddStaff = null;
+        errorAddShift =null;
         errorRemoveStaff = null;
+        errorRemoveShift = null;
         errorOrder = null;
 
         //Display changes to user
