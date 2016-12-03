@@ -1,7 +1,7 @@
 <?php
-require_once '/Applications/XAMPP/xamppfiles/htdocs/persistence/PersistenceFoodTruck.php';
-require_once '/Applications/XAMPP/xamppfiles/htdocs/model/MenuItem.php';
-require_once '/Applications/XAMPP/xamppfiles/htdocs/model/FoodTruckManager.php';
+require_once '../persistence/PersistenceFoodTruck.php';
+require_once '../model/MenuItem.php';
+require_once '../model/FoodTruckManager.php';
 
 class PersistenceFoodTruckTest extends PHPUnit_Framework_TestCase{
 	protected $pft;

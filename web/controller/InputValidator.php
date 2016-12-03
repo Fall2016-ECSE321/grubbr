@@ -6,5 +6,13 @@ class InputValidator{
 		$data = htmlspecialchars($data);
 		return $data;
 	}
+
+	public static function validate_time($str){
+        if(strtotime($str)) {
+           return true;
+        } else {
+            return false;
+        }
+    }
 }
 ?>
