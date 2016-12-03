@@ -73,7 +73,7 @@ class Controller
 		// 		else if(!is_numeric($count)){
 		// 			throw new Exception("Item count must be a number");
 		// 		}
-		else if(!is_numeric($count)){
+		else if(!$this->checkIfInt($count)){
 			throw new Exception("Item count must be an integer");
 		}else{
 			$pft = new PersistenceFoodTruck();
@@ -87,11 +87,16 @@ class Controller
 	public function editEmployee($employee_role, $employee_salary, $employee_index){
         $role = InputValidator::validate_input($employee_role);
         $salary = InputValidator::validate_input($employee_salary);
-        if($role==null || strlen($role)==0){
-            throw new Exception("Item name cannot be empty");
+        if($employee_index < 0){
+        	throw new Exception("No Employee Selected");
+        }
+        else if($role==null || strlen($role)==0){
+            throw new Exception("Role cannot be empty");
         } else if(!is_numeric($salary)){
             throw new Exception("Salary must be a number");
-        }else{
+        }else if ($salary < 0){
+        	throw new Exception("Salary must be positive");
+        } else {
             $pft = new PersistenceFoodTruck();
             $ftm = $pft->loadDataFromStore();
             $ftm->getEmployee_index($employee_index)->setRole($role);
@@ -103,7 +108,9 @@ class Controller
     public function assignShift($start_time, $end_time, $dayOfWeek, $employee_index, $day_index){
         if(!InputValidator::validate_time($start_time) || !InputValidator::validate_time($end_time)){
             throw new Exception("Time format invalid.");
-        } else{
+        } else if($day_index < 0 || $day_index == null){
+        	throw new Exception("No day selected");
+        } else {
             $numberOfHours = (strtotime($end_time)-strtotime($start_time));
             if($numberOfHours < 0) {
                 throw new Exception("End time must be later than start time");
@@ -133,7 +140,9 @@ class Controller
 			throw new Exception("Employee role cannot be empty");
 		} else if(!is_numeric($salary)){
 			throw new Exception("Salary must be a number");
-		}else{
+		}else if($salary < 0){
+				throw new Exception("Salary must be positive");
+		} else {
 			$pft = new PersistenceFoodTruck();
 			$ftm = $pft->loadDataFromStore();
 			$employee = new Employee($name, $role, $salary);
@@ -164,6 +173,9 @@ class Controller
 	}
 
     public function removeEmployee($aEmployee){
+    	if(strlen($aEmployee) == 0){
+    		throw new Exception("No employee selected");
+    	}
         $pft = new PersistenceFoodTruck();
         $ftm = $pft->loadDataFromStore();
         $ftm->removeEmployeeByName($aEmployee);
@@ -190,6 +202,9 @@ class Controller
 
 	public function updateMenuItemSold($aMenuItem, $aAmount){
         $amount = InputValidator::validate_input($aAmount);
+        if(strlen($aMenuItem) == 0 || $aMenuItem == null){
+        	throw new Exception("No item selected");
+        }
         if(!$this->checkIfInt($amount)){
             throw new Exception("the amount sold must be an integer");
         } else {
@@ -203,7 +218,9 @@ class Controller
 	public function editSupplyCount($aSupplyItem, $aCount){
 		$count = InputValidator::validate_input($aCount);
 		$supplyitem = InputValidator::validate_input($aSupplyItem);
-		if(!$this->checkIfInt($count)){
+		if(strlen($supplyitem) == 0 || $supplyItem == null){
+			throw new Exception("No item selected");
+		}else if(!$this->checkIfInt($count)){
 			throw new Exception("Item count must be an integer");
 		} else  {
 			$pft = new PersistenceFoodTruck();
