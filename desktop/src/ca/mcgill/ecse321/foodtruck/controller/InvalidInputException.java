@@ -3,7 +3,7 @@ package ca.mcgill.ecse321.foodtruck.controller;
 /**Error class used to determine invalid inputs
  * 
  * @author erick
- * @version 0.1
+ * @version 1.0
  */
 
 public class InvalidInputException extends Exception {

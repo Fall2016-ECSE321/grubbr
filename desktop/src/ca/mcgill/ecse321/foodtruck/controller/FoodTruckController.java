@@ -19,7 +19,7 @@ import ca.mcgill.ecse321.foodtruck.model.Supply;
 import ca.mcgill.ecse321.foodtruck.persistence.PersistenceXStream;
 
 /**
- * Controller for the Food Truck Management System.
+ * Controller for grubbr: A Food Truck Management System.
  * 
  * @author erick
  * @version 1.0
@@ -29,7 +29,7 @@ import ca.mcgill.ecse321.foodtruck.persistence.PersistenceXStream;
 public class FoodTruckController {
 
 	/**
-	 * Constructor.
+	 * Constructor for the MVC controller.
 	 */
 	
 	public FoodTruckController() {
@@ -39,7 +39,7 @@ public class FoodTruckController {
 	 * Adds a new item to the menu.
 	 * @param itemName				the name of the item
 	 * @param itemPrice				the price of the item
-	 * @param InvalidInputException if strings are empty
+	 * @throws InvalidInputException if strings are empty
 	 */
 	
 	public void createFoodItem(String itemName,String itemPrice) throws InvalidInputException {
@@ -176,7 +176,7 @@ public class FoodTruckController {
 	 * By default, the count of a supply is 0, and it is up to the
 	 * user to instantiate its initial quantity.
 	 * @param supplyName			name of the food supply to be added
-	 * @param InvalidInputException if string is empty or if it is a duplicate
+	 * @throws InvalidInputException if string is empty or if it is a duplicate
 	 */
 	
 	public void createSupply(String supplyName) throws InvalidInputException {
@@ -218,7 +218,7 @@ public class FoodTruckController {
 	 * A value under 0 will give the command to delete the item entirely.
 	 * @param supply				food supply whose quantity is to be edited
 	 * @param count					quantity to be set
-	 * @param InvalidInputException if count is not a valid integer
+	 * @throws InvalidInputException if count is not a valid integer
 	 */
 	
 	public void editSupplyQuantity(Supply supply,String count) throws InvalidInputException {
@@ -258,7 +258,7 @@ public class FoodTruckController {
 	 * By default, the count of an equipment is 0, and it is up to the
 	 * user to instantiate its initial quantity.
 	 * @param equipmentName			name of equipment to add
-	 * @param InvalidInputException if string is empty
+	 * @throws InvalidInputException if string is empty
 	 */
 	
 	public void createEquipment(String equipmentName) throws InvalidInputException {
@@ -300,7 +300,7 @@ public class FoodTruckController {
 	 * A value under 0 will give the command to delete the item entirely.
 	 * @param equipment				equipment whose quantity is to be edited
 	 * @param count					quantity to be set
-	 * @param InvalidInputException if count is not a valid integer
+	 * @throws InvalidInputException if count is not a valid integer
 	 */
 	
 	public void editEquipmentQuantity(Equipment equipment,String count) throws InvalidInputException {
@@ -339,7 +339,7 @@ public class FoodTruckController {
 	 * @param employeeName			name of the employee we want to add
 	 * @param role					their role within the company
 	 * @param salary				how much money they earn per hour
-	 * @param InvalidInputException if strings are null or empty or if salary is not a valid hourly wage
+	 * @throws InvalidInputException if strings are null or empty or if salary is not a valid hourly wage
 	 */
 	public void createEmployee(String employeeName, String role, String salary) throws InvalidInputException {
 		
@@ -388,6 +388,7 @@ public class FoodTruckController {
 	/**
 	 * Fires an employee.
 	 * @param employee	the employee to be fired
+	 * @throws InvalidInputException if an employee isn't selected
 	 */
 	
 	public void removeEmployee(Employee employee) throws InvalidInputException {
@@ -417,7 +418,7 @@ public class FoodTruckController {
 	 * @param day					the day of the week of the shift
 	 * @param startTime				the start time of the shift
 	 * @param endTime				the end time of the shift
-	 * @param InvalidInputException if shift times are invalid or if day is not selected
+	 * @throws InvalidInputException if shift times are invalid or if day is not selected
 	 */
 	public void createShift(Employee employee, String day, Time startTime, Time endTime) throws InvalidInputException {
 		
@@ -456,12 +457,19 @@ public class FoodTruckController {
 	
 	/**
 	 * Removes a shift for an employee.
+	 * @param employee	the employee for whom we want to remove the shift
 	 * @param shift		the shift to be removed
+	 * @throws InvalidInputException if there is no employee or shift selected
 	 */
 	public void cancelShift(Employee employee, Shift shift) throws InvalidInputException {
 		
 		//see if shift has been selected
 		String error="";
+		
+		if (employee == null) {
+			error+="Please select an employee! ";
+		}
+		
 		if (shift == null) {
 			error+="Please select a shift to be removed! ";
 		}

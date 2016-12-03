@@ -39,6 +39,12 @@ import javax.swing.JSpinner;
 import javax.swing.SpinnerDateModel;
 import javax.swing.SwingConstants;
 
+/**
+ * Java Swing view for grubbr.
+ * @author erick
+ *
+ */
+
 public class FoodTruckManagementPage {
 
 	private JFrame frame;

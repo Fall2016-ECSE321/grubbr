@@ -10,11 +10,11 @@ import ca.mcgill.ecse321.foodtruck.model.Shift;
 import ca.mcgill.ecse321.foodtruck.model.Supply;
 
 /**
- * Persistence layer for the Food Truck Management System.
+ * Persistence layer for grubbr.
  * Uses XStream to store data in XML files.
  * 
  * @author erick
- * @version 0.2
+ * @version 1.0
  */
 
 public class PersistenceFoodTruck {
