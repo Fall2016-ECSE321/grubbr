@@ -1,71 +1,44 @@
 <manager id="1">
   <employees id="2">
     <employee id="3">
-      <name>Jack </name>
-      <role>dumbass</role>
-      <salaryPerHour>10.75</salaryPerHour>
+      <name>Yash</name>
+      <role>Grader</role>
+      <salaryPerHour>11.0</salaryPerHour>
       <id>1</id>
-      <shifts id="4">
-        <shift id="5">
-          <dayOfWeek>Wednesday</dayOfWeek>
-          <startTime id="6">20:14:43</startTime>
-          <endTime id="7">21:14:00</endTime>
-          <numberOfHours>0.0</numberOfHours>
+      <shifts id="4"/>
+    </employee>
+    <employee id="5">
+      <name>Shane</name>
+      <role>Professor</role>
+      <salaryPerHour>30.0</salaryPerHour>
+      <id>2</id>
+      <shifts id="6">
+        <shift id="7">
+          <dayOfWeek>Monday</dayOfWeek>
+          <startTime id="8">01:04:00</startTime>
+          <endTime id="9">23:04:00</endTime>
+          <numberOfHours>22.0</numberOfHours>
         </shift>
       </shifts>
     </employee>
   </employees>
-  <supplies id="8">
-    <supply id="9">
-      <name>Dog</name>
-      <count>48217</count>
-    </supply>
-    <supply id="10">
-      <name>3455</name>
-      <count>0</count>
+  <supplies id="10">
+    <supply id="11">
+      <name>Noodles</name>
+      <count>10</count>
     </supply>
   </supplies>
-  <equipment id="11">
-    <equipment id="12">
-      <name>98</name>
-      <count>0</count>
+  <equipment id="12">
+    <equipment id="13">
+      <name>Grill</name>
+      <count>3</count>
     </equipment>
   </equipment>
-  <foodItems id="13">
-    <item id="14">
+  <foodItems id="14">
+    <item id="15">
       <name>Pho</name>
       <price>8.99</price>
-      <amountSold>982500</amountSold>
-    </item>
-    <item id="15">
-      <name>30</name>
-      <price>3.0</price>
-      <amountSold>888888</amountSold>
-    </item>
-    <item id="16">
-      <name>49832849.....42.4</name>
-      <price>1.0</price>
-      <amountSold>8</amountSold>
-    </item>
-    <item id="17">
-      <name>Penis</name>
-      <price>42.0</price>
-      <amountSold>23323</amountSold>
-    </item>
-    <item id="18">
-      <name>Dicks</name>
-      <price>12.0</price>
-      <amountSold>32</amountSold>
-    </item>
-    <item id="19">
-      <name>Subway</name>
-      <price>433434.0</price>
-      <amountSold>2323</amountSold>
-    </item>
-    <item id="20">
-      <name>Dog</name>
-      <price>213123.0</price>
-      <amountSold>0</amountSold>
+      <amountSold>3</amountSold>
     </item>
   </foodItems>
 </manager>
