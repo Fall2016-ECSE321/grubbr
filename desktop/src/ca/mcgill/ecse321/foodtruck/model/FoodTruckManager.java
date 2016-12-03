@@ -5,7 +5,7 @@ package ca.mcgill.ecse321.foodtruck.model;
 import java.util.*;
 
 // line 11 "../../../../../FoodTruck.ump"
-// line 54 "../../../../../FoodTruck.ump"
+// line 48 "../../../../../FoodTruck.ump"
 public class FoodTruckManager
 {
 
@@ -21,10 +21,9 @@ public class FoodTruckManager
 
   //FoodTruckManager Associations
   private List<Employee> employees;
-  private List<Order> order;
   private List<Supply> supplies;
   private List<Equipment> equipment;
-  private List<MenuItem> menuItems;
+  private List<FoodItem> foodItems;
 
   //------------------------
   // CONSTRUCTOR
@@ -33,10 +32,9 @@ public class FoodTruckManager
   private FoodTruckManager()
   {
     employees = new ArrayList<Employee>();
-    order = new ArrayList<Order>();
     supplies = new ArrayList<Supply>();
     equipment = new ArrayList<Equipment>();
-    menuItems = new ArrayList<MenuItem>();
+    foodItems = new ArrayList<FoodItem>();
   }
 
   public static FoodTruckManager getInstance()
@@ -79,36 +77,6 @@ public class FoodTruckManager
   public int indexOfEmployee(Employee aEmployee)
   {
     int index = employees.indexOf(aEmployee);
-    return index;
-  }
-
-  public Order getOrder(int index)
-  {
-    Order aOrder = order.get(index);
-    return aOrder;
-  }
-
-  public List<Order> getOrder()
-  {
-    List<Order> newOrder = Collections.unmodifiableList(order);
-    return newOrder;
-  }
-
-  public int numberOfOrder()
-  {
-    int number = order.size();
-    return number;
-  }
-
-  public boolean hasOrder()
-  {
-    boolean has = order.size() > 0;
-    return has;
-  }
-
-  public int indexOfOrder(Order aOrder)
-  {
-    int index = order.indexOf(aOrder);
     return index;
   }
 
@@ -172,33 +140,33 @@ public class FoodTruckManager
     return index;
   }
 
-  public MenuItem getMenuItem(int index)
+  public FoodItem getFoodItem(int index)
   {
-    MenuItem aMenuItem = menuItems.get(index);
-    return aMenuItem;
+    FoodItem aFoodItem = foodItems.get(index);
+    return aFoodItem;
   }
 
-  public List<MenuItem> getMenuItems()
+  public List<FoodItem> getFoodItems()
   {
-    List<MenuItem> newMenuItems = Collections.unmodifiableList(menuItems);
-    return newMenuItems;
+    List<FoodItem> newFoodItems = Collections.unmodifiableList(foodItems);
+    return newFoodItems;
   }
 
-  public int numberOfMenuItems()
+  public int numberOfFoodItems()
   {
-    int number = menuItems.size();
+    int number = foodItems.size();
     return number;
   }
 
-  public boolean hasMenuItems()
+  public boolean hasFoodItems()
   {
-    boolean has = menuItems.size() > 0;
+    boolean has = foodItems.size() > 0;
     return has;
   }
 
-  public int indexOfMenuItem(MenuItem aMenuItem)
+  public int indexOfFoodItem(FoodItem aFoodItem)
   {
-    int index = menuItems.indexOf(aMenuItem);
+    int index = foodItems.indexOf(aFoodItem);
     return index;
   }
 
@@ -255,63 +223,6 @@ public class FoodTruckManager
     else 
     {
       wasAdded = addEmployeeAt(aEmployee, index);
-    }
-    return wasAdded;
-  }
-
-  public static int minimumNumberOfOrder()
-  {
-    return 0;
-  }
-
-  public boolean addOrder(Order aOrder)
-  {
-    boolean wasAdded = false;
-    if (order.contains(aOrder)) { return false; }
-    order.add(aOrder);
-    wasAdded = true;
-    return wasAdded;
-  }
-
-  public boolean removeOrder(Order aOrder)
-  {
-    boolean wasRemoved = false;
-    if (order.contains(aOrder))
-    {
-      order.remove(aOrder);
-      wasRemoved = true;
-    }
-    return wasRemoved;
-  }
-
-  public boolean addOrderAt(Order aOrder, int index)
-  {  
-    boolean wasAdded = false;
-    if(addOrder(aOrder))
-    {
-      if(index < 0 ) { index = 0; }
-      if(index > numberOfOrder()) { index = numberOfOrder() - 1; }
-      order.remove(aOrder);
-      order.add(index, aOrder);
-      wasAdded = true;
-    }
-    return wasAdded;
-  }
-
-  public boolean addOrMoveOrderAt(Order aOrder, int index)
-  {
-    boolean wasAdded = false;
-    if(order.contains(aOrder))
-    {
-      if(index < 0 ) { index = 0; }
-      if(index > numberOfOrder()) { index = numberOfOrder() - 1; }
-      order.remove(aOrder);
-      order.add(index, aOrder);
-      wasAdded = true;
-    } 
-    else 
-    {
-      wasAdded = addOrderAt(aOrder, index);
     }
     return wasAdded;
   }
@@ -430,59 +341,59 @@ public class FoodTruckManager
     return wasAdded;
   }
 
-  public static int minimumNumberOfMenuItems()
+  public static int minimumNumberOfFoodItems()
   {
     return 0;
   }
 
-  public boolean addMenuItem(MenuItem aMenuItem)
+  public boolean addFoodItem(FoodItem aFoodItem)
   {
     boolean wasAdded = false;
-    if (menuItems.contains(aMenuItem)) { return false; }
-    menuItems.add(aMenuItem);
+    if (foodItems.contains(aFoodItem)) { return false; }
+    foodItems.add(aFoodItem);
     wasAdded = true;
     return wasAdded;
   }
 
-  public boolean removeMenuItem(MenuItem aMenuItem)
+  public boolean removeFoodItem(FoodItem aFoodItem)
   {
     boolean wasRemoved = false;
-    if (menuItems.contains(aMenuItem))
+    if (foodItems.contains(aFoodItem))
     {
-      menuItems.remove(aMenuItem);
+      foodItems.remove(aFoodItem);
       wasRemoved = true;
     }
     return wasRemoved;
   }
 
-  public boolean addMenuItemAt(MenuItem aMenuItem, int index)
+  public boolean addFoodItemAt(FoodItem aFoodItem, int index)
   {  
     boolean wasAdded = false;
-    if(addMenuItem(aMenuItem))
+    if(addFoodItem(aFoodItem))
     {
       if(index < 0 ) { index = 0; }
-      if(index > numberOfMenuItems()) { index = numberOfMenuItems() - 1; }
-      menuItems.remove(aMenuItem);
-      menuItems.add(index, aMenuItem);
+      if(index > numberOfFoodItems()) { index = numberOfFoodItems() - 1; }
+      foodItems.remove(aFoodItem);
+      foodItems.add(index, aFoodItem);
       wasAdded = true;
     }
     return wasAdded;
   }
 
-  public boolean addOrMoveMenuItemAt(MenuItem aMenuItem, int index)
+  public boolean addOrMoveFoodItemAt(FoodItem aFoodItem, int index)
   {
     boolean wasAdded = false;
-    if(menuItems.contains(aMenuItem))
+    if(foodItems.contains(aFoodItem))
     {
       if(index < 0 ) { index = 0; }
-      if(index > numberOfMenuItems()) { index = numberOfMenuItems() - 1; }
-      menuItems.remove(aMenuItem);
-      menuItems.add(index, aMenuItem);
+      if(index > numberOfFoodItems()) { index = numberOfFoodItems() - 1; }
+      foodItems.remove(aFoodItem);
+      foodItems.add(index, aFoodItem);
       wasAdded = true;
     } 
     else 
     {
-      wasAdded = addMenuItemAt(aMenuItem, index);
+      wasAdded = addFoodItemAt(aFoodItem, index);
     }
     return wasAdded;
   }
@@ -490,10 +401,9 @@ public class FoodTruckManager
   public void delete()
   {
     employees.clear();
-    order.clear();
     supplies.clear();
     equipment.clear();
-    menuItems.clear();
+    foodItems.clear();
   }
 
 }

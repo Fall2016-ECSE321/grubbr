@@ -1,0 +1,3 @@
+- Error message displays are pretty bad
+- Inventory : Make the view more intuitive (at least have a space between "x" and the rest) [done]
+- Add decimals to employee salary [done]

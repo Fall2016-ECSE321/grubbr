@@ -3,16 +3,16 @@
 
 package ca.mcgill.ecse321.foodtruck.model;
 
-// line 27 "../../../../../FoodTruck.ump"
-// line 69 "../../../../../FoodTruck.ump"
-public class MenuItem
+// line 26 "../../../../../FoodTruck.ump"
+// line 60 "../../../../../FoodTruck.ump"
+public class FoodItem
 {
 
   //------------------------
   // MEMBER VARIABLES
   //------------------------
 
-  //MenuItem Attributes
+  //FoodItem Attributes
   private String name;
   private double price;
   private int amountSold;
@@ -21,7 +21,7 @@ public class MenuItem
   // CONSTRUCTOR
   //------------------------
 
-  public MenuItem(String aName, double aPrice, int aAmountSold)
+  public FoodItem(String aName, double aPrice, int aAmountSold)
   {
     name = aName;
     price = aPrice;

@@ -10,7 +10,7 @@ import org.junit.Test;
 
 import ca.mcgill.ecse321.foodtruck.model.Equipment;
 import ca.mcgill.ecse321.foodtruck.model.FoodTruckManager;
-import ca.mcgill.ecse321.foodtruck.model.MenuItem;
+import ca.mcgill.ecse321.foodtruck.model.FoodItem;
 import ca.mcgill.ecse321.foodtruck.model.Supply;
 
 public class TestPersistenceXStream {
@@ -20,12 +20,12 @@ public class TestPersistenceXStream {
 		FoodTruckManager ftms = FoodTruckManager.getInstance();
 		
 		//create food items
-		MenuItem burger = new MenuItem("Burger",4.50,0);
-		MenuItem fries = new MenuItem("French Fries",2.00,0);
+		FoodItem burger = new FoodItem("Burger",4.50,0);
+		FoodItem fries = new FoodItem("French Fries",2.00,0);
 		
 		//add to menu
-		ftms.addMenuItem(burger);
-		ftms.addMenuItem(fries);
+		ftms.addFoodItem(burger);
+		ftms.addFoodItem(fries);
 		
 		//Create supply and add to list
 		Supply patty = new Supply("Patty",0);
@@ -48,7 +48,7 @@ public class TestPersistenceXStream {
 		//save model
 		FoodTruckManager ftms = FoodTruckManager.getInstance();
 		PersistenceXStream.setFilename("test"+File.separator+"ca"+File.separator+"mcgill"+File.separator+"ecse321"+File.separator+"foodtruck"+File.separator+"persistence"+File.separator+"data.xml");
-		PersistenceXStream.setAlias("item",MenuItem.class);
+		PersistenceXStream.setAlias("item",FoodItem.class);
 		PersistenceXStream.setAlias("manager",FoodTruckManager.class);
 		
 		if (!PersistenceXStream.saveToXMLwithXStream(ftms)) {
@@ -57,7 +57,7 @@ public class TestPersistenceXStream {
 		
 		//clear model in memory
 		ftms.delete();
-		assertEquals(0, ftms.getMenuItems().size());
+		assertEquals(0, ftms.getFoodItems().size());
 		
 		//load model
 		ftms = (FoodTruckManager)PersistenceXStream.loadFromXMLwithXStream();
@@ -66,13 +66,13 @@ public class TestPersistenceXStream {
 		}
 		
 		//check menu items
-		assertEquals(2, ftms.getMenuItems().size());
-		assertEquals("Burger", ftms.getMenuItem(0).getName());
-		assertEquals("French Fries", ftms.getMenuItem(1).getName());
-		assertEquals(4.50, ftms.getMenuItem(0).getPrice(),0.004);
-		assertEquals(2.00, ftms.getMenuItem(1).getPrice(),0.004);
-		assertEquals(0, ftms.getMenuItem(0).getAmountSold());
-		assertEquals(0, ftms.getMenuItem(1).getAmountSold());
+		assertEquals(2, ftms.getFoodItems().size());
+		assertEquals("Burger", ftms.getFoodItem(0).getName());
+		assertEquals("French Fries", ftms.getFoodItem(1).getName());
+		assertEquals(4.50, ftms.getFoodItem(0).getPrice(),0.004);
+		assertEquals(2.00, ftms.getFoodItem(1).getPrice(),0.004);
+		assertEquals(0, ftms.getFoodItem(0).getAmountSold());
+		assertEquals(0, ftms.getFoodItem(1).getAmountSold());
 		
 		//check Supplies
 		assertEquals(1, ftms.getSupplies().size());

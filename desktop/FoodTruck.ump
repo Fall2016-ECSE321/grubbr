@@ -11,10 +11,9 @@ class Employee {
 class FoodTruckManager {
 	singleton;
 	1 -> * Employee employees;
-	1 -> * Order order;
 	1 -> * Supply supplies;
 	1 -> * Equipment equipment;
-	1 -> * MenuItem menuItems;
+	1 -> * FoodItem foodItems;
 }
 
 class Shift {
@@ -24,7 +23,7 @@ class Shift {
 	double numberOfHours;
 }
 
-class MenuItem {
+class FoodItem {
 	name;
 	double price;
 	int amountSold;
@@ -40,49 +39,35 @@ class Equipment {
 	int count;
 }
 
-class Order {
-	double price;
-	* -> * MenuItem;
-}//$?[End_of_model]$?
-
 class Employee
 {
-  position 50 30 109 45;
-  position.association Employee__Shift 6,109 30,0;
+  position 201 2 162 107;
+  position.association Employee__Shift 0,105 182,4;
 }
 
 class FoodTruckManager
 {
-  position 227 161 138 58;
-  position.association FoodTruckManager__Order 138,25 0,10;
-  position.association Equipment__FoodTruckManager 138,7 0,10;
-  position.association FoodTruckManager__Supply 127,0 10,75;
-  position.association Employee__FoodTruckManager 30,0 162,109;
-  position.association FoodTruckManager__Menu 11,58 30,0;
+  position 200 250 121 45;
+  position.association Employee:employees__FoodTruckManager 30,0 22,109;
+  position.association Equipment:equipment__FoodTruckManager 136,0 0,10;
 }
 
 class Shift
 {
-  position 14 171 185 109;
+  position 1 102 174 107;
 }
 
-class MenuItem
+class FoodItem
 {
-  position 175 467 160 109;
+  position 355 393 122 90;
 }
 
 class Supply
 {
-  position 334 17 112 75;
+  position 50 430 109 45;
 }
 
 class Equipment
 {
-  position 407 102 112 75;
-}
-
-class Order
-{
-  position 398 252 112 58;
-  position.association MenuItem__Order 0,10 122,0;
-}
+  position 474 56 109 73;
+}//$?[End_of_model]$?

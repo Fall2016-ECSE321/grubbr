@@ -1,28 +1,27 @@
 <manager id="1">
   <employees id="2"/>
-  <order id="3"/>
-  <supplies id="4">
-    <ca.mcgill.ecse321.foodtruck.model.Supply id="5">
+  <supplies id="3">
+    <ca.mcgill.ecse321.foodtruck.model.Supply id="4">
       <name>Patty</name>
       <count>0</count>
     </ca.mcgill.ecse321.foodtruck.model.Supply>
   </supplies>
-  <equipment id="6">
-    <ca.mcgill.ecse321.foodtruck.model.Equipment id="7">
+  <equipment id="5">
+    <ca.mcgill.ecse321.foodtruck.model.Equipment id="6">
       <name>Spatula</name>
       <count>0</count>
     </ca.mcgill.ecse321.foodtruck.model.Equipment>
   </equipment>
-  <menuItems id="8">
-    <item id="9">
+  <foodItems id="7">
+    <item id="8">
       <name>Burger</name>
       <price>4.5</price>
       <amountSold>0</amountSold>
     </item>
-    <item id="10">
+    <item id="9">
       <name>French Fries</name>
       <price>2.0</price>
       <amountSold>0</amountSold>
     </item>
-  </menuItems>
+  </foodItems>
 </manager>

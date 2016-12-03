@@ -1,87 +1,69 @@
 <manager id="1">
-  <employees id="2"/>
-  <order id="3"/>
-  <supplies id="4">
-    <supply id="5">
-      <name>Tomato</name>
-      <count>3</count>
+  <employees id="2">
+    <employee id="3">
+      <name>Yash</name>
+      <role>Grader</role>
+      <salaryPerHour>11.0</salaryPerHour>
+      <id>1</id>
+      <shifts id="4">
+        <shift id="5">
+          <dayOfWeek>Wednesday</dayOfWeek>
+          <startTime id="6">22:28:00</startTime>
+          <endTime id="7">23:28:00</endTime>
+          <numberOfHours>0.0</numberOfHours>
+        </shift>
+      </shifts>
+    </employee>
+    <employee id="8">
+      <name>Shane</name>
+      <role>Professor</role>
+      <salaryPerHour>30.0</salaryPerHour>
+      <id>2</id>
+      <shifts id="9">
+        <shift id="10">
+          <dayOfWeek>Sunday</dayOfWeek>
+          <startTime id="11">21:17:00</startTime>
+          <endTime id="12">22:17:00</endTime>
+          <numberOfHours>1.0</numberOfHours>
+        </shift>
+        <shift id="13">
+          <dayOfWeek>Sunday</dayOfWeek>
+          <startTime id="14">22:19:08</startTime>
+          <endTime id="15">23:19:00</endTime>
+          <numberOfHours>0.0</numberOfHours>
+        </shift>
+        <shift id="16">
+          <dayOfWeek>Sunday</dayOfWeek>
+          <startTime id="17">22:20:29</startTime>
+          <endTime id="18">23:20:00</endTime>
+          <numberOfHours>0.0</numberOfHours>
+        </shift>
+        <shift id="19">
+          <dayOfWeek>Sunday</dayOfWeek>
+          <startTime id="20">22:28:00</startTime>
+          <endTime id="21">23:28:00</endTime>
+          <numberOfHours>0.0</numberOfHours>
+        </shift>
+      </shifts>
+    </employee>
+  </employees>
+  <supplies id="22">
+    <supply id="23">
+      <name>Noodles</name>
+      <count>10</count>
     </supply>
   </supplies>
-  <equipment id="6">
-    <equipment id="7">
-      <name>Spatula</name>
-      <count>0</count>
-    </equipment>
-    <equipment id="8">
-      <name>Deep Fryer</name>
-      <count>4</count>
+  <equipment id="24">
+    <equipment id="25">
+      <name>Grill</name>
+      <count>3</count>
     </equipment>
   </equipment>
-  <menuItems id="9">
-    <item id="10">
-      <name>Poutine</name>
-      <price>6.25</price>
-      <amountSold>0</amountSold>
-    </item>
-    <item id="11">
-      <name>Soda</name>
-      <price>1.5</price>
-      <amountSold>0</amountSold>
-    </item>
-    <item id="12">
-      <name>Chicken Nuggets</name>
-      <price>1.99</price>
-      <amountSold>0</amountSold>
-    </item>
-    <item id="13">
-      <name>Burger</name>
-      <price>4.5</price>
-      <amountSold>0</amountSold>
-    </item>
-    <item id="14">
-      <name>Super Poutine</name>
-      <price>10.3</price>
-      <amountSold>0</amountSold>
-    </item>
-    <item id="15">
-      <name>Dragon Poutine</name>
-      <price>7.2</price>
-      <amountSold>0</amountSold>
-    </item>
-    <item id="16">
-      <name>Dragon Poutine</name>
-      <price>6.2</price>
-      <amountSold>0</amountSold>
-    </item>
-    <item id="17">
-      <name>Dragon Poutine</name>
-      <price>5.2</price>
-      <amountSold>0</amountSold>
-    </item>
-    <item id="18">
-      <name>Premium bugs</name>
-      <price>10.2</price>
-      <amountSold>0</amountSold>
-    </item>
-    <item id="19">
-      <name>Good enough bugs</name>
-      <price>5.2</price>
-      <amountSold>0</amountSold>
-    </item>
-    <item id="20">
-      <name>Bugs Bunny</name>
-      <price>10.2</price>
-      <amountSold>0</amountSold>
-    </item>
-    <item id="21">
-      <name>Daffy Duck</name>
-      <price>10.2</price>
-      <amountSold>0</amountSold>
-    </item>
-    <item id="22">
+  <foodItems id="26">
+    <item id="27">
       <name>Pho</name>
-      <price>10.5</price>
-      <amountSold>0</amountSold>
+      <price>8.99</price>
+      <amountSold>3</amountSold>
     </item>
-  </menuItems>
+  </foodItems>
 </manager>
