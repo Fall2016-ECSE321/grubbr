@@ -1,9 +1,9 @@
 <?php
 define('__ROOT__', dirname(dirname(__FILE__)));
-require_once '/Applications/XAMPP/xamppfiles/htdocs/persistence/PersistenceFoodTruck.php';
-require_once '/Applications/XAMPP/xamppfiles/htdocs/model/MenuItem.php';
-require_once '/Applications/XAMPP/xamppfiles/htdocs/model/FoodTruckManager.php';
-require_once '/Applications/XAMPP/xamppfiles/htdocs/controller/controller.php';
+require_once '../persistence/PersistenceFoodTruck.php';
+require_once '../model/MenuItem.php';
+require_once '../model/FoodTruckManager.php';
+require_once '../controller/controller.php';
 //require_once __DIR__.'/../model/FoodTruckManager.php';
 
 class ControllerTest extends PHPUnit_Framework_TestCase
