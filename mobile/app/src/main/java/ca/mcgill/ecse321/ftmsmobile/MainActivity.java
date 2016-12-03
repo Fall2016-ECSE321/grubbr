@@ -171,12 +171,7 @@ public class MainActivity extends AppCompatActivity {
         TextView employeeName = (TextView) findViewById(R.id.employee_name);
         TextView employeePay = (TextView) findViewById(R.id.employee_salary);
         TextView employeeRole = (TextView) findViewById(R.id.employee_function);
-
-        TextView employeeDisplayView = (TextView) findViewById(R.id.employee_display);
-        TextView employeeShiftTitleView = (TextView) findViewById(R.id.employeeShiftTitle);
-        TextView removeShiftTitleView = (TextView) findViewById(R.id.removeShiftTitle);
-
-        TextView orderTitleView = (TextView) findViewById(R.id.orderTitle);
+        
         TextView amountSoldView = (TextView) findViewById(R.id.amountOrdered);
 
         TextView startTime = (TextView) findViewById(R.id.employee_starttime);
@@ -195,12 +190,12 @@ public class MainActivity extends AppCompatActivity {
 
         //Employees
         employeeName.setError(errorAddStaff);
-        employeeDisplayView.setError(errorRemoveStaff);
-        employeeShiftTitleView.setError(errorAddShift);
-        removeShiftTitleView.setError(errorRemoveShift);
+        employeePay.setError(errorRemoveStaff);
+        employeeRole.setError(errorAddShift);
+        employeeName.setError(errorRemoveShift);
 
         //Transaction
-        orderTitleView.setError(errorOrder);
+        amountSoldView.setError(errorOrder);
 
 
         if (errorItem == null) {
