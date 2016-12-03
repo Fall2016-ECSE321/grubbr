@@ -438,8 +438,19 @@ public class MainActivity extends AppCompatActivity {
 
         //Model elements
         Employee selectedEmp = employees.get(employeeView.getSelectedItemPosition());
-        java.sql.Time startTime = getSqlTimeFromLabel(startTimeView.getText());
-        java.sql.Time endTime = getSqlTimeFromLabel(endTimeView.getText());
+        java.sql.Time startTime;
+        if(!startTimeView.getText().equals(null) && !startTimeView.getText().equals("")){
+            startTime = getSqlTimeFromLabel(startTimeView.getText());
+        } else {
+            startTime=null;
+        }
+        java.sql.Time endTime;
+        if(!endTimeView.getText().equals(null) && !endTimeView.getText().equals("")){
+            endTime = getSqlTimeFromLabel(endTimeView.getText());
+        } else {
+            endTime=null;
+        }
+
         String weekDay = week[weekDayView.getSelectedItemPosition()];
 
         try{
