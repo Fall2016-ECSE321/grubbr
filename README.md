@@ -1,6 +1,7 @@
-#Food Truck Management System
+#TEAM 5 - grubbr
+##a simple food truck management system.
 
-This is the final group project for ECSE 321: Introduction to Software Engineering at McGill University. The project is to create a working food truck management system that can manage staff, menu, and inventory.
+This is the final group project for Team 5 in ECSE 321: Introduction to Software Engineering at McGill University. The project is to create a working food truck management system that can manage staff, menu, and inventory.
 
 The program has to function on three platforms and has to respond to the following user story:
 
