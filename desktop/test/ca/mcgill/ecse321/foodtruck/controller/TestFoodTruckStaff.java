@@ -355,6 +355,29 @@ public class TestFoodTruckStaff {
 		
 		checkResultRemoveStaff(ftms2);		
 	}
+	
+	@Test
+	public void testRemoveEmployeeNull() {
+		String error="";
+		FoodTruckManager ftms = FoodTruckManager.getInstance();
+		assertEquals(false, ftms.hasEmployees());
+		assertEquals(0, ftms.numberOfEmployees());
+		
+		String staffName = "Bruh";
+		String staffRole = "chef";
+		String staffSalary = "12.75";
+		
+		FoodTruckController ftc = new FoodTruckController();
+		
+		try {
+			ftc.createEmployee(staffName, staffRole, staffSalary);
+			ftc.removeEmployee(null);
+		} catch(InvalidInputException e) {
+			error=e.getMessage();
+		}
+		assertEquals(1,ftms.numberOfEmployees());
+		assertEquals(error,"Please select an employee!");
+	}
 
 	
 	//Test Shifts
