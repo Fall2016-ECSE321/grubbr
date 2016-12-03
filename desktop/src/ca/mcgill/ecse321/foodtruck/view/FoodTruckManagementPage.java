@@ -47,6 +47,7 @@ import javax.swing.SwingConstants;
 
 public class FoodTruckManagementPage {
 
+	//visual elements
 	private JFrame frame;
 	private JTextField txtItemName;
 	private JTextField txtItemPrice;
@@ -59,6 +60,10 @@ public class FoodTruckManagementPage {
 	private JLabel lblEquipment;
 	private JLabel lblShifts;
 	private JLabel lblTopMenuList;
+	private JTextField txtEmployeeName;
+	private JTextField txtEmployeeRole;
+	private JTextField txtEmployeeSalary;
+	private JTextField txtOrderAmount;
 
 	//combo boxes
 	private JComboBox<String> foodList;
@@ -89,11 +94,6 @@ public class FoodTruckManagementPage {
 	private HashMap<Integer, String> days;
 	private HashMap<Integer, Employee> employees;
 	private HashMap<Integer, Shift> shifts;
-	
-	private JTextField txtEmployeeName;
-	private JTextField txtEmployeeRole;
-	private JTextField txtEmployeeSalary;
-	private JTextField txtOrderAmount;
 	
 	private int lastNumOfEmployees = 0;
 
@@ -299,6 +299,8 @@ public class FoodTruckManagementPage {
 				selectedSupply = cb.getSelectedIndex();
 			}
 		});
+		
+		JLabel lblNegativeIntsTo = new JLabel("negative ints to delete!");
 		GroupLayout gl_panel_1 = new GroupLayout(panel_1);
 		gl_panel_1.setHorizontalGroup(
 			gl_panel_1.createParallelGroup(Alignment.LEADING)
@@ -307,9 +309,8 @@ public class FoodTruckManagementPage {
 						.addGroup(gl_panel_1.createSequentialGroup()
 							.addContainerGap()
 							.addGroup(gl_panel_1.createParallelGroup(Alignment.LEADING)
-								.addGroup(gl_panel_1.createParallelGroup(Alignment.LEADING)
-									.addComponent(lblAddSupply)
-									.addComponent(lblEditSupply))
+								.addComponent(lblAddSupply)
+								.addComponent(lblEditSupply)
 								.addGroup(gl_panel_1.createParallelGroup(Alignment.LEADING)
 									.addGroup(gl_panel_1.createSequentialGroup()
 										.addComponent(lblSupplyQty)
@@ -322,7 +323,10 @@ public class FoodTruckManagementPage {
 										.addComponent(lblSupplyName)
 										.addGap(18)
 										.addComponent(txtSupplyName, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)))))
-						.addComponent(supplyList, Alignment.TRAILING, 0, 196, Short.MAX_VALUE))
+						.addComponent(supplyList, Alignment.TRAILING, 0, 196, Short.MAX_VALUE)
+						.addGroup(Alignment.TRAILING, gl_panel_1.createSequentialGroup()
+							.addContainerGap(52, Short.MAX_VALUE)
+							.addComponent(lblNegativeIntsTo)))
 					.addContainerGap())
 		);
 		gl_panel_1.setVerticalGroup(
@@ -346,7 +350,9 @@ public class FoodTruckManagementPage {
 						.addComponent(txtSupplyQty, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
 					.addPreferredGap(ComponentPlacement.RELATED)
 					.addComponent(btnEditSupply)
-					.addContainerGap(45, Short.MAX_VALUE))
+					.addGap(18)
+					.addComponent(lblNegativeIntsTo)
+					.addContainerGap(155, Short.MAX_VALUE))
 		);
 		panel_1.setLayout(gl_panel_1);
 		
@@ -406,6 +412,8 @@ public class FoodTruckManagementPage {
 			}
 		});
 		
+		JLabel lblNegativeIntsTo_1 = new JLabel("negative ints to delete!");
+		
 		GroupLayout gl_panel_2 = new GroupLayout(panel_2);
 		gl_panel_2.setHorizontalGroup(
 			gl_panel_2.createParallelGroup(Alignment.LEADING)
@@ -414,9 +422,8 @@ public class FoodTruckManagementPage {
 						.addGroup(gl_panel_2.createSequentialGroup()
 							.addContainerGap()
 							.addGroup(gl_panel_2.createParallelGroup(Alignment.LEADING)
-								.addGroup(gl_panel_2.createParallelGroup(Alignment.LEADING)
-									.addComponent(lblAddEquipment)
-									.addComponent(lblEditEquipment))
+								.addComponent(lblAddEquipment)
+								.addComponent(lblEditEquipment)
 								.addGroup(gl_panel_2.createParallelGroup(Alignment.LEADING)
 									.addGroup(gl_panel_2.createSequentialGroup()
 										.addComponent(lblEquipmentQty)
@@ -429,7 +436,10 @@ public class FoodTruckManagementPage {
 										.addComponent(lblEquipmentName)
 										.addGap(18)
 										.addComponent(txtEquipmentName, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)))))
-						.addComponent(equipmentList, Alignment.TRAILING, 0, 196, Short.MAX_VALUE))
+						.addComponent(equipmentList, Alignment.TRAILING, 0, 196, Short.MAX_VALUE)
+						.addGroup(Alignment.TRAILING, gl_panel_2.createSequentialGroup()
+							.addContainerGap(52, Short.MAX_VALUE)
+							.addComponent(lblNegativeIntsTo_1)))
 					.addContainerGap())
 		);
 		gl_panel_2.setVerticalGroup(
@@ -453,7 +463,9 @@ public class FoodTruckManagementPage {
 						.addComponent(txtEquipmentQty, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
 					.addPreferredGap(ComponentPlacement.RELATED)
 					.addComponent(btnEditEquipment)
-					.addContainerGap(45, Short.MAX_VALUE))
+					.addGap(18)
+					.addComponent(lblNegativeIntsTo_1)
+					.addContainerGap(155, Short.MAX_VALUE))
 		);
 		panel_2.setLayout(gl_panel_2);
 		
@@ -492,7 +504,7 @@ public class FoodTruckManagementPage {
 			public void actionPerformed(java.awt.event.ActionEvent evt){
 				JComboBox<String> cb = (JComboBox<String>) evt.getSource();
 				selectedEmployee = cb.getSelectedIndex();
-				System.out.println(selectedEmployee);
+				refreshShifts(FoodTruckManager.getInstance()); //refresh shifts when changing employees
 			}
 		});
 		
@@ -776,22 +788,7 @@ public class FoodTruckManagementPage {
 			
 			//handle shifts for an employee
 			if (selectedEmployee>-1) {
-				Employee e = ftms.getEmployee(selectedEmployee);
-				shifts = new HashMap<Integer, Shift>();
-				shiftList.removeAllItems();
-				Iterator<Shift> shIt = e.getShifts().iterator();
-				index = 0;
-				
-				String shiftText = "<html>";
-				
-				while (shIt.hasNext()){
-					Shift sh = shIt.next();
-					shiftText += e.getName()+" - "+sh.getDayOfWeek()+" - "+sh.getStartTime().toString()+" to "+sh.getEndTime().toString()+"<br>";
-					shifts.put(index, sh);
-					shiftList.addItem(sh.getDayOfWeek()+"-"+sh.getStartTime().toString());
-					index++;
-				}
-				lblShifts.setText(shiftText);
+				refreshShifts(ftms);
 			} else {
 				//remove all shifts from view if employee isn't selected
 				shiftList.removeAllItems();
@@ -803,6 +800,27 @@ public class FoodTruckManagementPage {
 			error = "";
 		}
 		
+	}
+
+	//refreshes shifts (has to be used separately from rest of refreshData because it activates on combobox selection)
+	private void refreshShifts(FoodTruckManager ftms) {
+		Integer index;
+		Employee e = ftms.getEmployee(selectedEmployee);
+		shifts = new HashMap<Integer, Shift>();
+		shiftList.removeAllItems();
+		Iterator<Shift> shIt = e.getShifts().iterator();
+		index = 0;
+		
+		String shiftText = "<html>";
+		
+		while (shIt.hasNext()){
+			Shift sh = shIt.next();
+			shiftText += e.getName()+" - "+sh.getDayOfWeek()+" - "+sh.getStartTime().toString()+" to "+sh.getEndTime().toString()+"<br>";
+			shifts.put(index, sh);
+			shiftList.addItem(sh.getDayOfWeek()+"-"+sh.getStartTime().toString());
+			index++;
+		}
+		lblShifts.setText(shiftText);
 	}
 	
 	public void addFoodItemButtonActionPerformed(ActionEvent event) {
@@ -938,6 +956,7 @@ public class FoodTruckManagementPage {
 		refreshData();
 	}
 	
+	//sets strings for a combobox for the 7 days of the week
 	private void setDaysOfWeek() {
 		days.put(0,"Sunday");
 		dayList.addItem("Sunday");
