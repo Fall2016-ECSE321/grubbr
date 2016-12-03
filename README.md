@@ -36,4 +36,3 @@ First deliverable of the project.
 - [Patrick Lai](https://github.com/patlai)
 - [Suleman Malik](https://github.com/smalik360)
 - [Yu-Yueh Liu](https://github.com/UAce)
-
