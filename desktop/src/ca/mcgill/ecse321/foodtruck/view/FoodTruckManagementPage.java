@@ -94,6 +94,8 @@ public class FoodTruckManagementPage {
 	private JTextField txtEmployeeRole;
 	private JTextField txtEmployeeSalary;
 	private JTextField txtOrderAmount;
+	
+	private int lastNumOfEmployees = 0;
 
 	/**
 	 * Launch the application.
@@ -490,6 +492,7 @@ public class FoodTruckManagementPage {
 			public void actionPerformed(java.awt.event.ActionEvent evt){
 				JComboBox<String> cb = (JComboBox<String>) evt.getSource();
 				selectedEmployee = cb.getSelectedIndex();
+				System.out.println(selectedEmployee);
 			}
 		});
 		
@@ -749,22 +752,26 @@ public class FoodTruckManagementPage {
 			}
 			
 			lblEquipment.setText(equipmentText);
-			
-			//handle employees
-			txtEmployeeName.setText("");
-			txtEmployeeRole.setText("");
-			txtEmployeeSalary.setText("");
-			
-			employees = new HashMap<Integer, Employee>();
-			employeeList.removeAllItems();
-			Iterator<Employee> emIt = ftms.getEmployees().iterator();
-			index = 0;
-			
-			while (emIt.hasNext()){
-				Employee e = emIt.next();
-				employees.put(index, e);
-				employeeList.addItem(e.getName()+" - "+e.getRole());
-				index++;
+
+			//handle employees only if number of employees hasn't changed
+			//(to avoid conflicts with the shifts as they share the same combobox
+			if (lastNumOfEmployees!=ftms.numberOfEmployees()) {
+				txtEmployeeName.setText("");
+				txtEmployeeRole.setText("");
+				txtEmployeeSalary.setText("");
+				
+				employees = new HashMap<Integer, Employee>();
+				employeeList.removeAllItems();
+				Iterator<Employee> emIt = ftms.getEmployees().iterator();
+				index = 0;
+				
+				while (emIt.hasNext()){
+					Employee e = emIt.next();
+					employees.put(index, e);
+					employeeList.addItem(e.getName()+" - "+e.getRole());
+					index++;
+				}
+				lastNumOfEmployees = ftms.numberOfEmployees();
 			}
 			
 			//handle shifts for an employee

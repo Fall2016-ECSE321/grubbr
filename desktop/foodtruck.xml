@@ -5,37 +5,62 @@
       <role>Grader</role>
       <salaryPerHour>11.0</salaryPerHour>
       <id>1</id>
-      <shifts id="4"/>
+      <shifts id="4">
+        <shift id="5">
+          <dayOfWeek>Wednesday</dayOfWeek>
+          <startTime id="6">22:28:00</startTime>
+          <endTime id="7">23:28:00</endTime>
+          <numberOfHours>0.0</numberOfHours>
+        </shift>
+      </shifts>
     </employee>
-    <employee id="5">
+    <employee id="8">
       <name>Shane</name>
       <role>Professor</role>
       <salaryPerHour>30.0</salaryPerHour>
       <id>2</id>
-      <shifts id="6">
-        <shift id="7">
-          <dayOfWeek>Monday</dayOfWeek>
-          <startTime id="8">01:04:00</startTime>
-          <endTime id="9">23:04:00</endTime>
-          <numberOfHours>22.0</numberOfHours>
+      <shifts id="9">
+        <shift id="10">
+          <dayOfWeek>Sunday</dayOfWeek>
+          <startTime id="11">21:17:00</startTime>
+          <endTime id="12">22:17:00</endTime>
+          <numberOfHours>1.0</numberOfHours>
+        </shift>
+        <shift id="13">
+          <dayOfWeek>Sunday</dayOfWeek>
+          <startTime id="14">22:19:08</startTime>
+          <endTime id="15">23:19:00</endTime>
+          <numberOfHours>0.0</numberOfHours>
+        </shift>
+        <shift id="16">
+          <dayOfWeek>Sunday</dayOfWeek>
+          <startTime id="17">22:20:29</startTime>
+          <endTime id="18">23:20:00</endTime>
+          <numberOfHours>0.0</numberOfHours>
+        </shift>
+        <shift id="19">
+          <dayOfWeek>Sunday</dayOfWeek>
+          <startTime id="20">22:28:00</startTime>
+          <endTime id="21">23:28:00</endTime>
+          <numberOfHours>0.0</numberOfHours>
         </shift>
       </shifts>
     </employee>
   </employees>
-  <supplies id="10">
-    <supply id="11">
+  <supplies id="22">
+    <supply id="23">
       <name>Noodles</name>
       <count>10</count>
     </supply>
   </supplies>
-  <equipment id="12">
-    <equipment id="13">
+  <equipment id="24">
+    <equipment id="25">
       <name>Grill</name>
       <count>3</count>
     </equipment>
   </equipment>
-  <foodItems id="14">
-    <item id="15">
+  <foodItems id="26">
+    <item id="27">
       <name>Pho</name>
       <price>8.99</price>
       <amountSold>3</amountSold>
